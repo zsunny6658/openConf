@@ -1,8 +1,8 @@
 package com.sunny.use;
 
-import com.sunny.conf.ConfPath;
-import com.sunny.conf.LocalPropertiesUtils;
-import com.sunny.conf.PackageUtil;
+import com.sunny.annotation.ConfPath;
+import com.sunny.source.file.LoadYaml;
+import com.sunny.utils.PackageUtil;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -29,7 +29,7 @@ public class ConfValueDeal {
 
         Object oo = null;
         try {
-            oo = LocalPropertiesUtils.loadProperties("application.yml");
+            oo = LoadYaml.loadYaml.loadSources("application.yml");
         } catch (IOException e) {
             e.printStackTrace();
         }

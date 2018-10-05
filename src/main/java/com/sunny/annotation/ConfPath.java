@@ -1,4 +1,4 @@
-package com.sunny.conf;
+package com.sunny.annotation;
 
 import java.lang.annotation.*;
 

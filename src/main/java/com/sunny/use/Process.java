@@ -1,6 +1,6 @@
 package com.sunny.use;
 
-import com.sunny.conf.ConfPath;
+import com.sunny.annotation.ConfPath;
 
 /**
  * create by zsunny
