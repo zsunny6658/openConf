@@ -1,6 +1,7 @@
 package com.sunny.use;
 
 import com.sunny.annotation.ConfPath;
+import com.sunny.source.LoadResult;
 import com.sunny.source.file.LoadYaml;
 import com.sunny.utils.PackageUtil;
 
@@ -29,8 +30,10 @@ public class ConfValueDeal {
 
         Object oo = null;
         try {
-            oo = LoadYaml.loadYaml.loadSources("application.yml");
+            oo = LoadResult.getSources();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

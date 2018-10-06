@@ -11,9 +11,13 @@ public class Process {
     @ConfPath("server.port")
     private static String port;
 
+    @ConfPath("test")
+    private static String test;
+
     public void printPort(){
 
         System.out.println(port);
+        System.out.println(test);
 
     }
 
