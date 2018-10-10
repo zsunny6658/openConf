@@ -16,7 +16,6 @@ import java.io.*;
 /**
  * 枚举类型实现单例，也可以考虑通过静态内部类等其他放松
  */
-//TODO 考虑之后同时获取yml和properties文件并且将属性按策略合并
 public enum LoadYaml implements LoadSource{
 
     loadYaml;
