@@ -1,14 +1,15 @@
 package com.sunny.source;
 
+import com.sunny.source.file.LoadXml;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
-//todo merge几种情况的配置项目，注意null值处理
 public class LoadResult {
 
     private static LoadFileName[] loadFileNames = {LoadFileName.APPLICATION_YML,
-            LoadFileName.APPLICATION_YAML, LoadFileName.APPLICATION_PROPERTIES};
+            LoadFileName.APPLICATION_YAML, LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML};
 
     public static Object getSources() throws Exception {
 

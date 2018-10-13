@@ -16,9 +16,17 @@ import java.io.*;
 /**
  * 枚举类型实现单例，也可以考虑通过静态内部类等其他放松
  */
-public enum LoadYaml implements LoadSource{
+public class LoadYaml implements LoadSource{
 
-    loadYaml;
+    private LoadYaml(){}
+
+    private static class LoadYamlHolder{
+        private static LoadYaml loadYaml = new LoadYaml();
+    }
+
+    public static LoadYaml getInstance(){
+        return LoadYamlHolder.loadYaml;
+    }
 
     private static final Logger log = LoggerFactory.getLogger(LoadYaml.class);
 
