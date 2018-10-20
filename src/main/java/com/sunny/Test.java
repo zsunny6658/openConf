@@ -1,6 +1,6 @@
 package com.sunny;
 
-import com.sunny.use.ConfValueProcessor;
+import com.sunny.processor.ConfValueProcessor;
 
 /**
  * create by zsunny

@@ -97,4 +97,7 @@ public class ConfFilter {
 
     }
 
+    public static HashMap<String, Object> getSystemMap() {
+        return systemMap;
+    }
 }

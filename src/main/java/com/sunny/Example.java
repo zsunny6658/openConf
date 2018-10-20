@@ -1,6 +1,7 @@
 package com.sunny;
 
 import com.sunny.annotation.ConfPath;
+import com.sunny.annotation.SystemConfPath;
 
 /**
  * create by zsunny
@@ -14,10 +15,14 @@ public class Example {
     @ConfPath("test")
     private static String test;
 
+    @SystemConfPath("system.conf.active")
+    private static String active;
+
     public void printPort(){
 
         System.out.println(port);
         System.out.println(test);
+        System.out.println(active);
 
     }
 

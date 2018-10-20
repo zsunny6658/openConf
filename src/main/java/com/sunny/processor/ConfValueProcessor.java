@@ -1,8 +1,10 @@
-package com.sunny.use;
+package com.sunny.processor;
 
 import com.sunny.annotation.ConfPath;
+import com.sunny.annotation.SystemConfPath;
 import com.sunny.source.LoadResult;
 import com.sunny.source.file.LoadYaml;
+import com.sunny.source.filter.ConfFilter;
 import com.sunny.utils.PackageUtil;
 
 import java.io.IOException;
@@ -44,6 +46,8 @@ public class ConfValueProcessor {
 
         for (Field field : fields) {
 
+            Object o = oo;
+
             if(field.isAnnotationPresent(ConfPath.class)){
 
                 //static检查
@@ -52,35 +56,48 @@ public class ConfValueProcessor {
                 }
 
                 ConfPath confPath = field.getAnnotation(ConfPath.class);
-
-                Object o = oo;
                 String[] props = confPath.value().split("\\.");
+                putInConfCore(o, props, field);
 
-                int ind = 0;
-                while (true){
 
-                    if(ind < props.length && o instanceof Map){
+            }else if(field.isAnnotationPresent(SystemConfPath.class)){
 
-                        o = ((Map) o).get(props[ind]);
-
-                    }else {
-
-                        break;
-                    }
-                    ind ++;
+                //static检查
+                if((field.getModifiers()&8) == 0){
+                    throw new RuntimeException("配置项必须为static变量");
                 }
 
-                try {
-                    field.setAccessible(true);
-                    field.set(field,String.valueOf(o));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                SystemConfPath systemConfPath = field.getAnnotation(SystemConfPath.class);
+                String[] systemProps = systemConfPath.value().split("\\.");
+                putInConfCore(ConfFilter.getSystemMap(), systemProps, field);
 
             }
 
         }
 
+    }
+
+    private static void putInConfCore(Object o, String[] props, Field field){
+        int ind = 0;
+        while (true){
+
+            if(ind < props.length && o instanceof Map){
+
+                o = ((Map) o).get(props[ind]);
+
+            }else {
+
+                break;
+            }
+            ind ++;
+        }
+
+        try {
+            field.setAccessible(true);
+            field.set(field,String.valueOf(o));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
 }
