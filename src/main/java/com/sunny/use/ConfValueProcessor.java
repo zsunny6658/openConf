@@ -14,20 +14,19 @@ import java.util.Set;
  * create by zsunny
  * data: 2018/8/11
  **/
-public class ConfValueDeal {
+public class ConfValueProcessor {
 
     public static void putAllConf(){
 
         Set<Class<?>> classSet = PackageUtil.getClasses("");
 
-        classSet.forEach(ConfValueDeal::putInConf);
+        Object oo = getConfObject();
+
+        classSet.forEach(clazz -> putInConf(oo, clazz));
 
     }
 
-    private static void putInConf(Class<?> clazz){
-
-        Field[] fields = clazz.getDeclaredFields();
-
+    private static Object getConfObject(){
         Object oo = null;
         try {
             oo = LoadResult.getSources();
@@ -36,6 +35,12 @@ public class ConfValueDeal {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return oo;
+    }
+
+    private static void putInConf(Object oo, Class<?> clazz){
+
+        Field[] fields = clazz.getDeclaredFields();
 
         for (Field field : fields) {
 

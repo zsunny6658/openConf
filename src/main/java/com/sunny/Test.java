@@ -1,7 +1,6 @@
 package com.sunny;
 
-import com.sunny.use.ConfValueDeal;
-import com.sunny.use.Process;
+import com.sunny.use.ConfValueProcessor;
 
 /**
  * create by zsunny
@@ -11,11 +10,11 @@ public class Test {
 
     public static void main(String[] args) {
 
-        ConfValueDeal.putAllConf();
+        ConfValueProcessor.putAllConf();
 
-        Process process = new Process();
+        Example example = new Example();
 
-        process.printPort();
+        example.printPort();
 
     }
 

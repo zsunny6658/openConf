@@ -13,9 +13,6 @@ import java.io.*;
  * Email zsunny@yeah.net
  * Date on 2018/7/30.
  */
-/**
- * 枚举类型实现单例，也可以考虑通过静态内部类等其他放松
- */
 public class LoadYaml implements LoadSource{
 
     private LoadYaml(){}

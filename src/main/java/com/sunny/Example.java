@@ -1,4 +1,4 @@
-package com.sunny.use;
+package com.sunny;
 
 import com.sunny.annotation.ConfPath;
 
@@ -6,7 +6,7 @@ import com.sunny.annotation.ConfPath;
  * create by zsunny
  * data: 2018/8/11
  **/
-public class Process {
+public class Example {
 
     @ConfPath("server.port")
     private static String port;

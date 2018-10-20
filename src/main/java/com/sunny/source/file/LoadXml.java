@@ -5,6 +5,10 @@ import com.sunny.utils.FileUtil;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * create by zsunny
+ * data: 2018/10/20
+ **/
 public class LoadXml extends AbstractLoadProperties{
 
     private LoadXml() {

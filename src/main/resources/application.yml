@@ -1,2 +1,6 @@
 server:
   port: 111
+
+system:
+  conf:
+    active: prod
