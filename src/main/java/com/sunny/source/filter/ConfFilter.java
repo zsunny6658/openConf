@@ -15,7 +15,9 @@ import static com.sunny.source.filter.ActiveConf.CONF_ACTIVE;
  */
 public class ConfFilter {
 
-    public static String[] filterConfs = {CONF_ACTIVE,"system.conf.test"};
+    public static String CONF_LISTENER = "system.conf.listener";
+
+    public static String[] filterConfs = {CONF_ACTIVE, CONF_LISTENER};
 
     private static HashMap<String, Object> systemMap = new HashMap<>();
 

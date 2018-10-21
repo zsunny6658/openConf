@@ -4,3 +4,4 @@ server:
 system:
   conf:
     active: prod
+    listener: com.sunny.TestListener
