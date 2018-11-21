@@ -49,9 +49,13 @@ public class ConfValueProcessor {
 
         String[] confPath = ConfFilter.CONF_LISTENER.split("\\.");
         HashMap<String, Object> map = ConfFilter.getSystemMap();
+
+        if(null == map || null == confPath || 0 == confPath.length)
+            return null;
+
         for(int i=0; i < confPath.length; i++){
             if(i < confPath.length-1){
-                if(map.get(confPath[i]) instanceof String)
+                if(null == map.get(confPath[i]) || map.get(confPath[i]) instanceof String)
                     return null;
                 map = (HashMap<String, Object>) map.get(confPath[i]);
             }else{
