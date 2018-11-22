@@ -14,10 +14,13 @@ mvn install:install-file -Dfile=<filePath> -DgroupId=<group id> -DartifactId=<ar
 ```
 将依赖加入本地仓库中，在需要使用的项目中，添加相应的依赖即可。
 ##### 2.在需要进行配置读取的变量上添加相应注解
-目前主要有两种注解@ConfPath和@SystemConfPath，其value设置为需要读取的配置项如
+目前主要有两种注解@ConfPath和@SystemConfPath，需要修饰静态变量，其value设置为需要读取的配置项如
 ```
 @ConfPath("server.port)
+public static String port;
+
 @SystemConfPath("system.conf.active")
+public static String activeFile;
 ```
 通常将业务参数通过@ConfPath读取（ConfPath无法读取系统配置项），系统配置项通过@SystemConfPath读取。
 当前版本系统配置项只有system.conf.active和system.conf.listener前者用于在application.***文件中指定active的配置文件，如application-prod.xml;后者用于添加监听器，监听器需要实现ConfListner接口及其相对获取配置的前置方法和后置方法。
