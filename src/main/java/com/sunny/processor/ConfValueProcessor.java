@@ -54,8 +54,10 @@ public class ConfValueProcessor {
             return null;
 
         for(int i=0; i < confPath.length; i++){
+            if(null == map.get(confPath[i]))
+                return null;
             if(i < confPath.length-1){
-                if(null == map.get(confPath[i]) || map.get(confPath[i]) instanceof String)
+                if(map.get(confPath[i]) instanceof String)
                     return null;
                 map = (HashMap<String, Object>) map.get(confPath[i]);
             }else{
@@ -124,7 +126,7 @@ public class ConfValueProcessor {
         int ind = 0;
         while (true){
 
-            if(ind < props.length && o instanceof Map){
+            if(ind < props.length && null != o && o instanceof Map){
 
                 o = ((Map) o).get(props[ind]);
 
