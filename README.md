@@ -27,6 +27,7 @@ mvn install:install-file -Dfile=<filePath> -DgroupId=<group id> -DartifactId=<ar
 2. 配置文件放入resource中
 3. 注意避开系统配置项，否则通过ConfPath注解将无法正常获取
 ### 联系交流
->
+author：Sunny
+
 mail: zsunny@yeah.net
 
