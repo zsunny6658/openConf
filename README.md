@@ -17,15 +17,25 @@ mvn install:install-file -Dfile=<filePath> -DgroupId=<group id> -DartifactId=<ar
 目前主要有两种注解@ConfPath和@SystemConfPath，其value设置为需要读取的配置项如
 ```
 @ConfPath("server.port)
+@SystemConfPath("system.conf.active")
 ```
 通常将业务参数通过@ConfPath读取（ConfPath无法读取系统配置项），系统配置项通过@SystemConfPath读取。
 当前版本系统配置项只有system.conf.active和system.conf.listener前者用于在application.***文件中指定active的配置文件，如application-prod.xml;后者用于添加监听器，监听器需要实现ConfListner接口及其相对获取配置的前置方法和后置方法。
 ##### 3.入口逻辑实现
 在启动类main方法中，调用ConfStarter.start()方法来实现配置获取逻辑。
+
+### 快速上手
+项目中Example.java文件中为用注解接收配置值的例子；Test为启动类，在其main方法中调用了ConfStarter.start()将配置文件中的配置加入注解所对应的类变量中；TestListener为示例监听器，其实现了ConfListener接口并实现了doBefore和doAfter方法。
+具体配置支持可看本项目中resource目录下的配置文件，目前已支持多种配置文件格式。
+
 ### 注意事项
 1. 配置读取注解的变量必须为静态变量
 2. 配置文件放入resource中
 3. 注意避开系统配置项，否则通过ConfPath注解将无法正常获取
+
+### 敬请期待
+接下来将更丰富本项目的功能，增加如类配置读取等功能，敬请期待。
+
 ### 联系交流
 author：Sunny
 
