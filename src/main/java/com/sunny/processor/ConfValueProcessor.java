@@ -22,17 +22,15 @@ import java.util.Set;
 public class ConfValueProcessor extends ConfProcessor{
 
     public static void process(){
+        //获取类
         Set<Class<?>> classSet = PackageUtil.getAllClassSet();
 
-        Object oo = getConfObject();
+        //获取配置
+        Object oo = LoadResult.getSource();
 
+        //执行操作
         classSet.forEach(clazz -> putInConf(oo, clazz));
 
-    }
-
-    //获取配置
-    private static Object getConfObject(){
-        return LoadResult.getSource();
     }
 
     /**

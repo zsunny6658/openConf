@@ -2,11 +2,9 @@ package com.sunny.annotation;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SystemConfPath {
-
-    public String value() default "";
+public @interface ConfClass {
 
 }
