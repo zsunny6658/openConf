@@ -1,6 +1,6 @@
 package com.sunny.starter;
 
-import com.sunny.processor.ConfValueProcessor;
+import com.sunny.processor.main.MainProcessor;
 
 /**
  * @Author zsunny
@@ -10,7 +10,7 @@ import com.sunny.processor.ConfValueProcessor;
 public class ConfStarter {
 
     public static void start(){
-        ConfValueProcessor.putAllConf();
+        MainProcessor.process();
     }
 
 }

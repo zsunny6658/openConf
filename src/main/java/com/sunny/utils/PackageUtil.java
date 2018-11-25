@@ -19,6 +19,12 @@ import java.util.jar.JarFile;
  **/
 public class PackageUtil {
 
+    private static Set<Class<?>> allClassSet = getClasses("");
+
+    public static Set<Class<?>> getAllClassSet() {
+        return allClassSet;
+    }
+
     /**
      * 从包package中获取所有的Class
      *

@@ -11,6 +11,16 @@ public class LoadResult {
     private static LoadFileName[] loadFileNames = {LoadFileName.APPLICATION_YML,
             LoadFileName.APPLICATION_YAML, LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML};
 
+    private static Object source = null;
+
+    public static void LoadResult() throws Exception {
+        source = getSources();
+    }
+
+    public static Object getSource(){
+        return source;
+    }
+
     public static Object getSources() throws Exception {
 
         Arrays.sort(loadFileNames);
