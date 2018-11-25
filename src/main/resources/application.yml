@@ -5,3 +5,8 @@ system:
   conf:
     active: prod
     listener: com.sunny.TestListener
+
+test:
+  a: 1
+  b: 2
+  c: 3

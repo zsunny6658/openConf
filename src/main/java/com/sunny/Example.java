@@ -12,17 +12,17 @@ public class Example {
     @ConfPath("server.port")
     private static String port;
 
-    @ConfPath("test")
+    @ConfPath("test.b")
     private static String test;
 
     @SystemConfPath("system.conf.active")
     private static String active;
 
-    public void printPort(){
+    public static void printPort(){
 
-        System.out.println(port);
-        System.out.println(test);
-        System.out.println(active);
+        System.out.println("prop-port:" + port);
+        System.out.println("prop-test:" + test);
+        System.out.println("prop-active:" + active);
 
     }
 

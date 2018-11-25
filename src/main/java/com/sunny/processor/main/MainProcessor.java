@@ -1,5 +1,7 @@
 package com.sunny.processor.main;
 
+import com.sunny.annotation.ConfClass;
+import com.sunny.processor.ConfClassProcessor;
 import com.sunny.processor.ConfListenerProcessor;
 import com.sunny.processor.ConfProcessor;
 import com.sunny.processor.ConfValueProcessor;
@@ -24,6 +26,7 @@ public class MainProcessor {
         }
         ConfListenerProcessor.process();
         confProcessors.add(ConfValueProcessor.class);
+        confProcessors.add(ConfClassProcessor.class);
     }
 
     public static void addListener(ConfListner confListner){

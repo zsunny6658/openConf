@@ -12,9 +12,9 @@ public class Test {
 
         ConfStarter.start();
 
-        Example example = new Example();
+        Example.printPort();
 
-        example.printPort();
+        ExampleClass.print();
 
     }
 

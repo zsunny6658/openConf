@@ -5,8 +5,6 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SystemConfPath {
-
-    public String value() default "";
+public @interface ConfClassIgnore {
 
 }
