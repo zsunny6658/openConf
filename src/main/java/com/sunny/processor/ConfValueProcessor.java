@@ -2,6 +2,7 @@ package com.sunny.processor;
 
 import com.sunny.annotation.ConfPath;
 import com.sunny.annotation.SystemConfPath;
+import com.sunny.processor.main.MainProcessor;
 import com.sunny.source.LoadResult;
 import com.sunny.source.file.LoadYaml;
 import com.sunny.source.filter.ConfFilter;
@@ -18,73 +19,27 @@ import java.util.Set;
  * create by zsunny
  * data: 2018/8/11
  **/
-public class ConfValueProcessor {
+public class ConfValueProcessor extends ConfProcessor{
 
-    public static void putAllConf(){
-
-        Set<Class<?>> classSet = PackageUtil.getClasses("");
+    public static void process(){
+        Set<Class<?>> classSet = PackageUtil.getAllClassSet();
 
         Object oo = getConfObject();
 
-        ConfListner confListner = null;
-        try {
-            confListner = getListener();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        if(null != confListner)
-            confListner.doBefore();
-
         classSet.forEach(clazz -> putInConf(oo, clazz));
 
-        if(null != confListner)
-            confListner.doAfter();
-
-    }
-
-    private static ConfListner getListener() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-
-        String listenerClass = "";
-
-        String[] confPath = ConfFilter.CONF_LISTENER.split("\\.");
-        HashMap<String, Object> map = ConfFilter.getSystemMap();
-
-        if(null == map || null == confPath || 0 == confPath.length)
-            return null;
-
-        for(int i=0; i < confPath.length; i++){
-            if(null == map.get(confPath[i]))
-                return null;
-            if(i < confPath.length-1){
-                if(map.get(confPath[i]) instanceof String)
-                    return null;
-                map = (HashMap<String, Object>) map.get(confPath[i]);
-            }else{
-                if(!(map.get(confPath[i]) instanceof String))
-                    return null;
-                listenerClass = (String) map.get(confPath[i]);
-            }
-        }
-        if("".equals(listenerClass))
-            return null;
-        ConfListner confListner = (ConfListner) Class.forName(listenerClass).newInstance();
-        return confListner;
     }
 
     //获取配置
     private static Object getConfObject(){
-        Object oo = null;
-        try {
-            oo = LoadResult.getSources();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return oo;
+        return LoadResult.getSource();
     }
 
+    /**
+     * 处理配置入属性
+     * @param oo
+     * @param clazz
+     */
     private static void putInConf(Object oo, Class<?> clazz){
 
         Field[] fields = clazz.getDeclaredFields();
@@ -122,6 +77,12 @@ public class ConfValueProcessor {
 
     }
 
+    /**
+     * 配置入属性核心处理
+     * @param o
+     * @param props
+     * @param field
+     */
     private static void putInConfCore(Object o, String[] props, Field field){
         int ind = 0;
         while (true){
