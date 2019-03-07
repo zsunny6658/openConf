@@ -75,6 +75,18 @@ public class TestListener implements ConfListner{
 ```
 system.conf.listener: com.sunny.TestListener
 ```
+##### 4.自定义配置源
+项目中Example类上添加了注解@ConfSource,用于指定添加默认配置之外的配置源，注意自定义添加的配置总是优先于默认配置，其他方法参考上面介绍
+```java
+@ConfSource("classpath: configer.properties")
+//@ConfSource()
+public class Example {
+	@ConfPath("other.file.configer")
+	private static String other;
+ 	....
+
+}
+```
 
 ### 注意事项
 1. 配置读取注解的变量必须为静态变量
