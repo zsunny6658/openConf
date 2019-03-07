@@ -8,7 +8,7 @@ import com.sunny.annotation.SystemConfPath;
  * create by zsunny
  * data: 2018/8/11
  **/
-@ConfSource("classpath: configer.properties")
+@ConfSource("configer.properties")
 //@ConfSource()
 public class Example {
 	@ConfPath("other.file.configer")

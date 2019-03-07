@@ -53,8 +53,10 @@ public class ConfClassProcessor extends ConfProcessor {
 
 			String tmpPrefix = prefix + "." + field.getName();
 			String[] props = tmpPrefix.split("\\.");
-
-			putInConfCore(oo, props, field, isDefault);
+			String type = field.getType().getName();
+			if("java.lang.String".contains(type)){
+				putInConfCore(oo, props, field, isDefault);
+			}
 		}
 	}
 

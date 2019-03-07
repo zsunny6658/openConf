@@ -29,13 +29,6 @@ public class LoadProperties extends AbstractLoadProperties {
 	@Override
 	public Object loadSources(String path) throws Exception {
 		Properties properties = new Properties();
-		if (path == null || path.length() == 0 || path.trim().length() == 0) {
-			return null;
-		}
-		path = path.trim();
-		if (path.startsWith("classpath:")) {
-			path = path.replaceFirst("classpath:", "").trim();
-		}
 		InputStream in = FileUtil.getFileInputStream(path);
 		if (null == in)
 			return null;

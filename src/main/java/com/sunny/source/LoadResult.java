@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.lang.model.type.UnknownTypeException;
 
@@ -78,6 +79,7 @@ public class LoadResult {
 	@SuppressWarnings("unchecked")
 	public static Object getSources() throws Exception {
 		// Arrays.sort(loadFileNames);
+		loadFileNameList = new ArrayList<>(new TreeSet<>(loadFileNameList));
 		Collections.sort(loadFileNameList);
 		Map<String, Object> res = new HashMap<>();
 		for (LoadFileName loadFileName : loadFileNameList) {
