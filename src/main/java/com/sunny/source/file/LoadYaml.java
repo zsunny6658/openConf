@@ -1,12 +1,11 @@
 package com.sunny.source.file;
 
-import com.sunny.source.LoadSource;
-import com.sunny.utils.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.*;
+import com.sunny.source.LoadSource;
+import com.sunny.utils.FileUtil;
 
 /**
  * created by zsunny
@@ -24,8 +23,6 @@ public class LoadYaml implements LoadSource{
     public static LoadYaml getInstance(){
         return LoadYamlHolder.loadYaml;
     }
-
-    private static final Logger log = LoggerFactory.getLogger(LoadYaml.class);
 
     @Override
     public Object loadSources(String path) throws IOException {

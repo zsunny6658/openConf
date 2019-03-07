@@ -1,44 +1,43 @@
 package com.sunny.source;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Node{
-    private HashMap<String, Object> res;
-    private HashMap<String, Object> source;
+    private Map<String, Object> res;
+    private Map<String, Object> source;
 
-    public Node(HashMap<String, Object> res, HashMap<String, Object> source) {
+    public Node(Map<String, Object> res, Map<String, Object> source) {
         this.res = res;
         this.source = source;
     }
 
-    public HashMap<String, Object> getRes() {
+    public Map<String, Object> getRes() {
         return res;
     }
 
-    public void setRes(HashMap<String, Object> res) {
+    public void setRes(Map<String, Object> res) {
         this.res = res;
     }
 
-    public HashMap<String, Object> getSource() {
+    public Map<String, Object> getSource() {
         return source;
     }
 
-    public void setSource(HashMap<String, Object> source) {
+    public void setSource(Map<String, Object> source) {
         this.source = source;
     }
 
 
-    public static void merge(HashMap<String, Object> res, HashMap<String, Object> source, boolean isActive){
-
+    @SuppressWarnings("unchecked")
+	public static void merge(Map<String, Object> res, Map<String, Object> source, boolean isActive){
         LinkedBlockingQueue<Node> queue = new LinkedBlockingQueue<>();
         queue.offer(new Node(res, source));
 
         while (!queue.isEmpty()){
-
             Node node = queue.poll();
-            HashMap<String, Object> nodeRes = node.getRes();
-            HashMap<String, Object> nodeSource = node.getSource();
+            Map<String, Object> nodeRes = node.getRes();
+            Map<String, Object> nodeSource = node.getSource();
             nodeSource.forEach((key, value) -> {
                 if(nodeRes.containsKey(key)) {
                     if (value instanceof String) {
@@ -50,8 +49,8 @@ public class Node{
                         }
                     } else {
                         if(!(nodeRes.get(key) instanceof String)){
-                            queue.offer(new Node((HashMap<String, Object>) nodeRes.get(key),
-                                    (HashMap<String, Object>) nodeSource.get(key)));
+                            queue.offer(new Node((Map<String, Object>) nodeRes.get(key),
+                                    (Map<String, Object>) nodeSource.get(key)));
                         }
                     }
                 }else{
