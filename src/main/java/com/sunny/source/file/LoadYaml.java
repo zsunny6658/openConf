@@ -26,12 +26,9 @@ public class LoadYaml implements LoadSource{
 
     @Override
     public Object loadSources(String path) throws IOException {
-
         Yaml yaml = new Yaml();
-
         if(!FileUtil.judgeFileExist(path))
             return null;
-
         return yaml.load(FileUtil.readFile(path));
 
     }

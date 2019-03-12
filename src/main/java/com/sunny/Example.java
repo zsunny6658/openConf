@@ -9,7 +9,6 @@ import com.sunny.annotation.SystemConfPath;
  * data: 2018/8/11
  **/
 @ConfSource("configer.properties")
-//@ConfSource()
 public class Example {
 	@ConfPath("other.file.configer")
 	private static String other;

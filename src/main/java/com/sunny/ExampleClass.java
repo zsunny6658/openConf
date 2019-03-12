@@ -4,10 +4,8 @@ import com.sunny.annotation.ConfClass;
 import com.sunny.annotation.ConfClassDefault;
 import com.sunny.annotation.ConfClassIgnore;
 import com.sunny.annotation.ConfClassPrefix;
-import com.sunny.annotation.ConfSource;
 
 @ConfClass
-@ConfSource()
 @ConfClassPrefix("test.")
 public class ExampleClass {
 
