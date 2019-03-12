@@ -4,7 +4,7 @@
 ### 说明
 
 #### version 1.1
-新增了自定义配置文件，使用注解ConfSource(""),指定配置文件路径，默认为classpath:configer.properties
+新增了自定义配置文件，使用注解ConfSource(""),指定配置文件路径，默认为configer.properties
 
 #### version 1.0
 本项目主要用于帮助开发者可以更快更方便更轻量地导入配置文件中的配置项，本项目基本没有外部依赖，主要基于jdk实现。目前为1.0版本，支持yaml、xml和properties等格式的配置文件；读取配置的方式主要为注解方式，之后会推出更多方式。欢迎针对本项目提出isuue
@@ -78,7 +78,7 @@ system.conf.listener: com.sunny.TestListener
 ##### 4.自定义配置源
 项目中Example类上添加了注解@ConfSource,用于指定添加默认配置之外的配置源，注意自定义添加的配置总是优先于默认配置，其他方法参考上面介绍
 ```java
-@ConfSource("classpath: configer.properties")
+@ConfSource("configer.properties")
 //@ConfSource()
 public class Example {
 	@ConfPath("other.file.configer")
