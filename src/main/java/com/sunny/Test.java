@@ -9,13 +9,9 @@ import com.sunny.starter.ConfStarter;
 public class Test {
 
     public static void main(String[] args) {
-
         ConfStarter.start();
-
         Example.printPort();
-
         ExampleClass.print();
-
     }
 
 }

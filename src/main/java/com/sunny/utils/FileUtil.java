@@ -1,11 +1,15 @@
 package com.sunny.utils;
 
-import com.sunny.source.file.LoadYaml;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.*;
-import java.net.URL;
 
 public class FileUtil {
 
@@ -48,14 +52,10 @@ public class FileUtil {
      * @throws IOException
      */
     public static InputStream getFileInputStream(String path) throws IOException {
-
         if(!judgeFileExist(path))
             return null;
-
         File file = getFile(path);
-
         return new FileInputStream(file);
-
     }
 
     /**
@@ -85,14 +85,10 @@ public class FileUtil {
     }
 
     public static boolean judgeFileExist(String path){
-
         URL url = Thread.currentThread().getContextClassLoader().getResource("");
-
         File file = new File(url.getPath()+path);
-
         if(null != file.getParentFile() && file.getParentFile().exists())
             return file.exists();
-
         return false;
     }
 

@@ -2,12 +2,17 @@
 本地配置注解获取
 
 ### 说明
+
+#### version 1.1
+新增了自定义配置文件，使用注解ConfSource(""),指定配置文件路径，默认为classpath:configer.properties
+
+#### version 1.0
 本项目主要用于帮助开发者可以更快更方便更轻量地导入配置文件中的配置项，本项目基本没有外部依赖，主要基于jdk实现。目前为1.0版本，支持yaml、xml和properties等格式的配置文件；读取配置的方式主要为注解方式，之后会推出更多方式。欢迎针对本项目提出isuue
 
 ### 用法
 本项目用法非常简单。
 ##### 1.导入本组件
-目前已经发布1.0版本，开发者可以在release中下载jar包，并加入本地仓库中引用。
+目前已经发布1.1版本，开发者可以在release中下载jar包，并加入本地仓库中引用。
 下载jar包后，使用maven命令
 ```
 mvn install:install-file -Dfile=<filePath> -DgroupId=<group id> -DartifactId=<artifact id> -Dversion=<version> -Dpackaging=<package type>
@@ -70,6 +75,18 @@ public class TestListener implements ConfListner{
 ```
 system.conf.listener: com.sunny.TestListener
 ```
+##### 4.自定义配置源
+项目中Example类上添加了注解@ConfSource,用于指定添加默认配置之外的配置源，注意自定义添加的配置总是优先于默认配置，其他方法参考上面介绍
+```java
+@ConfSource("classpath: configer.properties")
+//@ConfSource()
+public class Example {
+	@ConfPath("other.file.configer")
+	private static String other;
+ 	....
+
+}
+```
 
 ### 注意事项
 1. 配置读取注解的变量必须为静态变量
@@ -80,7 +97,7 @@ system.conf.listener: com.sunny.TestListener
 接下来将更丰富本项目的功能，增加如类配置读取等功能，敬请期待。
 
 ### 联系交流
-author：Sunny
+author：Sunny, junehappylove
 
-mail: zsunny@yeah.net
+mail: zsunny@yeah.net | wjw.happy.love@163.com
 

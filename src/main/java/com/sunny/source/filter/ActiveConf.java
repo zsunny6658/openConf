@@ -1,38 +1,34 @@
 package com.sunny.source.filter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import com.sunny.source.LoadFileName;
 import com.sunny.source.Node;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-
 public class ActiveConf {
 
     static final String CONF_ACTIVE = "system.conf.active";
 
-    private static ArrayList<LoadFileName> loadFileNameList = new ArrayList<>();
+    private static List<LoadFileName> loadFileNameList = new ArrayList<>();
 
-
-    static void insertActiveConf(HashMap<String, Object> map) throws Exception {
-
+    static void insertActiveConf(Map<String, Object> map) throws Exception {
         getActiveConfFiles(map);
-
         insertCore(map);
-
     }
 
     /**
      * 获取active配置源
      * @param map
      */
-    private static void getActiveConfFiles(HashMap<String, Object> map){
-
-        HashMap<String, Object> tmpMap = map;
-
+    @SuppressWarnings("unchecked")
+	private static void getActiveConfFiles(Map<String, Object> map){
+    	Map<String, Object> tmpMap = map;
         String[] active = CONF_ACTIVE.split("\\.");
         String confName = null;
 
@@ -45,7 +41,7 @@ public class ActiveConf {
             if(i < active.length-1){
                 if(tmpMap.get(act) instanceof String)
                     break;
-                tmpMap = (HashMap<String, Object>) tmpMap.get(act);
+                tmpMap = (Map<String, Object>) tmpMap.get(act);
             }
             if(i == active.length-1){
                 if(!(tmpMap.get(act) instanceof String))
@@ -55,7 +51,6 @@ public class ActiveConf {
         }
 
         if(null != confName){
-
             loadFileNameList.addAll(Arrays.asList(
                     new LoadFileName("application-"+confName+".properties", LoadProperties.getInstance()),
                     new LoadFileName("application-"+confName+".yml", LoadYaml.getInstance()),
@@ -70,23 +65,16 @@ public class ActiveConf {
      * 将设定的active配置项插入
      * @param map
      */
-    private static void insertCore(HashMap<String, Object> map) throws Exception {
-
-        HashMap<String, Object> res = new HashMap<>();
-
+    @SuppressWarnings("unchecked")
+	private static void insertCore(Map<String, Object> map) throws Exception {
+    	// Map<String, Object> res = new HashMap<>();
         for(LoadFileName loadFileName: loadFileNameList){
-
             Object sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-
             if(null == sourceResult){
                 continue;
             }
-
-            Node.merge(map, (HashMap<String, Object>) sourceResult,true);
-
+            Node.merge(map, (Map<String, Object>) sourceResult,true);
         }
-
     }
-
 
 }
