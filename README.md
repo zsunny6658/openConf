@@ -12,12 +12,39 @@
 ### 用法
 本项目用法非常简单。
 ##### 1.导入本组件
+###### 方法1
 目前已经发布1.1版本，开发者可以在release中下载jar包，并加入本地仓库中引用。
 下载jar包后，使用maven命令
 ```
 mvn install:install-file -Dfile=<filePath> -DgroupId=<group id> -DartifactId=<artifact id> -Dversion=<version> -Dpackaging=<package type>
 ```
 将依赖加入本地仓库中，在需要使用的项目中，添加相应的依赖即可。
+###### 方法2
+开发者也可以选择导入代码，手动打包。
+maven中增加插件设置：
+```
+<plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+    </configuration>
+</plugin>
+```
+执行maven命令：
+```
+mvn assembly:assembly
+```
+后根据方法1的步骤将打包出来的jar包加入本地库
 ##### 2.在需要进行配置读取的变量上添加相应注解
 ###### 2.1 变量配置
 目前主要有两种注解@ConfPath和@SystemConfPath用于对变量进行配置，需要修饰静态变量，其value设置为需要读取的配置项如
