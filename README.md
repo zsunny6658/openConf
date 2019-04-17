@@ -44,9 +44,10 @@ public class ExampleClass {
     
     @ConfClassIgnore
     private static String c;
-
     @ConfClassDefault("ddddd")
     private static String d;
+    @ConfClassAlias("d")
+    private static String e;
 
     public static void print(){
         System.out.println("class-a:" + a);
@@ -71,7 +72,7 @@ public static String activeFile;
 ```
 ##### 2.属性类配置
 属性类配置的类必须用@ConfClass进行修饰，@ConfClassPrefix可以用于指示配置路径的前缀；属性名称则是其配置项的名称。
-@ConfClassIgnore用于指示某个属性不用于接收配置内容；@ConfClassDefault用来指示某个属性的默认配置值，如果配置文件中存在相应的配置值则会覆盖默认值。
+@ConfClassIgnore用于指示某个属性不用于接收配置内容；@ConfClassDefault用来指示某个属性的默认配置值，如果配置文件中存在相应的配置值则会覆盖默认值；@ConfClassAlias用于指示类变量别名。
 ```
 @ConfClass
 @ConfClassPrefix("test")
@@ -82,6 +83,8 @@ public class ExampleClass {
     private static String c;
     @ConfClassDefault("ddddd")
     private static String d;
+    @ConfClassAlias("d")
+    private static String e;
 }
 ```
 ##### 3.监听器
