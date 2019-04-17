@@ -1,9 +1,6 @@
 package com.sunny;
 
-import com.sunny.annotation.ConfClass;
-import com.sunny.annotation.ConfClassDefault;
-import com.sunny.annotation.ConfClassIgnore;
-import com.sunny.annotation.ConfClassPrefix;
+import com.sunny.annotation.*;
 
 @ConfClass
 @ConfClassPrefix("test.")
@@ -18,11 +15,15 @@ public class ExampleClass {
     @ConfClassDefault("ddddd")
     private static String d;
 
+    @ConfClassAlias("d")
+    private static String e;
+
 
     public static void print(){
         System.out.println("class-a:" + a);
         System.out.println("class-b:" + b);
         System.out.println("class-c:" + c);
         System.out.println("class-d:" + d);
+        System.out.println("class-e:" + e);
     }
 }
