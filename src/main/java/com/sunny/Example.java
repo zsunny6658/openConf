@@ -1,8 +1,6 @@
 package com.sunny;
 
-import com.sunny.annotation.ConfPath;
-import com.sunny.annotation.ConfSource;
-import com.sunny.annotation.SystemConfPath;
+import com.sunny.annotation.*;
 
 /**
  * create by zsunny
@@ -23,12 +21,25 @@ public class Example {
     @SystemConfPath("system.conf.active")
     private static String active;
 
+    @Dynamic
+    @ConfPath("dynamic.test")
+    private static String t;
+
     public static void printPort(){
+        System.out.println("dynamic:" + t);
         System.out.println("other:" + other);
         System.out.println("prop-port:" + port);
         System.out.println("prop-test:" + test);
         System.out.println("prop-active:" + active);
 
+        while (true) {
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("dynamic:" + t);
+        }
     }
 
 }

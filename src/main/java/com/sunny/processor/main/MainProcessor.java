@@ -37,7 +37,7 @@ public class MainProcessor {
 
 	public static void process() {
 		confListners.forEach(ConfListner::doBefore);
-		// do at 20190305
+
 		confProcessors.forEach(confProcessor -> {
 			try {
 				confProcessor.newInstance().process();

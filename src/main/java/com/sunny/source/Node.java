@@ -30,7 +30,7 @@ public class Node{
 
 
     @SuppressWarnings("unchecked")
-	public static void merge(Map<String, Object> res, Map<String, Object> source, boolean isActive){
+	public static void merge(Map<String, Object> res, Map<String, Object> source, boolean isCover){
         LinkedBlockingQueue<Node> queue = new LinkedBlockingQueue<>();
         queue.offer(new Node(res, source));
 
@@ -42,9 +42,11 @@ public class Node{
                 if(nodeRes.containsKey(key)) {
                     if (value instanceof String) {
                         //需要判断是否覆盖的情况
-                        if(!isActive) {
+                        if(!isCover) {
+                            //donnot cover
                             nodeRes.putIfAbsent(key, value);
                         }else {
+                            //cover
                             nodeRes.put(key, value);
                         }
                     } else {

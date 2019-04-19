@@ -1,12 +1,7 @@
 package com.sunny.source;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.Executor;
 
 import javax.lang.model.type.UnknownTypeException;
 
@@ -35,12 +30,16 @@ public class LoadResult {
 	public static void loadResult() throws Exception {
 		//前置处理注解@ConfSource,用于获取默认配置之外的配置文件
 		loadOtherConfSource();
-		source = getSources();
+		source = getSources(false);
+	}
+
+	public static void updateResult() throws Exception{
+		source = getSources(true);
 	}
 
 	private static void loadOtherConfSource() {
 		Set<Class<?>> classSet = PackageUtil.getAllClassSet();
-		classSet.forEach(clazz -> loadConfSource(clazz));
+		classSet.forEach(LoadResult::loadConfSource);
 	}
 
 	//加载自定义的配置文件
@@ -76,9 +75,22 @@ public class LoadResult {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Object getSources() throws Exception {
-		// Arrays.sort(loadFileNames);
-		Collections.sort(loadFileNameList);
+	private static Object getSources(boolean isUpdate) throws Exception {
+		if(!isUpdate) {
+			Collections.sort(loadFileNameList, (o1, o2) -> {
+				if (o1.getOrder() == o2.getOrder()) {
+					return o1.getFileName().compareTo(o2.getFileName());
+				}
+				return o2.getOrder() - o1.getOrder();
+			});
+		}else{
+			Collections.sort(loadFileNameList, (o1, o2) -> {
+				if (o1.getOrder() == o2.getOrder()) {
+					return o2.getFileName().compareTo(o1.getFileName());
+				}
+				return o1.getOrder() - o2.getOrder();
+			});
+		}
 		Map<String, Object> res = new HashMap<>();
 		for (LoadFileName loadFileName : loadFileNameList) {
 			Object sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
@@ -89,7 +101,10 @@ public class LoadResult {
 				res = (Map<String, Object>) sourceResult;
 				continue;
 			}
-			Node.merge(res, (Map<String, Object>) sourceResult, false);
+			if(!isUpdate)
+				Node.merge(res, (Map<String, Object>) sourceResult, false);
+			else
+				Node.merge(res, (Map<String, Object>) sourceResult, true);
 		}
 		ConfFilter.filter(res);
 		return res;

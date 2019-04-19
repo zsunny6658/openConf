@@ -32,7 +32,9 @@ public class LoadYaml implements LoadSource{
         if(!FileUtil.judgeFileExist(path))
             return null;
 
-        return yaml.load(FileUtil.readFile(path));
+        Object res = yaml.load(FileUtil.readFile(path));
+//        System.out.println(res);
+        return res;
 
     }
 

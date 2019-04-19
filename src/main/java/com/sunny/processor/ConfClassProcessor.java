@@ -11,9 +11,14 @@ import com.sunny.utils.PackageUtil;
 public class ConfClassProcessor extends ConfProcessor {
 
 	@Override
+	public void update() {
+		if(dynamicClassSet.size() > 0){
+			//create a new thread
+		}
+	}
+
+	@Override
 	public void process() {
-		Set<Class<?>> classSet = PackageUtil.getAllClassSet();
-		Object oo = LoadResult.getSource();
 		classSet.forEach(clazz -> putInConf(oo, clazz));
 	}
 

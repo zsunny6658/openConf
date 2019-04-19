@@ -1,5 +1,6 @@
 package com.sunny.source.file;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -33,6 +34,7 @@ public class LoadProperties extends AbstractLoadProperties {
 			return null;
 		}
 		path = path.trim();
+		//remove the "classpath" string for other conf file
 		if (path.startsWith("classpath:")) {
 			path = path.replaceFirst("classpath:", "").trim();
 		}
@@ -40,6 +42,7 @@ public class LoadProperties extends AbstractLoadProperties {
 		if (null == in)
 			return null;
 		properties.load(in);
+		in.close();
 		return convertToMap(properties);
 	}
 

@@ -8,7 +8,7 @@ import com.sunny.source.file.LoadYaml;
  * create by zsunny
  * data: 2018/10/20
  **/
-public class LoadFileName implements Comparable<LoadFileName>{
+public class LoadFileName{
 
     public static final LoadFileName APPLICATION_YAML =
             new LoadFileName("application.yaml",10, LoadYaml.getInstance());
@@ -35,14 +35,6 @@ public class LoadFileName implements Comparable<LoadFileName>{
         this.loadSource = loadSource;
     }
 
-    @Override
-    public int compareTo(LoadFileName o) {
-        if(this.order == o.order){
-            return this.fileName.compareTo(o.fileName);
-        }
-        return o.order - this.order;
-    }
-
     public String getFileName() {
         return fileName;
     }
@@ -57,5 +49,13 @@ public class LoadFileName implements Comparable<LoadFileName>{
 
     public void setLoadSource(LoadSource loadSource) {
         this.loadSource = loadSource;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

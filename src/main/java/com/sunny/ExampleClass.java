@@ -2,6 +2,7 @@ package com.sunny;
 
 import com.sunny.annotation.*;
 
+@Dynamic
 @ConfClass
 @ConfClassPrefix("test.")
 public class ExampleClass {
