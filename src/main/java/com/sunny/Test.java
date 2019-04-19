@@ -12,7 +12,6 @@ public class Test {
         ConfStarter.start();
         Example.printPort();
         ExampleClass.print();
-        //gh
     }
 
 }
