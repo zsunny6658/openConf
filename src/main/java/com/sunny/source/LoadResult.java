@@ -92,6 +92,7 @@ public class LoadResult {
 			});
 		}
 		Map<String, Object> res = new HashMap<>();
+//		System.out.println(loadFileNameList);
 		for (LoadFileName loadFileName : loadFileNameList) {
 			Object sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
 			if (null == sourceResult) {
@@ -106,7 +107,7 @@ public class LoadResult {
 			else
 				Node.merge(res, (Map<String, Object>) sourceResult, true);
 		}
-		ConfFilter.filter(res);
+		ConfFilter.filter(res, isUpdate);
 		return res;
 	}
 

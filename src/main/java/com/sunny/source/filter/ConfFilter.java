@@ -19,8 +19,8 @@ public class ConfFilter {
 
     private static Map<String, Object> systemMap = new HashMap<>();
 
-    public static void filter(Map<String, Object> map) throws Exception {
-        ActiveConf.insertActiveConf(map);
+    public static void filter(Map<String, Object> map, boolean isUpdate) throws Exception {
+        ActiveConf.insertActiveConf(map, isUpdate);
         filterCore(map);
     }
 

@@ -58,4 +58,13 @@ public class LoadFileName{
     public void setOrder(int order) {
         this.order = order;
     }
+
+    @Override
+    public String toString() {
+        return "LoadFileName{" +
+                "fileName='" + fileName + '\'' +
+                ", order=" + order +
+                ", loadSource=" + loadSource +
+                '}';
+    }
 }

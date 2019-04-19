@@ -17,8 +17,9 @@ public class ActiveConf {
 
     private static List<LoadFileName> loadFileNameList = new ArrayList<>();
 
-    static void insertActiveConf(Map<String, Object> map) throws Exception {
-        getActiveConfFiles(map);
+    static void insertActiveConf(Map<String, Object> map, boolean isUpdate) throws Exception {
+        if(!isUpdate)
+            getActiveConfFiles(map);
         insertCore(map);
     }
 
@@ -57,7 +58,6 @@ public class ActiveConf {
                     new LoadFileName("application-"+confName+".yaml",LoadYaml.getInstance()),
                     new LoadFileName("application-"+confName+".xml", LoadXml.getInstance())
             ));
-
         }
     }
 
