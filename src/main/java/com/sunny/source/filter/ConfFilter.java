@@ -13,9 +13,10 @@ import static com.sunny.source.filter.ActiveConf.CONF_ACTIVE;
  */
 public class ConfFilter {
 
-    public static String CONF_LISTENER = "system.conf.listener";
+    public static final String CONF_LISTENER = "system.conf.listener";
+    public static final String DYNAMIC_INTERVAL = "system.dynamic.interval";
 
-    public static String[] filterConfs = {CONF_ACTIVE, CONF_LISTENER};
+    public static String[] filterConfs = {CONF_ACTIVE, CONF_LISTENER, DYNAMIC_INTERVAL};
 
     private static Map<String, Object> systemMap = new HashMap<>();
 
@@ -52,21 +53,29 @@ public class ConfFilter {
      * @param ind
      * @return
      */
-    private static boolean judgeAndDeleteSinle(Map<String, Object> map, Map<String, Object> tmpSystemMap,
+    private static boolean judgeAndDeleteSinle(Map<String, Object> map,
+                                               Map<String, Object> tmpSystemMap,
                                                String[] filterConfPath, int ind){
         if(!map.containsKey(filterConfPath[ind])){
             return false;
         }
         String key = filterConfPath[ind];
         if(ind == filterConfPath.length-1){
-            if(!(map.get(key) instanceof String))
+            if(!(map.get(key) instanceof String
+                    || map.get(key) instanceof Integer
+                    || map.get(key) instanceof Double
+                    || map.get(key) instanceof Float)) {
                 return false;
+            }
             tmpSystemMap.put(key, map.get(key));
             map.remove(key);
             if(map.size() == 0)
                 return true;
         }else{
-            if(map.get(key) instanceof String){
+            if(map.get(key) instanceof String
+                    || map.get(key) instanceof Integer
+                    || map.get(key) instanceof Double
+                    || map.get(key) instanceof Float){
                 return false;
             }
             if(!tmpSystemMap.containsKey(key)){
@@ -88,5 +97,22 @@ public class ConfFilter {
 
     public static Map<String, Object> getSystemMap() {
         return systemMap;
+    }
+
+    public static Object getSystemConf(String path) {
+
+        String[] props = path.split("\\.");
+        Object o = systemMap;
+        int ind = 0;
+        while (true) {
+            if (ind < props.length && null != o && o instanceof Map) {
+                o = ((Map<?, ?>) o).get(props[ind]);
+            } else {
+                break;
+            }
+            ind++;
+        }
+
+        return o;
     }
 }

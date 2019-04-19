@@ -29,7 +29,7 @@ public class ConfValueProcessor extends ConfProcessor{
                     e.printStackTrace();
                 }
                 dynamicFieldSet.forEach(filed -> putInConfCore(oo, filed, false));
-            }),10,10, TimeUnit.SECONDS);
+            }),interval,interval, TimeUnit.SECONDS);
         }
     }
 

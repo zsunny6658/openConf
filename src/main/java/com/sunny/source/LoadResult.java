@@ -1,7 +1,6 @@
 package com.sunny.source;
 
 import java.util.*;
-import java.util.concurrent.Executor;
 
 import javax.lang.model.type.UnknownTypeException;
 
@@ -76,21 +75,13 @@ public class LoadResult {
 
 	@SuppressWarnings("unchecked")
 	private static Object getSources(boolean isUpdate) throws Exception {
-		if(!isUpdate) {
-			Collections.sort(loadFileNameList, (o1, o2) -> {
-				if (o1.getOrder() == o2.getOrder()) {
-					return o1.getFileName().compareTo(o2.getFileName());
-				}
-				return o2.getOrder() - o1.getOrder();
-			});
-		}else{
-			Collections.sort(loadFileNameList, (o1, o2) -> {
-				if (o1.getOrder() == o2.getOrder()) {
-					return o2.getFileName().compareTo(o1.getFileName());
-				}
-				return o1.getOrder() - o2.getOrder();
-			});
-		}
+
+		loadFileNameList.sort((o1, o2) -> {
+			if (o1.getOrder() == o2.getOrder()) {
+				return o1.getFileName().compareTo(o2.getFileName());
+			}
+			return o2.getOrder() - o1.getOrder();
+		});
 		Map<String, Object> res = new HashMap<>();
 //		System.out.println(loadFileNameList);
 		for (LoadFileName loadFileName : loadFileNameList) {
@@ -102,10 +93,7 @@ public class LoadResult {
 				res = (Map<String, Object>) sourceResult;
 				continue;
 			}
-			if(!isUpdate)
-				Node.merge(res, (Map<String, Object>) sourceResult, false);
-			else
-				Node.merge(res, (Map<String, Object>) sourceResult, true);
+			Node.merge(res, (Map<String, Object>) sourceResult, false);
 		}
 		ConfFilter.filter(res, isUpdate);
 		return res;
