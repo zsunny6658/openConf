@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.sunny.source.LoadFileName;
-import com.sunny.source.Node;
+import com.sunny.source.bean.LoadFileName;
+import com.sunny.source.bean.Node;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;

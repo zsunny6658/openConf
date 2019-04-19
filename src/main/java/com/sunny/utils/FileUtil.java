@@ -89,7 +89,7 @@ public class FileUtil {
      * @return
      * @throws IOException
      */
-    private static File getFile(String path) throws IOException {
+    public static File getFile(String path) throws IOException {
         //URL url = FileUtils.class.getClassLoader().getResource("");
         //更通用方案
         URL url = Thread.currentThread().getContextClassLoader().getResource("");

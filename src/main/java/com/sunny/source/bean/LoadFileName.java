@@ -1,5 +1,6 @@
-package com.sunny.source;
+package com.sunny.source.bean;
 
+import com.sunny.source.LoadSource;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
@@ -8,7 +9,7 @@ import com.sunny.source.file.LoadYaml;
  * create by zsunny
  * data: 2018/10/20
  **/
-public class LoadFileName{
+public class LoadFileName implements Comparable<LoadFileName>{
 
     public static final LoadFileName APPLICATION_YAML =
             new LoadFileName("application.yaml",10, LoadYaml.getInstance());
@@ -66,5 +67,13 @@ public class LoadFileName{
                 ", order=" + order +
                 ", loadSource=" + loadSource +
                 '}';
+    }
+
+    @Override
+    public int compareTo(LoadFileName o) {
+        if (this.getOrder() == o.getOrder()) {
+            return this.getFileName().compareTo(o.getFileName());
+        }
+        return o.getOrder() - this.getOrder();
     }
 }

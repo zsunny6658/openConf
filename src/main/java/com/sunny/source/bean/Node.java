@@ -1,4 +1,4 @@
-package com.sunny.source;
+package com.sunny.source.bean;
 
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -50,7 +50,10 @@ public class Node{
                             nodeRes.put(key, value);
                         }
                     } else {
-                        if(!(nodeRes.get(key) instanceof String)){
+                        if(!(nodeRes.get(key) instanceof String
+                                || nodeRes.get(key) instanceof Integer
+                                || nodeRes.get(key) instanceof Double
+                                || nodeRes.get(key) instanceof Float)){
                             queue.offer(new Node((Map<String, Object>) nodeRes.get(key),
                                     (Map<String, Object>) nodeSource.get(key)));
                         }
