@@ -86,8 +86,8 @@ public class LoadResult {
 			Object sourceResult = null;
 			boolean needUpdate = false;
 			if(!isUpdate) {
+				//load at the first time
 				sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-				needUpdate = true;
 			}else{
 				long recModifyTime = 0;
 				if(null != resMap.get(loadFileName)){
@@ -97,9 +97,11 @@ public class LoadResult {
 				long modifyTime = file.lastModified();
 				needUpdate = (modifyTime > recModifyTime);
 				if(needUpdate) {
+					//need to reload, means the file is changed
 					sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
 					resMap.get(loadFileName).setModifyTime(modifyTime);
 				}else{
+					//donnot need to reload, just load from resMap
 					if(null == resMap.get(loadFileName))
 						sourceResult = null;
 					else
@@ -109,7 +111,7 @@ public class LoadResult {
 			if (null == sourceResult) {
 				continue;
 			}
-			if(needUpdate)
+			if(!isUpdate)
 				resMap.put(loadFileName, new Content(sourceResult));
 			if (0 == res.size()) {
 				res = (Map<String, Object>) sourceResult;

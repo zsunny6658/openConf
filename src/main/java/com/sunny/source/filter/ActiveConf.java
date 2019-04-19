@@ -1,26 +1,26 @@
 package com.sunny.source.filter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
+import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.bean.Node;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
+import com.sunny.utils.FileUtil;
 
 public class ActiveConf {
 
     static final String CONF_ACTIVE = "system.conf.active";
-
     private static List<LoadFileName> loadFileNameList = new ArrayList<>();
+    private static Map<LoadFileName, Content> resMap = new TreeMap<>();
 
     static void insertActiveConf(Map<String, Object> map, boolean isUpdate) throws Exception {
         if(!isUpdate)
             getActiveConfFiles(map);
-        insertCore(map);
+        insertCore(map, isUpdate);
     }
 
     /**
@@ -66,13 +66,34 @@ public class ActiveConf {
      * @param map
      */
     @SuppressWarnings("unchecked")
-	private static void insertCore(Map<String, Object> map) throws Exception {
+	private static void insertCore(Map<String, Object> map, boolean isUpdate) throws Exception {
     	// Map<String, Object> res = new HashMap<>();
         for(LoadFileName loadFileName: loadFileNameList){
-            Object sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
+            Object sourceResult = null;
+            if(!isUpdate){
+                sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
+            }else{
+                long recModifyTime = 0;
+                if(null != resMap.get(loadFileName)){
+                    recModifyTime = resMap.get(loadFileName).getModifyTime();
+                }
+                File file = FileUtil.getFile(loadFileName.getFileName());
+                long modifyTime = file.lastModified();
+                if(modifyTime > recModifyTime){
+                    sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
+                    resMap.get(loadFileName).setModifyTime(modifyTime);
+                }else{
+                    if(null == resMap.get(loadFileName))
+                        sourceResult = null;
+                    else
+                        sourceResult = resMap.get(loadFileName).getContent();
+                }
+            }
             if(null == sourceResult){
                 continue;
             }
+            if(!isUpdate)
+                resMap.put(loadFileName, new Content(sourceResult));
             Node.merge(map, (Map<String, Object>) sourceResult,true);
         }
     }
