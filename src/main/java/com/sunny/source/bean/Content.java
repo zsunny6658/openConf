@@ -3,6 +3,7 @@ package com.sunny.source.bean;
 import com.sunny.utils.ObjectUtil;
 
 import java.io.*;
+import java.util.Map;
 
 /**
  * @Author zsunny
@@ -16,22 +17,10 @@ public class Content {
 
     public Content(long modifyTime, Object content) {
         this.modifyTime = modifyTime;
-        try {
-            this.content = ObjectUtil.deepClone(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
     }
     public Content(Object content) {
-        try {
-            this.content = ObjectUtil.deepClone(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
         this.modifyTime = System.currentTimeMillis();
     }
     public Content() {
@@ -46,13 +35,7 @@ public class Content {
         return content;
     }
     public void setContent(Object content) {
-        try {
-            this.content = ObjectUtil.deepClone(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
     }
     @Override
     public String toString() {

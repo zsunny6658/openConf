@@ -1,8 +1,11 @@
 package com.sunny.utils;
 
+import com.sunny.source.bean.Node;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @Author zsunny
@@ -11,6 +14,7 @@ import java.util.Map;
  */
 public class ObjectUtil {
 
+    //deep clone except classes not implement clonable
     public static Object deepClone(Object o) throws IOException, ClassNotFoundException {
         ByteArrayOutputStream bo = new ByteArrayOutputStream();
         ObjectOutputStream oo = new ObjectOutputStream(bo);
@@ -21,8 +25,39 @@ public class ObjectUtil {
         return (oi.readObject());
     }
 
-    public static void deepCopy(Object o){
+    //deep copy for multi-level map
+    public static Object deepCopy(Object o){
 
+        if(o instanceof String
+                || o instanceof Integer
+                || o instanceof Float
+                || o instanceof Double){
+            return o;
+        }
+
+        Map<String, Object> ret = new HashMap<>();
+        LinkedBlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        queue.offer(new Node((Map<String, Object>) o, ret));
+
+        while (!queue.isEmpty()){
+            Node node = queue.poll();
+            Map<String, Object> nodeRes = node.getRes();
+            Map<String, Object> nodeSource = node.getSource();
+            nodeRes.forEach((key, value)->{
+                if(value instanceof String
+                        || value instanceof Integer
+                        || value instanceof Float
+                        || value instanceof Double){
+                    nodeSource.put(key, value);
+                }else{
+                    Map<String, Object> tmp = new HashMap<>();
+                    nodeSource.put(key, tmp);
+                    queue.offer(new Node((Map<String, Object>) nodeRes.get(key), tmp));
+                }
+            });
+        }
+
+        return ret;
     }
 
 }

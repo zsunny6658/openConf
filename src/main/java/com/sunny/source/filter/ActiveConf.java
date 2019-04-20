@@ -10,6 +10,7 @@ import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
 import com.sunny.utils.FileUtil;
+import com.sunny.utils.ObjectUtil;
 
 public class ActiveConf {
 
@@ -87,7 +88,7 @@ public class ActiveConf {
                     if(null == resMap.get(loadFileName))
                         sourceResult = null;
                     else
-                        sourceResult = resMap.get(loadFileName).getContent();
+                        sourceResult = ObjectUtil.deepCopy(resMap.get(loadFileName).getContent());
                 }
             }
             if(null == sourceResult){

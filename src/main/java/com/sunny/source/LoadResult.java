@@ -15,6 +15,7 @@ import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.utils.FileUtil;
+import com.sunny.utils.ObjectUtil;
 import com.sunny.utils.PackageUtil;
 
 public class LoadResult {
@@ -35,11 +36,9 @@ public class LoadResult {
 		//前置处理注解@ConfSource,用于获取默认配置之外的配置文件
 		loadOtherConfSource();
 		source = getSources(false);
-		System.out.println("初始化："+cache);
 	}
 
 	public static void updateResult() throws Exception{
-		System.out.println("更新前："+cache);
 		source = getSources(true);
 	}
 
@@ -82,7 +81,6 @@ public class LoadResult {
 
 	@SuppressWarnings("unchecked")
 	private static Object getSources(boolean isUpdate) throws Exception {
-		System.out.println("1"+cache);
 		Collections.sort(loadFileNameList);
 		Map<String, Object> res = new HashMap<>();
 		for (LoadFileName loadFileName : loadFileNameList) {
@@ -96,11 +94,9 @@ public class LoadResult {
 				if(null != cache.get(loadFileName)){
 					recModifyTime = cache.get(loadFileName).getModifyTime();
 				}
-//				System.out.println(loadFileName.getFileName() + "*********" + cache.get(loadFileName));
 				File file = FileUtil.getFile(loadFileName.getFileName());
 				long modifyTime = file.lastModified();
 				needUpdate = (modifyTime > recModifyTime);
-//				System.out.println(loadFileName.getFileName() + "&&&&&&&&&" + cache.get(loadFileName));
 				if(needUpdate) {
 					//need to reload, means the file is changed
 					sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
@@ -111,14 +107,12 @@ public class LoadResult {
 					if(null == cache.get(loadFileName))
 						sourceResult = null;
 					else
-						sourceResult = cache.get(loadFileName).getContent();
+						sourceResult = ObjectUtil.deepCopy(cache.get(loadFileName).getContent());
 				}
-//				System.out.println(loadFileName.getFileName() + "$$$$$$$$$$" + cache.get(loadFileName));
 			}
 			if (null == sourceResult) {
 				continue;
 			}
-//			System.out.println(loadFileName.getFileName()+"***"+cache.get(loadFileName));
 			if(!isUpdate) {
 				cache.put(loadFileName, new Content(sourceResult));
 			}
@@ -126,13 +120,9 @@ public class LoadResult {
 				res = (Map<String, Object>) sourceResult;
 				continue;
 			}
-			System.out.println("3:"+cache);
 			Node.merge(res, (Map<String, Object>) sourceResult, false, cache);
-			System.out.println("4:"+cache);
-//			System.out.println(loadFileName.getFileName()+"&&&"+cache.get(loadFileName));
 		}
-//		ConfFilter.filter(res, isUpdate);
-		System.out.println("2:"+cache);
+		ConfFilter.filter(res, isUpdate);
 		return res;
 	}
 }
