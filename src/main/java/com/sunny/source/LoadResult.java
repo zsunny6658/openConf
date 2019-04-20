@@ -22,7 +22,7 @@ public class LoadResult {
 	private static List<LoadFileName> loadFileNameList = new ArrayList<>(Arrays.asList(LoadFileName.APPLICATION_YML, LoadFileName.APPLICATION_YAML,
 			LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML));
 	private static Object source = null;
-	private static Map<LoadFileName, Content> resMap = new TreeMap<>();
+	private static Map<LoadFileName, Content> cache = new TreeMap<>();
 
 	public static void add(LoadFileName loadFile){
 		loadFileNameList.add(loadFile);
@@ -35,9 +35,11 @@ public class LoadResult {
 		//前置处理注解@ConfSource,用于获取默认配置之外的配置文件
 		loadOtherConfSource();
 		source = getSources(false);
+		System.out.println("初始化："+cache);
 	}
 
 	public static void updateResult() throws Exception{
+		System.out.println("更新前："+cache);
 		source = getSources(true);
 	}
 
@@ -80,6 +82,7 @@ public class LoadResult {
 
 	@SuppressWarnings("unchecked")
 	private static Object getSources(boolean isUpdate) throws Exception {
+		System.out.println("1"+cache);
 		Collections.sort(loadFileNameList);
 		Map<String, Object> res = new HashMap<>();
 		for (LoadFileName loadFileName : loadFileNameList) {
@@ -90,36 +93,46 @@ public class LoadResult {
 				sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
 			}else{
 				long recModifyTime = 0;
-				if(null != resMap.get(loadFileName)){
-					recModifyTime = resMap.get(loadFileName).getModifyTime();
+				if(null != cache.get(loadFileName)){
+					recModifyTime = cache.get(loadFileName).getModifyTime();
 				}
+//				System.out.println(loadFileName.getFileName() + "*********" + cache.get(loadFileName));
 				File file = FileUtil.getFile(loadFileName.getFileName());
 				long modifyTime = file.lastModified();
 				needUpdate = (modifyTime > recModifyTime);
+//				System.out.println(loadFileName.getFileName() + "&&&&&&&&&" + cache.get(loadFileName));
 				if(needUpdate) {
 					//need to reload, means the file is changed
 					sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-					resMap.get(loadFileName).setModifyTime(modifyTime);
+					cache.get(loadFileName).setModifyTime(modifyTime);
+					cache.get(loadFileName).setContent(sourceResult);
 				}else{
 					//donnot need to reload, just load from resMap
-					if(null == resMap.get(loadFileName))
+					if(null == cache.get(loadFileName))
 						sourceResult = null;
 					else
-						sourceResult = resMap.get(loadFileName).getContent();
+						sourceResult = cache.get(loadFileName).getContent();
 				}
+//				System.out.println(loadFileName.getFileName() + "$$$$$$$$$$" + cache.get(loadFileName));
 			}
 			if (null == sourceResult) {
 				continue;
 			}
-			if(!isUpdate)
-				resMap.put(loadFileName, new Content(sourceResult));
+//			System.out.println(loadFileName.getFileName()+"***"+cache.get(loadFileName));
+			if(!isUpdate) {
+				cache.put(loadFileName, new Content(sourceResult));
+			}
 			if (0 == res.size()) {
 				res = (Map<String, Object>) sourceResult;
 				continue;
 			}
-			Node.merge(res, (Map<String, Object>) sourceResult, false);
+			System.out.println("3:"+cache);
+			Node.merge(res, (Map<String, Object>) sourceResult, false, cache);
+			System.out.println("4:"+cache);
+//			System.out.println(loadFileName.getFileName()+"&&&"+cache.get(loadFileName));
 		}
-		ConfFilter.filter(res, isUpdate);
+//		ConfFilter.filter(res, isUpdate);
+		System.out.println("2:"+cache);
 		return res;
 	}
 }

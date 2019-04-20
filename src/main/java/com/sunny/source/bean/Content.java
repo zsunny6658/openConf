@@ -1,5 +1,9 @@
 package com.sunny.source.bean;
 
+import com.sunny.utils.ObjectUtil;
+
+import java.io.*;
+
 /**
  * @Author zsunny
  * @Date 2019/4/19 18:27
@@ -12,10 +16,22 @@ public class Content {
 
     public Content(long modifyTime, Object content) {
         this.modifyTime = modifyTime;
-        this.content = content;
+        try {
+            this.content = ObjectUtil.deepClone(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     public Content(Object content) {
-        this.content = content;
+        try {
+            this.content = ObjectUtil.deepClone(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         this.modifyTime = System.currentTimeMillis();
     }
     public Content() {
@@ -30,7 +46,13 @@ public class Content {
         return content;
     }
     public void setContent(Object content) {
-        this.content = content;
+        try {
+            this.content = ObjectUtil.deepClone(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public String toString() {
@@ -39,4 +61,5 @@ public class Content {
                 ", content=" + content +
                 '}';
     }
+
 }

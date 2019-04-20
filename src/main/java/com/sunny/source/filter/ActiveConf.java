@@ -82,6 +82,7 @@ public class ActiveConf {
                 if(modifyTime > recModifyTime){
                     sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
                     resMap.get(loadFileName).setModifyTime(modifyTime);
+                    resMap.get(loadFileName).setContent(sourceResult);
                 }else{
                     if(null == resMap.get(loadFileName))
                         sourceResult = null;
@@ -94,7 +95,7 @@ public class ActiveConf {
             }
             if(!isUpdate)
                 resMap.put(loadFileName, new Content(sourceResult));
-            Node.merge(map, (Map<String, Object>) sourceResult,true);
+            Node.merge(map, (Map<String, Object>) sourceResult,true,null);
         }
     }
 

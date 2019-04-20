@@ -13,7 +13,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public abstract class ConfProcessor {
 
-    protected final ScheduledExecutorService tp = Executors.newScheduledThreadPool(2);
+    protected static final ScheduledExecutorService tp = Executors.newScheduledThreadPool(2);
 
     protected static Set<Class<?>> classSet;
     protected static Object oo;
@@ -64,6 +64,9 @@ public abstract class ConfProcessor {
                 }
             }
         });
+    }
+    public static void stopThreadPool(){
+        tp.shutdown();
     }
     public abstract void update();
     public abstract void process();
