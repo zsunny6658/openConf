@@ -3,10 +3,7 @@ package com.sunny.processor.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sunny.processor.ConfClassProcessor;
-import com.sunny.processor.ConfListenerProcessor;
-import com.sunny.processor.ConfProcessor;
-import com.sunny.processor.ConfValueProcessor;
+import com.sunny.processor.*;
 import com.sunny.source.LoadResult;
 import com.sunny.source.listener.ConfListner;
 

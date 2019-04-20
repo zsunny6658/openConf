@@ -1,6 +1,5 @@
 package com.sunny.source.file;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -11,7 +10,7 @@ import com.sunny.utils.FileUtil;
  * Email zsunny@yeah.net 
  * Date on 2018/10/5.
  */
-public class LoadProperties extends AbstractLoadProperties {
+public class LoadProperties extends AbstractLoadSource {
 
 	private LoadProperties() {
 	}

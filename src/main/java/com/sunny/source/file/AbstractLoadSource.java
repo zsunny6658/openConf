@@ -10,9 +10,9 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractLoadProperties implements LoadSource {
+public abstract class AbstractLoadSource implements LoadSource {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractLoadProperties.class);
+	private static final Logger log = LoggerFactory.getLogger(AbstractLoadSource.class);
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> convertToMap(Properties properties) {

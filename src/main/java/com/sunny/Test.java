@@ -9,9 +9,11 @@ import com.sunny.starter.ConfStarter;
 public class Test {
 
     public static void main(String[] args) {
+        System.out.println(System.getProperty("user.dir")+"\\src\\main\\resources");
         ConfStarter.start();
-        Example.printPort();
         ExampleClass.print();
+        Example.printPort();
+
     }
 
 }

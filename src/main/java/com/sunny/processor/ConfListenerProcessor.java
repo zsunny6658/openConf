@@ -9,7 +9,7 @@ import com.sunny.source.listener.ConfListner;
 /**
  * 简易listener处理器，后考虑多listener处理
  */
-public class ConfListenerProcessor extends ConfProcessor {
+public class ConfListenerProcessor extends AbstractConfProcessor {
 
 
 	@Override

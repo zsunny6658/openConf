@@ -2,13 +2,10 @@ package com.sunny.processor;
 
 import java.lang.reflect.Field;
 import java.util.Map;
-import java.util.Set;
 
 import com.sunny.annotation.*;
-import com.sunny.source.LoadResult;
-import com.sunny.utils.PackageUtil;
 
-public class ConfClassProcessor extends ConfProcessor {
+public class ConfClassProcessor extends AbstractConfProcessor {
 
 	@Override
 	public void update() {
