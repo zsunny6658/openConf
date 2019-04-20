@@ -13,4 +13,8 @@ public class ConfStarter {
         MainProcessor.process();
     }
 
+    public static void stop(){
+        MainProcessor.stop();
+    }
+
 }

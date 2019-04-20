@@ -47,4 +47,8 @@ public class MainProcessor {
 
 	}
 
+	public static void stop() {
+		ConfProcessor.stopThreadPool();
+	}
+
 }

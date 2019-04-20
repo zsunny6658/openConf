@@ -1,5 +1,10 @@
 package com.sunny.source.bean;
 
+import com.sunny.utils.ObjectUtil;
+
+import java.io.*;
+import java.util.Map;
+
 /**
  * @Author zsunny
  * @Date 2019/4/19 18:27
@@ -12,10 +17,10 @@ public class Content {
 
     public Content(long modifyTime, Object content) {
         this.modifyTime = modifyTime;
-        this.content = content;
+        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
     }
     public Content(Object content) {
-        this.content = content;
+        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
         this.modifyTime = System.currentTimeMillis();
     }
     public Content() {
@@ -30,7 +35,7 @@ public class Content {
         return content;
     }
     public void setContent(Object content) {
-        this.content = content;
+        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
     }
     @Override
     public String toString() {
@@ -39,4 +44,5 @@ public class Content {
                 ", content=" + content +
                 '}';
     }
+
 }

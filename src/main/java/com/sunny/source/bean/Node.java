@@ -1,5 +1,10 @@
 package com.sunny.source.bean;
 
+import com.sunny.utils.ObjectUtil;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -28,9 +33,17 @@ public class Node{
         this.source = source;
     }
 
+    @Override
+    public String toString() {
+        return "Node{" +
+                "res=" + res +
+                ", source=" + source +
+                '}';
+    }
 
     @SuppressWarnings("unchecked")
-	public static void merge(Map<String, Object> res, Map<String, Object> source, boolean isCover){
+	public static void merge(Map<String, Object> res, Map<String, Object> source,
+                             boolean isCover, Map<LoadFileName,Content> cache){
         LinkedBlockingQueue<Node> queue = new LinkedBlockingQueue<>();
         queue.offer(new Node(res, source));
 
@@ -40,7 +53,10 @@ public class Node{
             Map<String, Object> nodeSource = node.getSource();
             nodeSource.forEach((key, value) -> {
                 if(nodeRes.containsKey(key)) {
-                    if (value instanceof String) {
+                    if (value instanceof String
+                            || value instanceof Integer
+                            || value instanceof Float
+                            || value instanceof Double) {
                         //需要判断是否覆盖的情况
                         if(!isCover) {
                             //donnot cover
@@ -62,7 +78,6 @@ public class Node{
                     nodeRes.put(key, value);
                 }
             });
-
         }
 
     }

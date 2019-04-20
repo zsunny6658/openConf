@@ -15,6 +15,7 @@ import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.utils.FileUtil;
+import com.sunny.utils.ObjectUtil;
 import com.sunny.utils.PackageUtil;
 
 public class LoadResult {
@@ -22,7 +23,7 @@ public class LoadResult {
 	private static List<LoadFileName> loadFileNameList = new ArrayList<>(Arrays.asList(LoadFileName.APPLICATION_YML, LoadFileName.APPLICATION_YAML,
 			LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML));
 	private static Object source = null;
-	private static Map<LoadFileName, Content> resMap = new TreeMap<>();
+	private static Map<LoadFileName, Content> cache = new TreeMap<>();
 
 	public static void add(LoadFileName loadFile){
 		loadFileNameList.add(loadFile);
@@ -113,8 +114,8 @@ public class LoadResult {
 				sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
 			}else{
 				long recModifyTime = 0;
-				if(null != resMap.get(loadFileName)){
-					recModifyTime = resMap.get(loadFileName).getModifyTime();
+				if(null != cache.get(loadFileName)){
+					recModifyTime = cache.get(loadFileName).getModifyTime();
 				}
 				File file = FileUtil.getFile(loadFileName.getFileName());
 				long modifyTime = file.lastModified();
@@ -122,25 +123,27 @@ public class LoadResult {
 				if(needUpdate) {
 					//need to reload, means the file is changed
 					sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-					resMap.get(loadFileName).setModifyTime(modifyTime);
+					cache.get(loadFileName).setModifyTime(modifyTime);
+					cache.get(loadFileName).setContent(sourceResult);
 				}else{
 					//donnot need to reload, just load from resMap
-					if(null == resMap.get(loadFileName))
+					if(null == cache.get(loadFileName))
 						sourceResult = null;
 					else
-						sourceResult = resMap.get(loadFileName).getContent();
+						sourceResult = ObjectUtil.deepCopy(cache.get(loadFileName).getContent());
 				}
 			}
 			if (null == sourceResult) {
 				continue;
 			}
-			if(!isUpdate)
-				resMap.put(loadFileName, new Content(sourceResult));
+			if(!isUpdate) {
+				cache.put(loadFileName, new Content(sourceResult));
+			}
 			if (0 == res.size()) {
 				res = (Map<String, Object>) sourceResult;
 				continue;
 			}
-			Node.merge(res, (Map<String, Object>) sourceResult, false);
+			Node.merge(res, (Map<String, Object>) sourceResult, false, cache);
 		}
 		ConfFilter.filter(res, isUpdate);
 		return res;
