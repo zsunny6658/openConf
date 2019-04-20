@@ -21,7 +21,7 @@ public class ObjectUtil {
         return (oi.readObject());
     }
 
-    public static Object deepCopy(Object o){
+    public static void deepCopy(Object o){
 
     }
 
