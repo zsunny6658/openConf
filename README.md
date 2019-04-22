@@ -3,6 +3,11 @@
 
 ### 说明
 
+#### version 1.2
+1. 新增动态配置支持，实时修改配置无需重启应用
+2. 新增@Dynamic注解，用于指示动态配置项
+3. 增加对动态灵敏度支持，动态配置生效时长可控
+
 #### version 1.1
 新增了自定义配置文件，使用注解ConfSource(""),指定配置文件路径，默认为classpath:configer.properties
 
@@ -48,7 +53,7 @@ mvn assembly:assembly
 ##### 2.在需要进行配置读取的变量上添加相应注解
 ###### 2.1 变量配置
 目前主要有两种注解@ConfPath和@SystemConfPath用于对变量进行配置，需要修饰静态变量，其value设置为需要读取的配置项如
-```
+```java
 @ConfPath("server.port)
 public static String port;
 
@@ -62,7 +67,7 @@ public static String activeFile;
 类中所有静态变量按照变量名寻找配置项，可用@ConfClassIgnore过滤变量不进行配置；
 使用@ConfClassDefault进行变量默认值配置，若不存在该配置项则使用默认值。
 示例：
-```
+```java
 @ConfClass
 @ConfClassPrefix("test.")
 public class ExampleClass {
@@ -91,7 +96,7 @@ public class ExampleClass {
 项目中Example.java和ExampleClass.java文件中为用注解接收配置值的例子；Test为启动类，在其main方法中调用了MainProcessor.process()将配置文件中的配置加入注解所对应的类变量中。
 ##### 1.属性配置读取
 属性配置主要有@ConfPath和@SystemConfPath，分别用于指示业务项配置和系统项配置。
-```
+```java
 @ConfPath("server.port)
 public static String port;
 @SystemConfPath("system.conf.active")
@@ -100,7 +105,7 @@ public static String activeFile;
 ##### 2.属性类配置
 属性类配置的类必须用@ConfClass进行修饰，@ConfClassPrefix可以用于指示配置路径的前缀；属性名称则是其配置项的名称。
 @ConfClassIgnore用于指示某个属性不用于接收配置内容；@ConfClassDefault用来指示某个属性的默认配置值，如果配置文件中存在相应的配置值则会覆盖默认值；@ConfClassAlias用于指示类变量别名。
-```
+```java
 @ConfClass
 @ConfClassPrefix("test")
 public class ExampleClass {
@@ -116,7 +121,7 @@ public class ExampleClass {
 ```
 ##### 3.监听器
 TestListener为示例监听器，其实现了ConfListener接口并实现了doBefore和doAfter方法。
-```
+```java
 public class TestListener implements ConfListner{
     @Override
     public void doBefore() {
@@ -129,7 +134,7 @@ public class TestListener implements ConfListner{
 }
 ```
 另外需要在配置文件中指示类名称：
-```
+```java
 system.conf.listener: com.sunny.TestListener
 ```
 ##### 4.自定义配置源
@@ -144,14 +149,37 @@ public class Example {
 
 }
 ```
+##### 5.动态配置
+支持对静态变量和配置类使用动态配置模式，加上@Dynamic注解即可，如：
+```java
+@Dynamic
+@ConfPath("dynamic.test")
+private static String t;
+```
+和：
+```java
+@Dynamic
+@ConfClass
+@ConfClassPrefix("test.")
+public class ExampleClass {...}
+```
+在配置文件中可配置动态灵敏度，即动态配置生效最长时间，如：
+```
+System:
+  dynamic:
+    interval: 5
+    unit: s
+```
+其中，System.dynamic.interval用于指示时长，System.dynamic.unit用于指示单位，目前支持h、m和s，分别表示小时、分钟和秒，默认时长为10秒，默认单位为秒。
 
 ### 注意事项
 1. 配置读取注解的变量必须为静态变量
 2. 配置文件放入resource中
 3. 注意避开系统配置项，否则通过ConfPath注解将无法正常获取
+4. 开启动态配置后，会占用一定系统资源，包括内存和CPU，慎用
 
 ### 敬请期待
-接下来将更丰富本项目的功能，敬请期待。
+接下来将更丰富本项目的功能，下一步将加入网络配置接口，敬请期待。
 
 ### 联系交流
 author：Sunny, junehappylove

@@ -5,13 +5,15 @@ import com.sunny.source.LoadResult;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.utils.PackageUtil;
 
+import javax.management.relation.RoleUnresolved;
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public abstract class ConfProcessor {
+public abstract class AbstractConfProcessor {
 
     protected static final ScheduledExecutorService tp = Executors.newScheduledThreadPool(2);
 
@@ -21,6 +23,7 @@ public abstract class ConfProcessor {
     protected static Set<Class<?>> dynamicClassSet = new HashSet<>();
     protected static Set<Field> dynamicFieldSet = new HashSet<>();
     protected static int interval = 10;
+    protected static TimeUnit unit = TimeUnit.SECONDS;
 
     static {
         init();
@@ -39,11 +42,30 @@ public abstract class ConfProcessor {
     //get dynamic interval
     private static void getInterval(){
         Object intv = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_INTERVAL);
+        Object u = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_UNIT);
         if(null != intv){
             try {
                 interval = (int)intv;
             }catch (RuntimeException e){
                 e.printStackTrace();
+            }
+        }
+        if(null != u){
+            String su = null;
+            try {
+                su = (String)u;
+            }catch (RuntimeException e){
+                e.printStackTrace();
+            }
+            switch (su){
+                case "h":
+                    unit = TimeUnit.HOURS;
+                    break;
+                case "m":
+                    unit = TimeUnit.MINUTES;
+                    break;
+                default:
+                    unit = TimeUnit.SECONDS;
             }
         }
     }

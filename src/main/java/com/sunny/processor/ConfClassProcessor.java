@@ -3,23 +3,36 @@ package com.sunny.processor;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import com.sunny.annotation.*;
 import com.sunny.source.LoadResult;
 import com.sunny.utils.PackageUtil;
 
-public class ConfClassProcessor extends ConfProcessor {
+public class ConfClassProcessor extends AbstractConfProcessor {
 
 	@Override
 	public void update() {
 		if(dynamicClassSet.size() > 0){
 			//create a new thread
+			if(dynamicFieldSet.size() > 0){
+				//create a new thread
+				tp.scheduleAtFixedRate(new Thread(()->{
+					try {
+						updateConfSource();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					dynamicClassSet.forEach(clazz -> putInConf(oo, clazz));
+				}),interval,interval, unit);
+			}
 		}
 	}
 
 	@Override
 	public void process() {
 		classSet.forEach(clazz -> putInConf(oo, clazz));
+		update();
 	}
 
 	public static void putInConf(Object oo, Class<?> clazz) {

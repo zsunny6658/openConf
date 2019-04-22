@@ -15,6 +15,7 @@ public class ConfFilter {
 
     public static final String CONF_LISTENER = "system.conf.listener";
     public static final String DYNAMIC_INTERVAL = "system.dynamic.interval";
+    public static final String DYNAMIC_UNIT = "system.dynamic.unit";
 
     public static String[] filterConfs = {CONF_ACTIVE, CONF_LISTENER, DYNAMIC_INTERVAL};
 

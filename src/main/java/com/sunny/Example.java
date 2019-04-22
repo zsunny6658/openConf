@@ -32,14 +32,6 @@ public class Example {
         System.out.println("prop-test:" + test);
         System.out.println("prop-active:" + active);
 
-        while (true) {
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("dynamic:" + t);
-        }
     }
 
 }
