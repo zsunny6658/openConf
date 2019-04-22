@@ -36,8 +36,9 @@ public class MainProcessor {
 	}
 
 	public static void process() {
+	    //pre listener
 		confListners.forEach(ConfListner::doBefore);
-
+        //processor
 		confProcessors.forEach(confProcessor -> {
 			try {
 				confProcessor.newInstance().process();
@@ -45,11 +46,45 @@ public class MainProcessor {
 				e.printStackTrace();
 			}
 		});
-
+		//dynamic update
+		start();
+		//postlistener
 		confListners.forEach(ConfListner::doAfter);
-
 	}
 
+	//dynamic update
+	public static void start(){
+        if(AbstractConfProcessor.getDynamicFieldSet().size() > 0
+                && AbstractConfProcessor.getDynamicClassSet().size() > 0){
+            AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(()->{
+                try {
+                    AbstractConfProcessor.updateConfSource();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ConfClassProcessor.update();
+                ConfValueProcessor.update();
+            }),AbstractConfProcessor.getInterval(),AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
+        }else if(AbstractConfProcessor.getDynamicFieldSet().size() > 0){
+            AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(()->{
+                try {
+                    AbstractConfProcessor.updateConfSource();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ConfValueProcessor.update();
+            }),AbstractConfProcessor.getInterval(),AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
+        }else if(AbstractConfProcessor.getDynamicClassSet().size() > 0){
+            AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(()->{
+                try {
+                    AbstractConfProcessor.updateConfSource();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ConfClassProcessor.update();
+            }),AbstractConfProcessor.getInterval(),AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
+        }
+    }
 	public static void stop() {
 		AbstractConfProcessor.stopThreadPool();
 	}

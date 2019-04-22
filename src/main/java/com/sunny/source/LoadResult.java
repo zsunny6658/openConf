@@ -83,7 +83,9 @@ public class LoadResult {
 	private static Object getSources(boolean isUpdate) throws Exception {
 		Collections.sort(loadFileNameList);
 		Map<String, Object> res = new HashMap<>();
-		for (LoadFileName loadFileName : loadFileNameList) {
+		Iterator<LoadFileName> iter = loadFileNameList.iterator();
+		while (iter.hasNext()) {
+			LoadFileName loadFileName = iter.next();
 			Object sourceResult = null;
 			boolean needUpdate = false;
 			if(!isUpdate) {

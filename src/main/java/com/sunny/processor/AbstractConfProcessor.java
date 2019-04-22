@@ -33,14 +33,14 @@ public abstract class AbstractConfProcessor {
         classSet = PackageUtil.getAllClassSet();
         oo = LoadResult.getSource();
         getDynamics();
-        getInterval();
+        getInitInterval();
     }
     public static void updateConfSource() throws Exception {
         LoadResult.updateResult();
         oo = LoadResult.getSource();
     }
     //get dynamic interval
-    private static void getInterval(){
+    private static void getInitInterval(){
         Object intv = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_INTERVAL);
         Object u = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_UNIT);
         if(null != intv){
@@ -90,6 +90,41 @@ public abstract class AbstractConfProcessor {
     public static void stopThreadPool(){
         tp.shutdown();
     }
-    public abstract void update();
     public abstract void process();
+
+    public static Set<Class<?>> getDynamicClassSet() {
+        return dynamicClassSet;
+    }
+
+    public static void setDynamicClassSet(Set<Class<?>> dynamicClassSet) {
+        AbstractConfProcessor.dynamicClassSet = dynamicClassSet;
+    }
+
+    public static Set<Field> getDynamicFieldSet() {
+        return dynamicFieldSet;
+    }
+
+    public static void setDynamicFieldSet(Set<Field> dynamicFieldSet) {
+        AbstractConfProcessor.dynamicFieldSet = dynamicFieldSet;
+    }
+
+    public static ScheduledExecutorService getTp() {
+        return tp;
+    }
+
+    public static int getInterval() {
+        return interval;
+    }
+
+    public static void setInterval(int interval) {
+        AbstractConfProcessor.interval = interval;
+    }
+
+    public static TimeUnit getUnit() {
+        return unit;
+    }
+
+    public static void setUnit(TimeUnit unit) {
+        AbstractConfProcessor.unit = unit;
+    }
 }

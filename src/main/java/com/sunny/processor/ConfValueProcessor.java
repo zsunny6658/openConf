@@ -13,26 +13,13 @@ import com.sunny.source.filter.ConfFilter;
  **/
 public class ConfValueProcessor extends AbstractConfProcessor{
 
-    @Override
-    public void update() {
-        //dynamic update
-        if(dynamicFieldSet.size() > 0){
-            //create a new thread
-            tp.scheduleAtFixedRate(new Thread(()->{
-                try {
-                    updateConfSource();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                dynamicFieldSet.forEach(filed -> putInConfCore(oo, filed, false));
-            }),interval,interval, unit);
-        }
+    public static void update() {
+        dynamicFieldSet.forEach(filed -> putInConfCore(oo, filed, false));
     }
 
     @Override
     public void process(){
         classSet.forEach(clazz -> putInConf(oo, clazz));
-        update();
     }
 
 

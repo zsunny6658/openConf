@@ -11,28 +11,13 @@ import com.sunny.utils.PackageUtil;
 
 public class ConfClassProcessor extends AbstractConfProcessor {
 
-	@Override
-	public void update() {
-		if(dynamicClassSet.size() > 0){
-			//create a new thread
-			if(dynamicFieldSet.size() > 0){
-				//create a new thread
-				tp.scheduleAtFixedRate(new Thread(()->{
-					try {
-						updateConfSource();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					dynamicClassSet.forEach(clazz -> putInConf(oo, clazz));
-				}),interval,interval, unit);
-			}
-		}
+	public static void update() {
+		dynamicClassSet.forEach(clazz -> putInConf(oo, clazz));
 	}
 
 	@Override
 	public void process() {
 		classSet.forEach(clazz -> putInConf(oo, clazz));
-		update();
 	}
 
 	public static void putInConf(Object oo, Class<?> clazz) {
