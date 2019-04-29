@@ -1,6 +1,7 @@
 package com.sunny.source.bean;
 
 import com.sunny.source.LoadSource;
+import com.sunny.source.file.LoadJson;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
@@ -19,6 +20,8 @@ public class LoadFileName implements Comparable<LoadFileName>{
             new LoadFileName("application.properties",1, LoadProperties.getInstance());
     public static final LoadFileName APPLICATION_XML =
             new LoadFileName("application.xml",1000, LoadXml.getInstance());
+    public static final LoadFileName APPLICATION_JSON =
+            new LoadFileName("application.json", 1000, LoadJson.getInstance());
 
     private String fileName;
     private int order;

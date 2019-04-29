@@ -21,7 +21,7 @@ import com.sunny.utils.PackageUtil;
 public class LoadResult {
 
 	private static List<LoadFileName> loadFileNameList = new ArrayList<>(Arrays.asList(LoadFileName.APPLICATION_YML, LoadFileName.APPLICATION_YAML,
-			LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML));
+			LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML, LoadFileName.APPLICATION_JSON));
 	private static Object source = null;
 	private static Map<LoadFileName, Content> cache = new TreeMap<>();
 

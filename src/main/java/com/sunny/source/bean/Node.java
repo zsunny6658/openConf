@@ -56,7 +56,8 @@ public class Node{
                     if (value instanceof String
                             || value instanceof Integer
                             || value instanceof Float
-                            || value instanceof Double) {
+                            || value instanceof Double
+                            || value instanceof Boolean) {
                         //需要判断是否覆盖的情况
                         if(!isCover) {
                             //donnot cover
@@ -69,7 +70,8 @@ public class Node{
                         if(!(nodeRes.get(key) instanceof String
                                 || nodeRes.get(key) instanceof Integer
                                 || nodeRes.get(key) instanceof Double
-                                || nodeRes.get(key) instanceof Float)){
+                                || nodeRes.get(key) instanceof Float
+                                || nodeRes.get(key) instanceof Boolean)){
                             queue.offer(new Node((Map<String, Object>) nodeRes.get(key),
                                     (Map<String, Object>) nodeSource.get(key)));
                         }

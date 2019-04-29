@@ -25,12 +25,27 @@ public class Example {
     @ConfPath("dynamic.test")
     private static String t;
 
+    @Dynamic
+    @ConfPath("json.data")
+    private static String json;
+    @ConfPath("json.test")
+    private static boolean isJson;
+
     public static void printPort(){
         System.out.println("dynamic:" + t);
         System.out.println("other:" + other);
         System.out.println("prop-port:" + port);
         System.out.println("prop-test:" + test);
         System.out.println("prop-active:" + active);
+
+        while (true) {
+            System.out.println("prop-json:" + json + " " + isJson);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 

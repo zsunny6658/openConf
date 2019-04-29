@@ -31,7 +31,8 @@ public class ObjectUtil {
         if(o instanceof String
                 || o instanceof Integer
                 || o instanceof Float
-                || o instanceof Double){
+                || o instanceof Double
+                || o instanceof Boolean){
             return o;
         }
 
@@ -47,7 +48,8 @@ public class ObjectUtil {
                 if(value instanceof String
                         || value instanceof Integer
                         || value instanceof Float
-                        || value instanceof Double){
+                        || value instanceof Double
+                        || value instanceof Boolean){
                     nodeSource.put(key, value);
                 }else{
                     Map<String, Object> tmp = new HashMap<>();

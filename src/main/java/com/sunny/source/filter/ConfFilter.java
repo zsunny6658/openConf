@@ -65,7 +65,8 @@ public class ConfFilter {
             if(!(map.get(key) instanceof String
                     || map.get(key) instanceof Integer
                     || map.get(key) instanceof Double
-                    || map.get(key) instanceof Float)) {
+                    || map.get(key) instanceof Float
+                    || map.get(key) instanceof Boolean)) {
                 return false;
             }
             tmpSystemMap.put(key, map.get(key));
@@ -76,7 +77,8 @@ public class ConfFilter {
             if(map.get(key) instanceof String
                     || map.get(key) instanceof Integer
                     || map.get(key) instanceof Double
-                    || map.get(key) instanceof Float){
+                    || map.get(key) instanceof Float
+                    || map.get(key) instanceof Boolean){
                 return false;
             }
             if(!tmpSystemMap.containsKey(key)){
