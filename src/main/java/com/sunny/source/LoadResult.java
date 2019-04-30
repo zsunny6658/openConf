@@ -10,6 +10,7 @@ import com.sunny.annotation.ConfSource;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.bean.Node;
+import com.sunny.source.file.LoadJson;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
@@ -62,14 +63,15 @@ public class LoadResult {
 	}
 
 	private static LoadSource getLoadSource(String fileName) {
-		if(fileName.endsWith(".yaml")){
+		if(fileName.toLowerCase().endsWith(".yaml")
+				|| fileName.toLowerCase().endsWith(".yml")){
 			return LoadYaml.getInstance();
-		}else if(fileName.endsWith(".yml")){
-			return LoadYaml.getInstance();
-		}else if(fileName.endsWith(".properties")){
+		}else if(fileName.toLowerCase().endsWith(".properties")){
 			return LoadProperties.getInstance();
-		}else if(fileName.endsWith(".xml")){
+		}else if(fileName.toLowerCase().endsWith(".xml")){
 			return LoadXml.getInstance();
+		}else if(fileName.toLowerCase().endsWith(".json")){
+			return LoadJson.getInstance();
 		}else{
 			throw new UnknownTypeException(null, "暂时不支持此种配置文件");
 		}
