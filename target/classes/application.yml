@@ -1,0 +1,18 @@
+server:
+  port: 111
+
+system:
+  conf:
+    active: prod
+    listener: com.sunny.TestListener
+  dynamic:
+    interval: 20
+
+test:
+  a: 1
+  b: 2
+  c: 3
+  d: 5
+
+dynamic:
+  test: 12
