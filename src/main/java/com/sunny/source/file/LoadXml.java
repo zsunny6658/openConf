@@ -3,22 +3,23 @@ package com.sunny.source.file;
 import com.sunny.utils.FileUtil;
 
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
  * create by zsunny
  * data: 2018/10/20
  **/
-public class LoadXml extends AbstractLoadProperties{
+public class LoadXml extends AbstractLoadProperties {
 
     private LoadXml() {
     }
 
-    private static class LoadXmlHolder{
+    private static class LoadXmlHolder {
         private static LoadXml loadXml = new LoadXml();
     }
 
-    public static LoadXml getInstance(){
+    public static LoadXml getInstance() {
         return LoadXmlHolder.loadXml;
     }
 
@@ -28,7 +29,7 @@ public class LoadXml extends AbstractLoadProperties{
 
         InputStream in = FileUtil.getFileInputStream(path);
 
-        if(null == in)
+        if (Objects.isNull(in))
             return null;
 
         properties.loadFromXML(in);

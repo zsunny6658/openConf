@@ -2,6 +2,7 @@ package com.sunny.source.filter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.sunny.source.filter.ActiveConf.CONF_ACTIVE;
 
@@ -28,10 +29,11 @@ public class ConfFilter {
 
     /**
      * 执行真正的filter逻辑
+     *
      * @param map
      */
-    private static void filterCore(Map<String, Object> map){
-        for(String filterConf: filterConfs){
+    private static void filterCore(Map<String, Object> map) {
+        for (String filterConf : filterConfs) {
             String[] filterConfPath = filterConf.split("\\.");
             filterSingle(map, filterConfPath);
         }
@@ -39,15 +41,17 @@ public class ConfFilter {
 
     /**
      * 删除单条
+     *
      * @param map
      * @param filterConfPath
      */
-    private static void filterSingle(Map<String, Object> map, String[] filterConfPath){
+    private static void filterSingle(Map<String, Object> map, String[] filterConfPath) {
         judgeAndDeleteSinle(map, systemMap, filterConfPath, 0);
     }
 
     /**
      * 用递归来实现删除和赋值给systemMap
+     *
      * @param map
      * @param tmpSystemMap
      * @param filterConfPath
@@ -56,13 +60,13 @@ public class ConfFilter {
      */
     private static boolean judgeAndDeleteSinle(Map<String, Object> map,
                                                Map<String, Object> tmpSystemMap,
-                                               String[] filterConfPath, int ind){
-        if(!map.containsKey(filterConfPath[ind])){
+                                               String[] filterConfPath, int ind) {
+        if (!map.containsKey(filterConfPath[ind])) {
             return false;
         }
         String key = filterConfPath[ind];
-        if(ind == filterConfPath.length-1){
-            if(!(map.get(key) instanceof String
+        if (ind == filterConfPath.length - 1) {
+            if (!(map.get(key) instanceof String
                     || map.get(key) instanceof Integer
                     || map.get(key) instanceof Double
                     || map.get(key) instanceof Float
@@ -71,26 +75,24 @@ public class ConfFilter {
             }
             tmpSystemMap.put(key, map.get(key));
             map.remove(key);
-            if(map.size() == 0)
-                return true;
-        }else{
-            if(map.get(key) instanceof String
+            return map.size() == 0;
+        } else {
+            if (map.get(key) instanceof String
                     || map.get(key) instanceof Integer
                     || map.get(key) instanceof Double
                     || map.get(key) instanceof Float
-                    || map.get(key) instanceof Boolean){
+                    || map.get(key) instanceof Boolean) {
                 return false;
             }
-            if(!tmpSystemMap.containsKey(key)){
+            if (!tmpSystemMap.containsKey(key)) {
                 tmpSystemMap.put(key, new HashMap<String, Object>());
             }
             @SuppressWarnings("unchecked")
-			boolean tmpRes = judgeAndDeleteSinle((Map<String, Object>) map.get(key),
-                    (Map<String, Object>) tmpSystemMap.get(key),filterConfPath, ind+1);
-            if(tmpRes){
+            boolean tmpRes = judgeAndDeleteSinle((Map<String, Object>) map.get(key),
+                    (Map<String, Object>) tmpSystemMap.get(key), filterConfPath, ind + 1);
+            if (tmpRes) {
                 map.remove(key);
-                if(map.size() == 0)
-                    return true;
+                return map.size() == 0;
             }
         }
 
@@ -108,7 +110,7 @@ public class ConfFilter {
         Object o = systemMap;
         int ind = 0;
         while (true) {
-            if (ind < props.length && null != o && o instanceof Map) {
+            if (ind < props.length && Objects.nonNull(o) && o instanceof Map) {
                 o = ((Map<?, ?>) o).get(props[ind]);
             } else {
                 break;

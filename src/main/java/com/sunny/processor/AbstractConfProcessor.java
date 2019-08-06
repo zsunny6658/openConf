@@ -5,7 +5,6 @@ import com.sunny.source.LoadResult;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.utils.PackageUtil;
 
-import javax.management.relation.RoleUnresolved;
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,29 +34,31 @@ public abstract class AbstractConfProcessor {
         getDynamics();
         getInitInterval();
     }
+
     public static void updateConfSource() throws Exception {
         LoadResult.updateResult();
         oo = LoadResult.getSource();
     }
+
     //get dynamic interval
-    private static void getInitInterval(){
+    private static void getInitInterval() {
         Object intv = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_INTERVAL);
         Object u = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_UNIT);
-        if(null != intv){
+        if (null != intv) {
             try {
-                interval = (int)intv;
-            }catch (RuntimeException e){
+                interval = (int) intv;
+            } catch (RuntimeException e) {
                 e.printStackTrace();
             }
         }
-        if(null != u){
+        if (null != u) {
             String su = null;
             try {
-                su = (String)u;
-            }catch (RuntimeException e){
+                su = (String) u;
+            } catch (RuntimeException e) {
                 e.printStackTrace();
             }
-            switch (su){
+            switch (su) {
                 case "h":
                     unit = TimeUnit.HOURS;
                     break;
@@ -69,27 +70,30 @@ public abstract class AbstractConfProcessor {
             }
         }
     }
+
     //get dynamic classes and fileds
-    private static void getDynamics(){
-        classSet.forEach(clazz->{
-            if(clazz.isAnnotationPresent(Dynamic.class)){
+    private static void getDynamics() {
+        classSet.forEach(clazz -> {
+            if (clazz.isAnnotationPresent(Dynamic.class)) {
                 dynamicClassSet.add(clazz);
-            }else{
+            } else {
                 Field[] fields = clazz.getDeclaredFields();
                 for (Field field : fields) {
                     //don't support for systemconf at present. look forward to future version
-                    if((field.isAnnotationPresent(ConfPath.class) || (clazz.isAnnotationPresent(ConfClass.class) && !field.isAnnotationPresent(ConfClassIgnore.class)))
-                            &&  (field.getModifiers()&8) != 0
-                            && field.isAnnotationPresent(Dynamic.class)){
+                    if ((field.isAnnotationPresent(ConfPath.class) || (clazz.isAnnotationPresent(ConfClass.class) && !field.isAnnotationPresent(ConfClassIgnore.class)))
+                            && (field.getModifiers() & 8) != 0
+                            && field.isAnnotationPresent(Dynamic.class)) {
                         dynamicFieldSet.add(field);
                     }
                 }
             }
         });
     }
-    public static void stopThreadPool(){
+
+    public static void stopThreadPool() {
         tp.shutdown();
     }
+
     public abstract void process();
 
     public static Set<Class<?>> getDynamicClassSet() {

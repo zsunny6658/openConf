@@ -6,7 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface SystemConfPath {
-
-    public String value() default "";
-
+    String value() default "";
 }

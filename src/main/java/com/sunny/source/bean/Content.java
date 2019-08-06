@@ -2,7 +2,6 @@ package com.sunny.source.bean;
 
 import com.sunny.utils.ObjectUtil;
 
-import java.io.*;
 import java.util.Map;
 
 /**
@@ -25,6 +24,7 @@ public class Content {
     }
     public Content() {
     }
+
     public long getModifyTime() {
         return modifyTime;
     }

@@ -26,13 +26,13 @@ public class ObjectUtil {
     }
 
     //deep copy for multi-level map
-    public static Object deepCopy(Object o){
+    public static Object deepCopy(Object o) {
 
-        if(o instanceof String
+        if (o instanceof String
                 || o instanceof Integer
                 || o instanceof Float
                 || o instanceof Double
-                || o instanceof Boolean){
+                || o instanceof Boolean) {
             return o;
         }
 
@@ -40,18 +40,18 @@ public class ObjectUtil {
         LinkedBlockingQueue<Node> queue = new LinkedBlockingQueue<>();
         queue.offer(new Node((Map<String, Object>) o, ret));
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Node node = queue.poll();
             Map<String, Object> nodeRes = node.getRes();
             Map<String, Object> nodeSource = node.getSource();
-            nodeRes.forEach((key, value)->{
-                if(value instanceof String
+            nodeRes.forEach((key, value) -> {
+                if (value instanceof String
                         || value instanceof Integer
                         || value instanceof Float
                         || value instanceof Double
-                        || value instanceof Boolean){
+                        || value instanceof Boolean) {
                     nodeSource.put(key, value);
-                }else{
+                } else {
                     Map<String, Object> tmp = new HashMap<>();
                     nodeSource.put(key, tmp);
                     queue.offer(new Node((Map<String, Object>) nodeRes.get(key), tmp));

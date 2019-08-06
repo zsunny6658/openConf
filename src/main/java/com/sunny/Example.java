@@ -9,8 +9,8 @@ import com.sunny.annotation.*;
 @ConfSource("classpath: configer.properties")
 //@ConfSource()
 public class Example {
-	@ConfPath("other.file.configer")
-	private static String other;
+    @ConfPath("other.file.configer")
+    private static String other;
 
     @ConfPath("server.port")
     private static String port;
@@ -31,7 +31,7 @@ public class Example {
     @ConfPath("json.test")
     private static boolean isJson;
 
-    public static void printPort(){
+    public static void printPort() {
         System.out.println("dynamic:" + t);
         System.out.println("other:" + other);
         System.out.println("prop-port:" + port);

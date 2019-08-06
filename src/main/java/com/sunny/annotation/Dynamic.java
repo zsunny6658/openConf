@@ -11,6 +11,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Dynamic {
-    //update interval
-//    public int interval() default 10;
 }

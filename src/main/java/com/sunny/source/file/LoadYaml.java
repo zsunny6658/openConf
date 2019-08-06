@@ -12,15 +12,16 @@ import com.sunny.utils.FileUtil;
  * Email zsunny@yeah.net
  * Date on 2018/7/30.
  */
-public class LoadYaml implements LoadSource{
+public class LoadYaml implements LoadSource {
 
-    private LoadYaml(){}
+    private LoadYaml() {
+    }
 
-    private static class LoadYamlHolder{
+    private static class LoadYamlHolder {
         private static LoadYaml loadYaml = new LoadYaml();
     }
 
-    public static LoadYaml getInstance(){
+    public static LoadYaml getInstance() {
         return LoadYamlHolder.loadYaml;
     }
 
@@ -29,12 +30,10 @@ public class LoadYaml implements LoadSource{
 
         Yaml yaml = new Yaml();
 
-        if(!FileUtil.judgeFileExist(path))
+        if (!FileUtil.judgeFileExist(path))
             return null;
 
-        Object res = yaml.load(FileUtil.readFile(path));
-//        System.out.println(res);
-        return res;
+        return yaml.load(FileUtil.readFile(path));
 
     }
 

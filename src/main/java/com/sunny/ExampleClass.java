@@ -21,7 +21,7 @@ public class ExampleClass {
     private static String e;
 
 
-    public static void print(){
+    public static void print() {
         while (true) {
             System.out.println("class-a:" + a);
             System.out.println("class-b:" + b);

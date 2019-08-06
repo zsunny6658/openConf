@@ -9,11 +9,11 @@ import com.sunny.processor.main.MainProcessor;
  */
 public class ConfStarter {
 
-    public static void start(){
+    public static void start() {
         MainProcessor.process();
     }
 
-    public static void stop(){
+    public static void stop() {
         MainProcessor.stop();
     }
 

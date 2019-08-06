@@ -10,7 +10,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ConfPath {
-
-    public String value() default "";
-
+    String value() default "";
 }
