@@ -3,4 +3,5 @@
 <properties>
     <comment>系统配置</comment>
     <entry key="server.port"><![CDATA[789]]></entry>
+    <entry key="dynamic.test"><![CDATA[111]]></entry>
 </properties>

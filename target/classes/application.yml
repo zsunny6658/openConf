@@ -6,7 +6,8 @@ system:
     active: prod
     listener: com.sunny.TestListener
   dynamic:
-    interval: 20
+    interval: 5
+    unit: s
 
 test:
   a: 1
@@ -15,4 +16,4 @@ test:
   d: 5
 
 dynamic:
-  test: 12
+  test: 123
