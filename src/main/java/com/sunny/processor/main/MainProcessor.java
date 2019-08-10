@@ -15,7 +15,7 @@ public class MainProcessor {
     private static List<ConfListner> confListners = new ArrayList<>();
     private static List<Class<? extends AbstractConfProcessor>> confProcessors = new ArrayList<>();
 
-    // processor处理
+    // get processors
     static {
         try {
             LoadResult.loadResult();
@@ -36,9 +36,9 @@ public class MainProcessor {
     }
 
     public static void process() {
-        //pre listener
+        // pre listener
         confListners.forEach(ConfListner::doBefore);
-        //processor
+        // processor
         confProcessors.forEach(confProcessor -> {
             try {
                 confProcessor.newInstance().process();
@@ -46,16 +46,17 @@ public class MainProcessor {
                 e.printStackTrace();
             }
         });
-        //dynamic update
+        // dynamic update
         start();
-        //postlistener
+        // post listener
         confListners.forEach(ConfListner::doAfter);
     }
 
-    //dynamic update
+    // dynamic update
     public static void start() {
         if (AbstractConfProcessor.getDynamicFieldSet().size() > 0
                 && AbstractConfProcessor.getDynamicClassSet().size() > 0) {
+            // there is dynamic value conf & dynamic class conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
                 try {
                     AbstractConfProcessor.updateConfSource();
@@ -66,6 +67,7 @@ public class MainProcessor {
                 ConfValueProcessor.update();
             }), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         } else if (AbstractConfProcessor.getDynamicFieldSet().size() > 0) {
+            // there is only dynamic value conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
                 try {
                     AbstractConfProcessor.updateConfSource();
@@ -75,6 +77,7 @@ public class MainProcessor {
                 ConfValueProcessor.update();
             }), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         } else if (AbstractConfProcessor.getDynamicClassSet().size() > 0) {
+            // there is only dynamic class conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
                 try {
                     AbstractConfProcessor.updateConfSource();

@@ -1,4 +1,4 @@
-package com.sunny;
+package com.sunny.sample;
 
 import com.sunny.annotation.*;
 
@@ -7,8 +7,7 @@ import com.sunny.annotation.*;
  * data: 2018/8/11
  **/
 @ConfSource("classpath: configer.properties")
-//@ConfSource()
-public class Example {
+public class Sample {
     @ConfPath("other.file.configer")
     private static String other;
 

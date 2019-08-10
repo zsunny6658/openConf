@@ -1,4 +1,4 @@
-package com.sunny;
+package com.sunny.sample;
 
 import com.sunny.annotation.*;
 import sun.font.TrueTypeFont;
@@ -6,7 +6,7 @@ import sun.font.TrueTypeFont;
 @Dynamic
 @ConfClass
 @ConfClassPrefix("test.")
-public class ExampleClass {
+public class SampleClass {
 
     private static String a;
     private static String b = "2";

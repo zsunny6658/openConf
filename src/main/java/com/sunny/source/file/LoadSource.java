@@ -1,6 +1,5 @@
-package com.sunny.source;
+package com.sunny.source.file;
 
-//TODO 考虑线程安全
 public interface LoadSource {
 
     /**

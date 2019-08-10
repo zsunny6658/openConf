@@ -18,7 +18,7 @@ public class LoadProperties extends AbstractLoadProperties {
     }
 
     /**
-     * 静态内部类实现单例
+     * singleton by static inner class
      */
     private static class LoadPropertiesHolder {
         private static LoadProperties loadProperties = new LoadProperties();
@@ -35,7 +35,7 @@ public class LoadProperties extends AbstractLoadProperties {
             return null;
         }
         path = path.trim();
-        //remove the "classpath" string for other conf file
+        // remove the "classpath" string for other conf file
         if (path.startsWith("classpath:")) {
             path = path.replaceFirst("classpath:", "").trim();
         }

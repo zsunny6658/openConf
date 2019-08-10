@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.yaml.snakeyaml.Yaml;
 
-import com.sunny.source.LoadSource;
 import com.sunny.utils.FileUtil;
 
 /**

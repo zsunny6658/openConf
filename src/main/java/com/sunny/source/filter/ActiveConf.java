@@ -35,7 +35,7 @@ public class ActiveConf {
         String[] active = CONF_ACTIVE.split("\\.");
         String confName = null;
 
-        //获取激活的配置文件
+        // access active conf file
         for (int i = 0; i < active.length; i++) {
             String act = active[i];
             if (!tmpMap.containsKey(act)) {
@@ -70,7 +70,6 @@ public class ActiveConf {
      */
     @SuppressWarnings("unchecked")
     private static void insertCore(Map<String, Object> map, boolean isUpdate) throws Exception {
-        // Map<String, Object> res = new HashMap<>();
         for (LoadFileName loadFileName : loadFileNameList) {
             Object sourceResult;
             if (!isUpdate) {

@@ -1,5 +1,7 @@
 package com.sunny;
 
+import com.sunny.sample.Sample;
+import com.sunny.sample.SampleClass;
 import com.sunny.starter.ConfStarter;
 
 /**
@@ -10,8 +12,8 @@ public class Test {
 
     public static void main(String[] args) {
         ConfStarter.start();
-        Example.printPort();
-        ExampleClass.print();
+        Sample.printPort();
+        SampleClass.print();
     }
 
 }

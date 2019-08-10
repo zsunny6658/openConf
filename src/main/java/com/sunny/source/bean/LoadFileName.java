@@ -1,6 +1,6 @@
 package com.sunny.source.bean;
 
-import com.sunny.source.LoadSource;
+import com.sunny.source.file.LoadSource;
 import com.sunny.source.file.LoadJson;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;

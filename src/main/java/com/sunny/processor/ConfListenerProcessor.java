@@ -3,28 +3,37 @@ package com.sunny.processor;
 import java.util.Map;
 import java.util.Objects;
 
+import com.sunny.constant.ListenerConstant;
 import com.sunny.processor.main.MainProcessor;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.source.listener.ConfListner;
+import com.sunny.source.listener.DefaultConfListner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 简易listener处理器，后考虑多listener处理
  */
 public class ConfListenerProcessor extends AbstractConfProcessor {
+
+    private Logger log = LoggerFactory.getLogger(ConfClassProcessor.class);
+
     @Override
     public void process() {
         ConfListner confListner = null;
         try {
             confListner = getListener();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            log.warn("error create listener: {}", e.getMessage());
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            log.warn("error create listener: {}", e.getMessage());
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            log.warn("error create listener: {}", e.getMessage());
         }
         if (null != confListner)
             MainProcessor.addListener(confListner);
+        else
+            MainProcessor.addListener(ListenerConstant.DEFAULT_LISTENER);
     }
 
     /**

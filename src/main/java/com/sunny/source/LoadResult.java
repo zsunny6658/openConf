@@ -6,24 +6,23 @@ import java.util.*;
 import javax.lang.model.type.UnknownTypeException;
 
 import com.sunny.annotation.ConfSource;
+import com.sunny.commom.handler.ClassHandler;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.bean.Node;
-import com.sunny.source.file.LoadJson;
-import com.sunny.source.file.LoadProperties;
-import com.sunny.source.file.LoadXml;
-import com.sunny.source.file.LoadYaml;
+import com.sunny.source.file.*;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.utils.FileUtil;
 import com.sunny.utils.ObjectUtil;
-import com.sunny.utils.PackageUtil;
 
 public class LoadResult {
 
     private static List<LoadFileName> loadFileNameList = new ArrayList<>(Arrays.asList(LoadFileName.APPLICATION_YML, LoadFileName.APPLICATION_YAML,
             LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML, LoadFileName.APPLICATION_JSON));
-    private static Object source = null;
+    private static Object source;
     private static Map<LoadFileName, Content> cache = new TreeMap<>();
+
+    private static ClassHandler classHandler = ClassHandler.getClassHandler();
 
     public static void add(LoadFileName loadFile) {
         loadFileNameList.add(loadFile);
@@ -34,7 +33,7 @@ public class LoadResult {
     }
 
     public static void loadResult() throws Exception {
-        //前置处理注解@ConfSource,用于获取默认配置之外的配置文件
+        // 前置处理注解@ConfSource,用于获取默认配置之外的配置文件
         loadOtherConfSource();
         source = getSources(false);
     }
@@ -44,11 +43,11 @@ public class LoadResult {
     }
 
     private static void loadOtherConfSource() {
-        Set<Class<?>> classSet = PackageUtil.getAllClassSet();
+        Set<Class<?>> classSet = classHandler.getClassSet();
         classSet.forEach(LoadResult::loadConfSource);
     }
 
-    //加载自定义的配置文件
+    // 加载自定义的配置文件
     private static void loadConfSource(Class<?> clazz) {
         if (!clazz.isAnnotationPresent(ConfSource.class)) {
             return;
@@ -89,7 +88,7 @@ public class LoadResult {
             Object sourceResult;
             boolean needUpdate;
             if (!isUpdate) {
-                //load at the first time
+                // load at the first time
                 sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
             } else {
                 long recModifyTime = 0;
@@ -100,15 +99,17 @@ public class LoadResult {
                 long modifyTime = file.lastModified();
                 needUpdate = (modifyTime > recModifyTime);
                 if (needUpdate) {
-                    //need to reload, means the file is changed
+                    // for dynamic
+                    // need to reload, means the file is changed
                     sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
                     cache.get(loadFileName).setModifyTime(modifyTime);
                     cache.get(loadFileName).setContent(sourceResult);
                 } else {
-                    //donnot need to reload, just load from resMap
+                    // do not need to reload, just load from resMap
                     if (Objects.isNull(cache.get(loadFileName)))
                         sourceResult = null;
                     else
+                        // deep copy, otherwise the object is going to be changed by others
                         sourceResult = ObjectUtil.deepCopy(cache.get(loadFileName).getContent());
                 }
             }

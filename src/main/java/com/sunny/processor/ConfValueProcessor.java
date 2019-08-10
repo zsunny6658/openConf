@@ -32,13 +32,13 @@ public class ConfValueProcessor extends AbstractConfProcessor {
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(ConfPath.class)) {
-                //static检查
+                // static check
                 if ((field.getModifiers() & 8) == 0) {
                     throw new RuntimeException("配置项必须为static变量");
                 }
                 putInConfCore(oo, field, false);
             } else if (field.isAnnotationPresent(SystemConfPath.class)) {
-                //static检查
+                // static check
                 if ((field.getModifiers() & 8) == 0) {
                     throw new RuntimeException("配置项必须为static变量");
                 }
@@ -55,7 +55,7 @@ public class ConfValueProcessor extends AbstractConfProcessor {
      * @Param system boolean
      */
     private static void putInConfCore(Object o, Field field, boolean system) {
-        //get props
+        // get props
         String[] props;
         if (system) {
             SystemConfPath systemConfPath = field.getAnnotation(SystemConfPath.class);
@@ -64,7 +64,7 @@ public class ConfValueProcessor extends AbstractConfProcessor {
             ConfPath confPath = field.getAnnotation(ConfPath.class);
             props = confPath.value().split("\\.");
         }
-        //process
+        // process
         int ind = 0;
         while (true) {
             if (ind < props.length && null != o && o instanceof Map) {

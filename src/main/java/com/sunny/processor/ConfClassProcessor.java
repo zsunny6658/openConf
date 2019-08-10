@@ -36,7 +36,7 @@ public class ConfClassProcessor extends AbstractConfProcessor {
             if (field.isAnnotationPresent(ConfClassIgnore.class) || (field.getModifiers() & 8) == 0) {
                 continue;
             }
-            //about default value
+            // about default value
             boolean isDefault = false;
             if (field.isAnnotationPresent(ConfClassDefault.class)) {
                 ConfClassDefault confClassDefault = field.getAnnotation(ConfClassDefault.class);
@@ -49,13 +49,13 @@ public class ConfClassProcessor extends AbstractConfProcessor {
                 }
                 isDefault = true;
             }
-            //about alias
+            // about alias
             String alias = null;
             if (field.isAnnotationPresent(ConfClassAlias.class)) {
                 ConfClassAlias confClassAlias = field.getAnnotation(ConfClassAlias.class);
                 alias = confClassAlias.value();
             }
-            //produce the prefix
+            // produce the prefix
             String tmpPrefix;
             if (null == alias)
                 tmpPrefix = prefix + "." + field.getName();
@@ -68,7 +68,7 @@ public class ConfClassProcessor extends AbstractConfProcessor {
     }
 
     public static void putInConfCore(Object o, String[] props, Field field, boolean isDefault) {
-        //speed up
+        // speed up
         if (isDefault)
             return;
 
