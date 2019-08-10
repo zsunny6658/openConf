@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19177948-d17c-4149-ac33-91e83414cead" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/commom/constant/Constant.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/commom/constant/LoadFileNameConstant.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/commom/handler/ClassHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/commom/handler/ClassHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/constant/ListenerConstant.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/commom/constant/ListenerConstant.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/processor/AbstractConfProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/processor/AbstractConfProcessor.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/processor/ConfListenerProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/processor/ConfListenerProcessor.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/processor/main/MainProcessor.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/processor/main/MainProcessor.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/source/LoadResult.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/source/LoadResult.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/source/bean/Content.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/source/bean/Content.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/source/bean/LoadFileName.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/source/bean/LoadFileName.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/source/file/LoadProperties.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/source/file/LoadProperties.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/source/filter/ActiveConf.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/source/filter/ActiveConf.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sunny/source/filter/ConfFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/sunny/source/filter/ConfFilter.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -699,7 +686,7 @@
       <workItem from="1559659097489" duration="345000" />
       <workItem from="1565090212994" duration="368000" />
       <workItem from="1565405003289" duration="5189000" />
-      <workItem from="1565442157639" duration="790000" />
+      <workItem from="1565442157639" duration="831000" />
     </task>
     <task id="LOCAL-00001" summary="1.0版本导入">
       <created>1533993029284</created>
@@ -824,11 +811,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63421000" />
+    <option name="totallyTimeSpent" value="63462000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -838,9 +824,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36176065" sideWeight="0.49676898" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23505655" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

@@ -50,8 +50,7 @@ public class ClassHandler {
                 for (Field field : fields) {
                     // not support for systemconf at present. look forward to future version
                     if ((field.isAnnotationPresent(ConfPath.class) || (clazz.isAnnotationPresent(ConfClass.class)
-                            && !field.isAnnotationPresent(ConfClassIgnore.class)))
-                            && (field.getModifiers() & 8) != 0
+                            && !field.isAnnotationPresent(ConfClassIgnore.class))) && (field.getModifiers() & 8) != 0
                             && field.isAnnotationPresent(Dynamic.class)) {
                         dynamicFieldSet.add(field);
                     }
