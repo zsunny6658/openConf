@@ -1,10 +1,10 @@
 package com.sunny.source.filter;
 
+import com.sunny.commom.constant.Constant;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import static com.sunny.source.filter.ActiveConf.CONF_ACTIVE;
 
 /**
  * 1.插入active配置文件配置内容
@@ -14,11 +14,7 @@ import static com.sunny.source.filter.ActiveConf.CONF_ACTIVE;
  */
 public class ConfFilter {
 
-    public static final String CONF_LISTENER = "system.conf.listener";
-    public static final String DYNAMIC_INTERVAL = "system.dynamic.interval";
-    public static final String DYNAMIC_UNIT = "system.dynamic.unit";
-
-    public static String[] filterConfs = {CONF_ACTIVE, CONF_LISTENER, DYNAMIC_INTERVAL};
+    public static String[] filterConfs = {Constant.CONF_ACTIVE, Constant.CONF_LISTENER, Constant.DYNAMIC_INTERVAL};
 
     private static Map<String, Object> systemMap = new HashMap<>();
 

@@ -3,6 +3,7 @@ package com.sunny.source.filter;
 import java.io.File;
 import java.util.*;
 
+import com.sunny.commom.constant.Constant;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.bean.Node;
@@ -14,7 +15,6 @@ import com.sunny.utils.ObjectUtil;
 
 public class ActiveConf {
 
-    static final String CONF_ACTIVE = "system.conf.active";
     private static List<LoadFileName> loadFileNameList = new ArrayList<>();
     private static Map<LoadFileName, Content> resMap = new TreeMap<>();
 
@@ -32,7 +32,7 @@ public class ActiveConf {
     @SuppressWarnings("unchecked")
     private static void getActiveConfFiles(Map<String, Object> map) {
         Map<String, Object> tmpMap = map;
-        String[] active = CONF_ACTIVE.split("\\.");
+        String[] active = Constant.CONF_ACTIVE.split("\\.");
         String confName = null;
 
         // access active conf file

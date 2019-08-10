@@ -65,7 +65,8 @@ public class MainProcessor {
                 }
                 ConfClassProcessor.update();
                 ConfValueProcessor.update();
-            }), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
+            }), AbstractConfProcessor.getInterval(),
+                    AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         } else if (AbstractConfProcessor.getDynamicFieldSet().size() > 0) {
             // there is only dynamic value conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
@@ -75,7 +76,8 @@ public class MainProcessor {
                     e.printStackTrace();
                 }
                 ConfValueProcessor.update();
-            }), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
+            }), AbstractConfProcessor.getInterval(),
+                    AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         } else if (AbstractConfProcessor.getDynamicClassSet().size() > 0) {
             // there is only dynamic class conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
@@ -85,7 +87,8 @@ public class MainProcessor {
                     e.printStackTrace();
                 }
                 ConfClassProcessor.update();
-            }), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
+            }), AbstractConfProcessor.getInterval(),
+                    AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         }
     }
 

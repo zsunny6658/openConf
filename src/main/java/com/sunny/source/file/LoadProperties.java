@@ -1,6 +1,5 @@
 package com.sunny.source.file;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;

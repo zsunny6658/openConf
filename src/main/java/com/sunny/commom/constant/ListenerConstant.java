@@ -1,4 +1,4 @@
-package com.sunny.constant;
+package com.sunny.commom.constant;
 
 import com.sunny.source.listener.ConfListner;
 import com.sunny.source.listener.DefaultConfListner;

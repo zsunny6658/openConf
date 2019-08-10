@@ -35,7 +35,7 @@ public class Content {
         return content;
     }
     public void setContent(Object content) {
-        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
+        this.content = ObjectUtil.deepCopy(content);
     }
     @Override
     public String toString() {

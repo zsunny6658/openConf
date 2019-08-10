@@ -7,6 +7,7 @@ import javax.lang.model.type.UnknownTypeException;
 
 import com.sunny.annotation.ConfSource;
 import com.sunny.commom.handler.ClassHandler;
+import com.sunny.commom.constant.LoadFileNameConstant;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.bean.Node;
@@ -17,8 +18,10 @@ import com.sunny.utils.ObjectUtil;
 
 public class LoadResult {
 
-    private static List<LoadFileName> loadFileNameList = new ArrayList<>(Arrays.asList(LoadFileName.APPLICATION_YML, LoadFileName.APPLICATION_YAML,
-            LoadFileName.APPLICATION_PROPERTIES, LoadFileName.APPLICATION_XML, LoadFileName.APPLICATION_JSON));
+    private static List<LoadFileName> loadFileNameList =
+            new ArrayList<>(Arrays.asList(LoadFileNameConstant.APPLICATION_YML, LoadFileNameConstant.APPLICATION_YAML,
+                    LoadFileNameConstant.APPLICATION_PROPERTIES, LoadFileNameConstant.APPLICATION_XML,
+                    LoadFileNameConstant.APPLICATION_JSON));
     private static Object source;
     private static Map<LoadFileName, Content> cache = new TreeMap<>();
 

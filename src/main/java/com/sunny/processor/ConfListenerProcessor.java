@@ -3,11 +3,11 @@ package com.sunny.processor;
 import java.util.Map;
 import java.util.Objects;
 
-import com.sunny.constant.ListenerConstant;
+import com.sunny.commom.constant.Constant;
+import com.sunny.commom.constant.ListenerConstant;
 import com.sunny.processor.main.MainProcessor;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.source.listener.ConfListner;
-import com.sunny.source.listener.DefaultConfListner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +48,7 @@ public class ConfListenerProcessor extends AbstractConfProcessor {
     private static ConfListner getListener()
             throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         String listenerClass = "";
-        String[] confPath = ConfFilter.CONF_LISTENER.split("\\.");
+        String[] confPath = Constant.CONF_LISTENER.split("\\.");
         Map<String, Object> map = ConfFilter.getSystemMap();
         if (Objects.isNull(map) || 0 == confPath.length)
             return null;

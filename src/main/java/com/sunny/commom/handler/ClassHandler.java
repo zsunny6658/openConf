@@ -24,7 +24,8 @@ public class ClassHandler {
 
     private static ClassHandler classHandler;
 
-    private ClassHandler() {}
+    private ClassHandler() {
+    }
 
     public static ClassHandler getClassHandler() {
         // singleton
@@ -48,7 +49,8 @@ public class ClassHandler {
                 Field[] fields = clazz.getDeclaredFields();
                 for (Field field : fields) {
                     // not support for systemconf at present. look forward to future version
-                    if ((field.isAnnotationPresent(ConfPath.class) || (clazz.isAnnotationPresent(ConfClass.class) && !field.isAnnotationPresent(ConfClassIgnore.class)))
+                    if ((field.isAnnotationPresent(ConfPath.class) || (clazz.isAnnotationPresent(ConfClass.class)
+                            && !field.isAnnotationPresent(ConfClassIgnore.class)))
                             && (field.getModifiers() & 8) != 0
                             && field.isAnnotationPresent(Dynamic.class)) {
                         dynamicFieldSet.add(field);

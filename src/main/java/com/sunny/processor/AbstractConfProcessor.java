@@ -1,6 +1,7 @@
 package com.sunny.processor;
 
 import com.sunny.commom.handler.ClassHandler;
+import com.sunny.commom.constant.Constant;
 import com.sunny.source.LoadResult;
 import com.sunny.source.filter.ConfFilter;
 
@@ -45,8 +46,8 @@ public abstract class AbstractConfProcessor {
 
     // get dynamic interval
     private static void getInitInterval() {
-        Object intv = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_INTERVAL);
-        Object u = ConfFilter.getSystemConf(ConfFilter.DYNAMIC_UNIT);
+        Object intv = ConfFilter.getSystemConf(Constant.DYNAMIC_INTERVAL);
+        Object u = ConfFilter.getSystemConf(Constant.DYNAMIC_UNIT);
         if (null != intv) {
             try {
                 interval = (int) intv;
