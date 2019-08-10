@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19177948-d17c-4149-ac33-91e83414cead" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="19177948-d17c-4149-ac33-91e83414cead" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -492,7 +489,7 @@
       <workItem from="1556701420455" duration="2613000" />
       <workItem from="1559659097489" duration="345000" />
       <workItem from="1565090212994" duration="368000" />
-      <workItem from="1565405003289" duration="129000" />
+      <workItem from="1565405003289" duration="214000" />
     </task>
     <task id="LOCAL-00001" summary="1.0版本导入">
       <created>1533993029284</created>
@@ -617,7 +614,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57571000" />
+    <option name="totallyTimeSpent" value="57656000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -798,9 +795,9 @@
         <state relative-caret-position="-1739">
           <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3058#3059#0" expanded="true" />
-            <element signature="e#3087#3088#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3058#3059#0" expanded="false" />
+            <element signature="e#3087#3088#0" expanded="false" />
           </folding>
         </state>
       </provider>
