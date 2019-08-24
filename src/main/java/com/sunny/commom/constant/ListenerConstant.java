@@ -1,10 +1,10 @@
 package com.sunny.commom.constant;
 
-import com.sunny.source.listener.ConfListner;
-import com.sunny.source.listener.DefaultConfListner;
+import com.sunny.commom.listener.ConfProcessListner;
+import com.sunny.commom.listener.impl.DefaultConfProcessListner;
 
 public class ListenerConstant {
 
-    public static final ConfListner DEFAULT_LISTENER = new DefaultConfListner();
+    public static final ConfProcessListner DEFAULT_LISTENER = new DefaultConfProcessListner();
 
 }

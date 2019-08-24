@@ -1,8 +1,8 @@
 package com.sunny.sample;
 
-import com.sunny.source.listener.ConfListner;
+import com.sunny.commom.listener.ConfProcessListner;
 
-public class SampleListener implements ConfListner {
+public class SampleListener implements ConfProcessListner {
     @Override
     public void doBefore() {
         System.out.println("before");

@@ -3,16 +3,16 @@ package com.sunny.processor.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sunny.commom.listener.ConfProcessListner;
 import com.sunny.processor.AbstractConfProcessor;
 import com.sunny.processor.ConfClassProcessor;
 import com.sunny.processor.ConfListenerProcessor;
 import com.sunny.processor.ConfValueProcessor;
 import com.sunny.source.LoadResult;
-import com.sunny.source.listener.ConfListner;
 
 public class MainProcessor {
 
-    private static List<ConfListner> confListners = new ArrayList<>();
+    private static List<ConfProcessListner> confListners = new ArrayList<>();
     private static List<Class<? extends AbstractConfProcessor>> confProcessors = new ArrayList<>();
 
     // get processors
@@ -27,7 +27,7 @@ public class MainProcessor {
         confProcessors.add(ConfClassProcessor.class);
     }
 
-    public static void addListener(ConfListner confListner) {
+    public static void addListener(ConfProcessListner confListner) {
         confListners.add(confListner);
     }
 
@@ -37,7 +37,7 @@ public class MainProcessor {
 
     public static void process() {
         // pre listener
-        confListners.forEach(ConfListner::doBefore);
+        confListners.forEach(ConfProcessListner::doBefore);
         // processor
         confProcessors.forEach(confProcessor -> {
             try {
@@ -49,7 +49,7 @@ public class MainProcessor {
         // dynamic update
         start();
         // post listener
-        confListners.forEach(ConfListner::doAfter);
+        confListners.forEach(ConfProcessListner::doAfter);
     }
 
     // dynamic update
@@ -58,36 +58,36 @@ public class MainProcessor {
                 && AbstractConfProcessor.getDynamicClassSet().size() > 0) {
             // there is dynamic value conf & dynamic class conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
-                try {
-                    AbstractConfProcessor.updateConfSource();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ConfClassProcessor.update();
-                ConfValueProcessor.update();
-            }), AbstractConfProcessor.getInterval(),
+                        try {
+                            AbstractConfProcessor.updateConfSource();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        ConfClassProcessor.update();
+                        ConfValueProcessor.update();
+                    }), AbstractConfProcessor.getInterval(),
                     AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         } else if (AbstractConfProcessor.getDynamicFieldSet().size() > 0) {
             // there is only dynamic value conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
-                try {
-                    AbstractConfProcessor.updateConfSource();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ConfValueProcessor.update();
-            }), AbstractConfProcessor.getInterval(),
+                        try {
+                            AbstractConfProcessor.updateConfSource();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        ConfValueProcessor.update();
+                    }), AbstractConfProcessor.getInterval(),
                     AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         } else if (AbstractConfProcessor.getDynamicClassSet().size() > 0) {
             // there is only dynamic class conf
             AbstractConfProcessor.getTp().scheduleAtFixedRate(new Thread(() -> {
-                try {
-                    AbstractConfProcessor.updateConfSource();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ConfClassProcessor.update();
-            }), AbstractConfProcessor.getInterval(),
+                        try {
+                            AbstractConfProcessor.updateConfSource();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        ConfClassProcessor.update();
+                    }), AbstractConfProcessor.getInterval(),
                     AbstractConfProcessor.getInterval(), AbstractConfProcessor.getUnit());
         }
     }

@@ -5,9 +5,9 @@ import java.util.Objects;
 
 import com.sunny.commom.constant.Constant;
 import com.sunny.commom.constant.ListenerConstant;
+import com.sunny.commom.listener.ConfProcessListner;
 import com.sunny.processor.main.MainProcessor;
 import com.sunny.source.filter.ConfFilter;
-import com.sunny.source.listener.ConfListner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,20 +20,17 @@ public class ConfListenerProcessor extends AbstractConfProcessor {
 
     @Override
     public void process() {
-        ConfListner confListner = null;
+        ConfProcessListner confListner = null;
         try {
             confListner = getListener();
-        } catch (ClassNotFoundException e) {
-            log.warn("error create listener: {}", e.getMessage());
-        } catch (IllegalAccessException e) {
-            log.warn("error create listener: {}", e.getMessage());
-        } catch (InstantiationException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             log.warn("error create listener: {}", e.getMessage());
         }
-        if (null != confListner)
+        if (Objects.nonNull(confListner)) {
             MainProcessor.addListener(confListner);
-        else
+        } else {
             MainProcessor.addListener(ListenerConstant.DEFAULT_LISTENER);
+        }
     }
 
     /**
@@ -45,7 +42,7 @@ public class ConfListenerProcessor extends AbstractConfProcessor {
      * @throws InstantiationException
      */
     @SuppressWarnings("unchecked")
-    private static ConfListner getListener()
+    private static ConfProcessListner getListener()
             throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         String listenerClass = "";
         String[] confPath = Constant.CONF_LISTENER.split("\\.");
@@ -67,8 +64,7 @@ public class ConfListenerProcessor extends AbstractConfProcessor {
         }
         if ("".equals(listenerClass))
             return null;
-        ConfListner confListner = (ConfListner) Class.forName(listenerClass).newInstance();
-        return confListner;
+        return (ConfProcessListner) Class.forName(listenerClass).newInstance();
     }
 
 }
