@@ -2,8 +2,6 @@ package com.sunny.source.bean;
 
 import com.sunny.utils.ObjectUtil;
 
-import java.util.Map;
-
 /**
  * @Author zsunny
  * @Date 2019/4/19 18:27
@@ -16,10 +14,10 @@ public class Content {
 
     public Content(long modifyTime, Object content) {
         this.modifyTime = modifyTime;
-        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
+        this.content = ObjectUtil.deepCopy(content);
     }
     public Content(Object content) {
-        this.content = ObjectUtil.deepCopy((Map<String, Object>)content);
+        this.content = ObjectUtil.deepCopy(content);
         this.modifyTime = System.currentTimeMillis();
     }
     public Content() {
