@@ -4,7 +4,7 @@ server:
 system:
   conf:
     active: prod
-    listener: com.sunny.sample.SampleListener
+    listener: com.sunny.sample.SampleConfProcessListener
   dynamic:
     interval: 5
     unit: s
