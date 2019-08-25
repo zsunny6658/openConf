@@ -18,10 +18,10 @@ public class ActiveConfLoader {
     private static List<LoadFileName> loadFileNameList = new ArrayList<>();
     private static Map<LoadFileName, Content> activeConfMap = new TreeMap<>();
 
-    public static void loadResult(Map<String, Object> map, boolean isUpdate) throws Exception {
+    public static void loadResult(Map<String, Object> confMap, boolean isUpdate) throws Exception {
         if (!isUpdate)
-            getActiveConfFiles(map);
-        insertCore(map, isUpdate);
+            getActiveConfFiles(confMap);
+        insertCore(confMap, isUpdate);
     }
 
     /**

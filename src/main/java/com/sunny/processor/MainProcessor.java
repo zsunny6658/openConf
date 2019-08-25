@@ -8,6 +8,7 @@ import com.sunny.processor.impl.AbstractConfProcessor;
 import com.sunny.processor.impl.ConfClassProcessor;
 import com.sunny.processor.impl.ConfListenerProcessor;
 import com.sunny.processor.impl.ConfValueProcessor;
+import com.sunny.source.MainConfLoader;
 import com.sunny.source.loader.ConfLoader;
 
 public class MainProcessor {
@@ -18,7 +19,7 @@ public class MainProcessor {
     // get processors
     static {
         try {
-            ConfLoader.loadResult();
+            MainConfLoader.load();
         } catch (Exception e) {
             e.printStackTrace();
         }

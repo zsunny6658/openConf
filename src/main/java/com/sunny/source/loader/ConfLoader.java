@@ -121,7 +121,8 @@ public class ConfLoader {
             }
             NodeUtils.merge(res, (Map<String, Object>) sourceResult, false);
         }
-        ConfFilter.filter(res, isUpdate);
         return res;
     }
+
+
 }
