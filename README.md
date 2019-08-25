@@ -96,7 +96,7 @@ public class ExampleClass {
 在启动类main方法中，MainProcessor.process()方法来实现配置获取逻辑。
 
 ### 快速上手
-项目中Example.java和ExampleClass.java文件中为用注解接收配置值的例子；Test为启动类，在其main方法中调用了MainProcessor.process()将配置文件中的配置加入注解所对应的类变量中。
+项目中Sample.java和SampleClass.java文件中为用注解接收配置值的例子；Test为启动类，在其main方法中调用了MainProcessor.process()将配置文件中的配置加入注解所对应的类变量中。
 ##### 1.属性配置读取
 属性配置主要有@ConfPath和@SystemConfPath，分别用于指示业务项配置和系统项配置。
 ```java
@@ -123,9 +123,10 @@ public class ExampleClass {
 }
 ```
 ##### 3.监听器
-TestListener为示例监听器，其实现了ConfListener接口并实现了doBefore和doAfter方法。
+###### 3.1 配置设置监听器
+SampleConfProcessListener为示例process监听器，可增加配置设置的前置与后置处理，其实现了ConfProcessListener接口并实现了doBefore和doAfter方法。
 ```java
-public class TestListener implements ConfListner{
+public class SampleConfProcessListener implements ConfProcessListner{
     @Override
     public void doBefore() {
         System.out.println("before");
@@ -140,6 +141,23 @@ public class TestListener implements ConfListner{
 ```java
 system.conf.listener: com.sunny.TestListener
 ```
+###### 3.2 配置源加载监听器
+SampleSourceListener为示例配置源加载监听器，可前置和后置处理加载配置源。
+```java
+public class SampleSourceListener implements SourceListener{
+    @Override
+    public void doBefore() {
+        System.out.println("test source listener before");
+    }
+
+    @Override
+    public void doAfter() {
+        System.out.println("test source listener after");
+    }
+}
+```
+此处只需要实现SourceListener接口即可，无需在配置中设置任何配置。
+另外，会存在一个默认的配置源读取监听器DefaultConfSourceListner，它主要用于前置读取用户自定义配置源。
 ##### 4.自定义配置源
 项目中Example类上添加了注解@ConfSource,用于指定添加默认配置之外的配置源，注意自定义添加的配置总是优先于默认配置，其他方法参考上面介绍
 ```java
