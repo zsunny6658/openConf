@@ -162,8 +162,7 @@ public class SampleSourceListener implements SourceListener{
 项目中Example类上添加了注解@ConfSource,用于指定添加默认配置之外的配置源，注意自定义添加的配置总是优先于默认配置，其他方法参考上面介绍
 ```java
 @ConfSource("classpath: configer.properties")
-//@ConfSource()
-public class Example {
+public class Sample {
 	@ConfPath("other.file.configer")
 	private static String other;
  	....
@@ -182,7 +181,7 @@ private static String t;
 @Dynamic
 @ConfClass
 @ConfClassPrefix("test.")
-public class ExampleClass {...}
+public class SampleClass {...}
 ```
 在配置文件中可配置动态灵敏度，即动态配置生效最长时间，如：
 ```
