@@ -4,14 +4,14 @@ import java.io.File;
 import java.util.*;
 
 import com.sunny.commom.constant.Constant;
+import com.sunny.commom.utils.NodeUtils;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
-import com.sunny.source.bean.Node;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
-import com.sunny.commom.utils.FileUtil;
-import com.sunny.commom.utils.ObjectUtil;
+import com.sunny.commom.utils.FileUtils;
+import com.sunny.commom.utils.ObjectUtils;
 
 public class ActiveConf {
 
@@ -79,7 +79,7 @@ public class ActiveConf {
                 if (Objects.nonNull(resMap.get(loadFileName))) {
                     recModifyTime = resMap.get(loadFileName).getModifyTime();
                 }
-                File file = FileUtil.getFile(loadFileName.getFileName());
+                File file = FileUtils.getFile(loadFileName.getFileName());
                 long modifyTime = file.lastModified();
                 if (modifyTime > recModifyTime) {
                     sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
@@ -89,7 +89,7 @@ public class ActiveConf {
                     if (Objects.isNull(resMap.get(loadFileName)))
                         sourceResult = null;
                     else
-                        sourceResult = ObjectUtil.deepCopy(resMap.get(loadFileName).getContent());
+                        sourceResult = ObjectUtils.deepCopy(resMap.get(loadFileName).getContent());
                 }
             }
             if (Objects.isNull(sourceResult)) {
@@ -97,7 +97,7 @@ public class ActiveConf {
             }
             if (!isUpdate)
                 resMap.put(loadFileName, new Content(sourceResult));
-            Node.merge(map, (Map<String, Object>) sourceResult, true);
+            NodeUtils.merge(map, (Map<String, Object>) sourceResult, true);
         }
     }
 

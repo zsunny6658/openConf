@@ -18,9 +18,9 @@ import org.slf4j.LoggerFactory;
  * java 包工具类
  * create by zsunny data: 2018/8/11
  **/
-public class PackageUtil {
+public class PackageUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(PackageUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(PackageUtils.class);
     private static Set<Class<?>> allClassSet = getClasses("");
 
     public static Set<Class<?>> getAllClassSet() {

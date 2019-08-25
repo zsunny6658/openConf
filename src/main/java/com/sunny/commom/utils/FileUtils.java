@@ -12,9 +12,9 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileUtil {
+public class FileUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(FileUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
 
     /**
      * 根目录为classpath

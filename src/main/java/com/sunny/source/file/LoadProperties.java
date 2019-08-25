@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 
-import com.sunny.commom.utils.FileUtil;
+import com.sunny.commom.utils.FileUtils;
 
 /**
  * created by zsunny
@@ -38,7 +38,7 @@ public class LoadProperties extends AbstractLoadProperties {
         if (path.startsWith("classpath:")) {
             path = path.replaceFirst("classpath:", "").trim();
         }
-        InputStream in = FileUtil.getFileInputStream(path);
+        InputStream in = FileUtils.getFileInputStream(path);
         if (Objects.isNull(in))
             return null;
         properties.load(in);

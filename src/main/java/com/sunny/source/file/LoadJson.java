@@ -2,7 +2,7 @@ package com.sunny.source.file;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunny.commom.utils.FileUtil;
+import com.sunny.commom.utils.FileUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +32,7 @@ public class LoadJson extends AbstractLoadProperties {
 
     private Object jsonToMap(String path) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        InputStream in = FileUtil.getFileInputStream(path);
+        InputStream in = FileUtils.getFileInputStream(path);
         TypeReference<HashMap<String, Object>> typeRef
                 = new TypeReference<HashMap<String, Object>>() {
         };

@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @Date 2019/4/19 22:10
  * @Mail zsunny@yeah.net
  */
-public class ObjectUtil {
+public class ObjectUtils {
 
     //deep clone except classes not implement clonable
     public static Object deepClone(Object o) throws IOException, ClassNotFoundException {

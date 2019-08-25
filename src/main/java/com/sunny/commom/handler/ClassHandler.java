@@ -4,7 +4,7 @@ import com.sunny.commom.annotation.ConfClass;
 import com.sunny.commom.annotation.ConfClassIgnore;
 import com.sunny.commom.annotation.ConfPath;
 import com.sunny.commom.annotation.Dynamic;
-import com.sunny.commom.utils.PackageUtil;
+import com.sunny.commom.utils.PackageUtils;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -33,7 +33,7 @@ public class ClassHandler {
             synchronized (ClassHandler.class) {
                 if (Objects.isNull(classHandler)) {
                     classHandler = new ClassHandler();
-                    classHandler.classSet = PackageUtil.getAllClassSet();
+                    classHandler.classSet = PackageUtils.getAllClassSet();
                     classHandler.getDynamics();
                 }
             }

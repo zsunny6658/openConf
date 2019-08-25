@@ -8,12 +8,12 @@ import com.sunny.commom.constant.LoadFileNameConstant;
 import com.sunny.commom.listener.SourceListener;
 import com.sunny.commom.listener.impl.DefaultConfSourceListener;
 import com.sunny.commom.utils.CollectionUtils;
+import com.sunny.commom.utils.NodeUtils;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
-import com.sunny.source.bean.Node;
 import com.sunny.source.filter.ConfFilter;
-import com.sunny.commom.utils.FileUtil;
-import com.sunny.commom.utils.ObjectUtil;
+import com.sunny.commom.utils.FileUtils;
+import com.sunny.commom.utils.ObjectUtils;
 
 public class LoadResult {
 
@@ -90,7 +90,7 @@ public class LoadResult {
                 if (Objects.nonNull(cache.get(loadFileName))) {
                     recModifyTime = cache.get(loadFileName).getModifyTime();
                 }
-                File file = FileUtil.getFile(loadFileName.getFileName());
+                File file = FileUtils.getFile(loadFileName.getFileName());
                 long modifyTime = file.lastModified();
                 needUpdate = (modifyTime > recModifyTime);
                 // find if the source file need to reload
@@ -105,7 +105,7 @@ public class LoadResult {
                         sourceResult = null;
                     else
                         // deep copy, otherwise the object is going to be changed by others
-                        sourceResult = ObjectUtil.deepCopy(cache.get(loadFileName).getContent());
+                        sourceResult = ObjectUtils.deepCopy(cache.get(loadFileName).getContent());
                 }
             }
             if (Objects.isNull(sourceResult)) {
@@ -118,7 +118,7 @@ public class LoadResult {
                 res = (Map<String, Object>) sourceResult;
                 continue;
             }
-            Node.merge(res, (Map<String, Object>) sourceResult, false);
+            NodeUtils.merge(res, (Map<String, Object>) sourceResult, false);
         }
         ConfFilter.filter(res, isUpdate);
         return res;

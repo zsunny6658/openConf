@@ -1,6 +1,6 @@
 package com.sunny.source.bean;
 
-import com.sunny.commom.utils.ObjectUtil;
+import com.sunny.commom.utils.ObjectUtils;
 
 /**
  * @Author zsunny
@@ -14,10 +14,10 @@ public class Content {
 
     public Content(long modifyTime, Object content) {
         this.modifyTime = modifyTime;
-        this.content = ObjectUtil.deepCopy(content);
+        this.content = ObjectUtils.deepCopy(content);
     }
     public Content(Object content) {
-        this.content = ObjectUtil.deepCopy(content);
+        this.content = ObjectUtils.deepCopy(content);
         this.modifyTime = System.currentTimeMillis();
     }
     public Content() {
@@ -33,7 +33,7 @@ public class Content {
         return content;
     }
     public void setContent(Object content) {
-        this.content = ObjectUtil.deepCopy(content);
+        this.content = ObjectUtils.deepCopy(content);
     }
     @Override
     public String toString() {

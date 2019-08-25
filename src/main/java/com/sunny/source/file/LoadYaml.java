@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.yaml.snakeyaml.Yaml;
 
-import com.sunny.commom.utils.FileUtil;
+import com.sunny.commom.utils.FileUtils;
 
 /**
  * created by zsunny
@@ -28,11 +28,9 @@ public class LoadYaml implements LoadSource {
     public Object loadSources(String path) throws IOException {
 
         Yaml yaml = new Yaml();
-
-        if (!FileUtil.judgeFileExist(path))
+        if (!FileUtils.judgeFileExist(path))
             return null;
-
-        return yaml.load(FileUtil.readFile(path));
+        return yaml.load(FileUtils.readFile(path));
 
     }
 

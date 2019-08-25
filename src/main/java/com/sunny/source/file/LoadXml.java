@@ -1,6 +1,6 @@
 package com.sunny.source.file;
 
-import com.sunny.commom.utils.FileUtil;
+import com.sunny.commom.utils.FileUtils;
 
 import java.io.InputStream;
 import java.util.Objects;
@@ -27,11 +27,9 @@ public class LoadXml extends AbstractLoadProperties {
     public Object loadSources(String path) throws Exception {
         Properties properties = new Properties();
 
-        InputStream in = FileUtil.getFileInputStream(path);
-
+        InputStream in = FileUtils.getFileInputStream(path);
         if (Objects.isNull(in))
             return null;
-
         properties.loadFromXML(in);
 
         return convertToMap(properties);
