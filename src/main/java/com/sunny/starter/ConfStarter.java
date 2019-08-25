@@ -1,6 +1,6 @@
 package com.sunny.starter;
 
-import com.sunny.processor.main.MainProcessor;
+import com.sunny.processor.MainProcessor;
 
 /**
  * @Author zsunny

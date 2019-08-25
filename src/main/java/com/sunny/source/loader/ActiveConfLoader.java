@@ -16,9 +16,9 @@ import com.sunny.commom.utils.ObjectUtils;
 public class ActiveConfLoader {
 
     private static List<LoadFileName> loadFileNameList = new ArrayList<>();
-    private static Map<LoadFileName, Content> resMap = new TreeMap<>();
+    private static Map<LoadFileName, Content> activeConfMap = new TreeMap<>();
 
-    public static void insertActiveConf(Map<String, Object> map, boolean isUpdate) throws Exception {
+    public static void loadResult(Map<String, Object> map, boolean isUpdate) throws Exception {
         if (!isUpdate)
             getActiveConfFiles(map);
         insertCore(map, isUpdate);
@@ -77,27 +77,27 @@ public class ActiveConfLoader {
                 sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
             } else {
                 long recModifyTime = 0;
-                if (Objects.nonNull(resMap.get(loadFileName))) {
-                    recModifyTime = resMap.get(loadFileName).getModifyTime();
+                if (Objects.nonNull(activeConfMap.get(loadFileName))) {
+                    recModifyTime = activeConfMap.get(loadFileName).getModifyTime();
                 }
                 File file = FileUtils.getFile(loadFileName.getFileName());
                 long modifyTime = file.lastModified();
                 if (modifyTime > recModifyTime) {
                     sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-                    resMap.get(loadFileName).setModifyTime(modifyTime);
-                    resMap.get(loadFileName).setContent(sourceResult);
+                    activeConfMap.get(loadFileName).setModifyTime(modifyTime);
+                    activeConfMap.get(loadFileName).setContent(sourceResult);
                 } else {
-                    if (Objects.isNull(resMap.get(loadFileName)))
+                    if (Objects.isNull(activeConfMap.get(loadFileName)))
                         sourceResult = null;
                     else
-                        sourceResult = ObjectUtils.deepCopy(resMap.get(loadFileName).getContent());
+                        sourceResult = ObjectUtils.deepCopy(activeConfMap.get(loadFileName).getContent());
                 }
             }
             if (Objects.isNull(sourceResult)) {
                 continue;
             }
             if (!isUpdate)
-                resMap.put(loadFileName, new Content(sourceResult));
+                activeConfMap.put(loadFileName, new Content(sourceResult));
             NodeUtils.merge(map, (Map<String, Object>) sourceResult, true);
         }
     }

@@ -1,4 +1,4 @@
-package com.sunny.processor;
+package com.sunny.processor.impl;
 
 import java.util.Map;
 import java.util.Objects;
@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.sunny.commom.constant.Constant;
 import com.sunny.commom.constant.ListenerConstant;
 import com.sunny.commom.listener.ConfProcessListner;
-import com.sunny.processor.main.MainProcessor;
+import com.sunny.processor.MainProcessor;
 import com.sunny.source.filter.ConfFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

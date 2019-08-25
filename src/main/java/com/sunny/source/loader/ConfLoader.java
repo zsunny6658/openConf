@@ -24,7 +24,7 @@ public class ConfLoader {
                     LoadFileNameConstant.APPLICATION_PROPERTIES, LoadFileNameConstant.APPLICATION_XML,
                     LoadFileNameConstant.APPLICATION_JSON));
     private static Object source;
-    private static Map<LoadFileName, Content> cache = new TreeMap<>();
+    private static Map<LoadFileName, Content> confMap = new TreeMap<>();
 
     private static ClassHandler classHandler = ClassHandler.getClassHandler();
 
@@ -87,8 +87,8 @@ public class ConfLoader {
             } else {
                 // for dynamic
                 long recModifyTime = 0;
-                if (Objects.nonNull(cache.get(loadFileName))) {
-                    recModifyTime = cache.get(loadFileName).getModifyTime();
+                if (Objects.nonNull(confMap.get(loadFileName))) {
+                    recModifyTime = confMap.get(loadFileName).getModifyTime();
                 }
                 File file = FileUtils.getFile(loadFileName.getFileName());
                 long modifyTime = file.lastModified();
@@ -97,15 +97,15 @@ public class ConfLoader {
                 if (needUpdate) {
                     // need to reload, means the file is changed
                     sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-                    cache.get(loadFileName).setModifyTime(modifyTime);
-                    cache.get(loadFileName).setContent(sourceResult);
+                    confMap.get(loadFileName).setModifyTime(modifyTime);
+                    confMap.get(loadFileName).setContent(sourceResult);
                 } else {
                     // do not need to reload, just load from resMap
-                    if (Objects.isNull(cache.get(loadFileName))) {
+                    if (Objects.isNull(confMap.get(loadFileName))) {
                         sourceResult = null;
                     } else {
                         // deep copy, otherwise the object is going to be changed by others
-                        sourceResult = ObjectUtils.deepCopy(cache.get(loadFileName).getContent());
+                        sourceResult = ObjectUtils.deepCopy(confMap.get(loadFileName).getContent());
                     }
                 }
             }
@@ -113,7 +113,7 @@ public class ConfLoader {
                 continue;
             }
             if (!isUpdate) {
-                cache.put(loadFileName, new Content(sourceResult));
+                confMap.put(loadFileName, new Content(sourceResult));
             }
             if (CollectionUtils.isEmpty(res)) {
                 res = (Map<String, Object>) sourceResult;

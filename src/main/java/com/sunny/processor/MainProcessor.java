@@ -1,13 +1,13 @@
-package com.sunny.processor.main;
+package com.sunny.processor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.sunny.commom.listener.ConfProcessListner;
-import com.sunny.processor.AbstractConfProcessor;
-import com.sunny.processor.ConfClassProcessor;
-import com.sunny.processor.ConfListenerProcessor;
-import com.sunny.processor.ConfValueProcessor;
+import com.sunny.processor.impl.AbstractConfProcessor;
+import com.sunny.processor.impl.ConfClassProcessor;
+import com.sunny.processor.impl.ConfListenerProcessor;
+import com.sunny.processor.impl.ConfValueProcessor;
 import com.sunny.source.loader.ConfLoader;
 
 public class MainProcessor {

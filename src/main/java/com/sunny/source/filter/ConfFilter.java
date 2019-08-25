@@ -20,7 +20,7 @@ public class ConfFilter {
     private static Map<String, Object> systemMap = new HashMap<>();
 
     public static void filter(Map<String, Object> map, boolean isUpdate) throws Exception {
-        ActiveConfLoader.insertActiveConf(map, isUpdate);
+        ActiveConfLoader.loadResult(map, isUpdate);
         filterCore(map);
     }
 
