@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 
-import com.sunny.utils.FileUtil;
+import com.sunny.commom.utils.FileUtil;
 
 /**
  * created by zsunny

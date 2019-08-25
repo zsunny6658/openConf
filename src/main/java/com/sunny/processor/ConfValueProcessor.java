@@ -3,8 +3,8 @@ package com.sunny.processor;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-import com.sunny.annotation.ConfPath;
-import com.sunny.annotation.SystemConfPath;
+import com.sunny.commom.annotation.ConfPath;
+import com.sunny.commom.annotation.SystemConfPath;
 import com.sunny.source.filter.ConfFilter;
 
 /**

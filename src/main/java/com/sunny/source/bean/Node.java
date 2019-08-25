@@ -38,7 +38,7 @@ public class Node {
 
     @SuppressWarnings("unchecked")
     public static void merge(Map<String, Object> res, Map<String, Object> source,
-                             boolean isCover, Map<LoadFileName, Content> cache) {
+                             boolean isCover) {
         LinkedBlockingQueue<Node> queue = new LinkedBlockingQueue<>();
         queue.offer(new Node(res, source));
 
@@ -53,12 +53,12 @@ public class Node {
                             || value instanceof Float
                             || value instanceof Double
                             || value instanceof Boolean) {
-                        //需要判断是否覆盖的情况
+                        // 需要判断是否覆盖的情况
                         if (!isCover) {
-                            //donnot cover
+                            // donnot cover
                             nodeRes.putIfAbsent(key, value);
                         } else {
-                            //cover
+                            // cover
                             nodeRes.put(key, value);
                         }
                     } else {

@@ -2,7 +2,7 @@ package com.sunny.source.file;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunny.utils.FileUtil;
+import com.sunny.commom.utils.FileUtil;
 
 import java.io.IOException;
 import java.io.InputStream;

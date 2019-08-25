@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Objects;
 
-import com.sunny.annotation.*;
+import com.sunny.commom.annotation.*;
 
 
 public class ConfClassProcessor extends AbstractConfProcessor {

@@ -7,12 +7,13 @@ import com.sunny.commom.handler.ClassHandler;
 import com.sunny.commom.constant.LoadFileNameConstant;
 import com.sunny.commom.listener.SourceListener;
 import com.sunny.commom.listener.impl.DefaultConfSourceListener;
+import com.sunny.commom.utils.CollectionUtils;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.bean.Node;
 import com.sunny.source.filter.ConfFilter;
-import com.sunny.utils.FileUtil;
-import com.sunny.utils.ObjectUtil;
+import com.sunny.commom.utils.FileUtil;
+import com.sunny.commom.utils.ObjectUtil;
 
 public class LoadResult {
 
@@ -84,6 +85,7 @@ public class LoadResult {
                 // load at the first time
                 sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
             } else {
+                // for dynamic
                 long recModifyTime = 0;
                 if (Objects.nonNull(cache.get(loadFileName))) {
                     recModifyTime = cache.get(loadFileName).getModifyTime();
@@ -91,8 +93,8 @@ public class LoadResult {
                 File file = FileUtil.getFile(loadFileName.getFileName());
                 long modifyTime = file.lastModified();
                 needUpdate = (modifyTime > recModifyTime);
+                // find if the source file need to reload
                 if (needUpdate) {
-                    // for dynamic
                     // need to reload, means the file is changed
                     sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
                     cache.get(loadFileName).setModifyTime(modifyTime);
@@ -112,11 +114,11 @@ public class LoadResult {
             if (!isUpdate) {
                 cache.put(loadFileName, new Content(sourceResult));
             }
-            if (0 == res.size()) {
+            if (CollectionUtils.isEmpty(res)) {
                 res = (Map<String, Object>) sourceResult;
                 continue;
             }
-            Node.merge(res, (Map<String, Object>) sourceResult, false, cache);
+            Node.merge(res, (Map<String, Object>) sourceResult, false);
         }
         ConfFilter.filter(res, isUpdate);
         return res;

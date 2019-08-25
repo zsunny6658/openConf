@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.yaml.snakeyaml.Yaml;
 
-import com.sunny.utils.FileUtil;
+import com.sunny.commom.utils.FileUtil;
 
 /**
  * created by zsunny

@@ -1,10 +1,10 @@
 package com.sunny.commom.handler;
 
-import com.sunny.annotation.ConfClass;
-import com.sunny.annotation.ConfClassIgnore;
-import com.sunny.annotation.ConfPath;
-import com.sunny.annotation.Dynamic;
-import com.sunny.utils.PackageUtil;
+import com.sunny.commom.annotation.ConfClass;
+import com.sunny.commom.annotation.ConfClassIgnore;
+import com.sunny.commom.annotation.ConfPath;
+import com.sunny.commom.annotation.Dynamic;
+import com.sunny.commom.utils.PackageUtil;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;

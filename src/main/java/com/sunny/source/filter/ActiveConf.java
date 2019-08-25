@@ -10,8 +10,8 @@ import com.sunny.source.bean.Node;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
-import com.sunny.utils.FileUtil;
-import com.sunny.utils.ObjectUtil;
+import com.sunny.commom.utils.FileUtil;
+import com.sunny.commom.utils.ObjectUtil;
 
 public class ActiveConf {
 
@@ -97,7 +97,7 @@ public class ActiveConf {
             }
             if (!isUpdate)
                 resMap.put(loadFileName, new Content(sourceResult));
-            Node.merge(map, (Map<String, Object>) sourceResult, true, null);
+            Node.merge(map, (Map<String, Object>) sourceResult, true);
         }
     }
 

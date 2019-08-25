@@ -1,6 +1,6 @@
 package com.sunny.sample;
 
-import com.sunny.annotation.*;
+import com.sunny.commom.annotation.*;
 
 /**
  * create by zsunny

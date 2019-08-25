@@ -1,6 +1,6 @@
 package com.sunny.commom.listener.impl;
 
-import com.sunny.annotation.ConfSource;
+import com.sunny.commom.annotation.ConfSource;
 import com.sunny.commom.handler.ClassHandler;
 import com.sunny.commom.listener.SourceListener;
 import com.sunny.source.LoadResult;

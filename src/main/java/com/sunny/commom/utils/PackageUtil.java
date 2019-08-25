@@ -1,7 +1,6 @@
-package com.sunny.utils;
+package com.sunny.commom.utils;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;

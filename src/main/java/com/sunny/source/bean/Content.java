@@ -1,6 +1,6 @@
 package com.sunny.source.bean;
 
-import com.sunny.utils.ObjectUtil;
+import com.sunny.commom.utils.ObjectUtil;
 
 /**
  * @Author zsunny
