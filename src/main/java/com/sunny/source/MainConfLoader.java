@@ -30,6 +30,7 @@ public class MainConfLoader {
         try {
             ConfLoader.updateResult();
             ActiveConfLoader.loadResult((Map<String, Object>) confs, true);
+            ConfFilter.filter((Map<String, Object>) confs);
         } catch (Exception e) {
             e.printStackTrace();
         }
