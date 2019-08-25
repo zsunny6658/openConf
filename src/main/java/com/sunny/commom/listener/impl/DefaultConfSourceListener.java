@@ -3,7 +3,7 @@ package com.sunny.commom.listener.impl;
 import com.sunny.commom.annotation.ConfSource;
 import com.sunny.commom.handler.ClassHandler;
 import com.sunny.commom.listener.SourceListener;
-import com.sunny.source.LoadResult;
+import com.sunny.source.loader.ConfLoader;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.file.*;
 import org.slf4j.Logger;
@@ -44,7 +44,7 @@ public class DefaultConfSourceListener implements SourceListener{
             String fileName = confSource.value();//配置文件名/路径
             LoadSource loadSource = getLoadSource(fileName);
             LoadFileName loadFile = new LoadFileName(fileName, loadSource);
-            LoadResult.add(loadFile);
+            ConfLoader.add(loadFile);
         }
     }
 

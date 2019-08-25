@@ -1,4 +1,4 @@
-package com.sunny.source;
+package com.sunny.source.loader;
 
 import java.io.File;
 import java.util.*;
@@ -15,7 +15,7 @@ import com.sunny.source.filter.ConfFilter;
 import com.sunny.commom.utils.FileUtils;
 import com.sunny.commom.utils.ObjectUtils;
 
-public class LoadResult {
+public class ConfLoader {
 
     private static List<SourceListener> sourceListeners;
 
@@ -101,11 +101,12 @@ public class LoadResult {
                     cache.get(loadFileName).setContent(sourceResult);
                 } else {
                     // do not need to reload, just load from resMap
-                    if (Objects.isNull(cache.get(loadFileName)))
+                    if (Objects.isNull(cache.get(loadFileName))) {
                         sourceResult = null;
-                    else
+                    } else {
                         // deep copy, otherwise the object is going to be changed by others
                         sourceResult = ObjectUtils.deepCopy(cache.get(loadFileName).getContent());
+                    }
                 }
             }
             if (Objects.isNull(sourceResult)) {

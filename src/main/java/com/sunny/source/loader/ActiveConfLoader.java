@@ -1,4 +1,4 @@
-package com.sunny.source.filter;
+package com.sunny.source.loader;
 
 import java.io.File;
 import java.util.*;
@@ -13,12 +13,12 @@ import com.sunny.source.file.LoadYaml;
 import com.sunny.commom.utils.FileUtils;
 import com.sunny.commom.utils.ObjectUtils;
 
-public class ActiveConf {
+public class ActiveConfLoader {
 
     private static List<LoadFileName> loadFileNameList = new ArrayList<>();
     private static Map<LoadFileName, Content> resMap = new TreeMap<>();
 
-    static void insertActiveConf(Map<String, Object> map, boolean isUpdate) throws Exception {
+    public static void insertActiveConf(Map<String, Object> map, boolean isUpdate) throws Exception {
         if (!isUpdate)
             getActiveConfFiles(map);
         insertCore(map, isUpdate);
@@ -53,12 +53,13 @@ public class ActiveConf {
             }
         }
 
-        if (null != confName) {
+        if (Objects.nonNull(confName)) {
             loadFileNameList.addAll(Arrays.asList(
                     new LoadFileName("application-" + confName + ".properties", LoadProperties.getInstance()),
                     new LoadFileName("application-" + confName + ".yml", LoadYaml.getInstance()),
                     new LoadFileName("application-" + confName + ".yaml", LoadYaml.getInstance()),
-                    new LoadFileName("application-" + confName + ".xml", LoadXml.getInstance())
+                    new LoadFileName("application-" + confName + ".xml", LoadXml.getInstance()),
+                    new LoadFileName("application-" + confName + ".json", LoadXml.getInstance())
             ));
         }
     }

@@ -1,6 +1,7 @@
 package com.sunny.source.filter;
 
 import com.sunny.commom.constant.Constant;
+import com.sunny.source.loader.ActiveConfLoader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class ConfFilter {
     private static Map<String, Object> systemMap = new HashMap<>();
 
     public static void filter(Map<String, Object> map, boolean isUpdate) throws Exception {
-        ActiveConf.insertActiveConf(map, isUpdate);
+        ActiveConfLoader.insertActiveConf(map, isUpdate);
         filterCore(map);
     }
 
