@@ -3,6 +3,7 @@ package com.sunny.commom.utils;
 import com.sunny.source.bean.Node;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class NodeUtils {
@@ -10,6 +11,13 @@ public class NodeUtils {
     @SuppressWarnings("unchecked")
     public static void merge(Map<String, Object> res, Map<String, Object> source,
                              boolean isCover) {
+        if (Objects.isNull(res) || CollectionUtils.isEmpty(source)) {
+            return;
+        }
+        if (CollectionUtils.isEmpty(res)) {
+            res.putAll(source);
+            return;
+        }
         LinkedBlockingQueue<Node> queue = new LinkedBlockingQueue<>();
         queue.offer(new Node(res, source));
 

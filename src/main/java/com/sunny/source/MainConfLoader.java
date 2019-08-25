@@ -1,9 +1,12 @@
 package com.sunny.source;
 
+import com.sunny.commom.utils.NodeUtils;
+import com.sunny.commom.utils.ObjectUtils;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.source.loader.ActiveConfLoader;
 import com.sunny.source.loader.ConfLoader;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,32 +15,42 @@ import java.util.Map;
  **/
 public class MainConfLoader {
 
-    private static Object confs;
+    private static Map<String, Object> mainConfValues;
 
     public static Object load() {
         try {
             ConfLoader.loadResult();
-            confs = ConfLoader.getSource();
-            ActiveConfLoader.loadResult((Map<String, Object>) confs, false);
-            ConfFilter.filter((Map<String, Object>) confs);
+            ActiveConfLoader.loadResult(ConfLoader.getSource());
+            mergeSources();
+            ConfFilter.filter(mainConfValues);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ConfLoader.getSource();
+        return mainConfValues;
     }
 
     public static void update() {
         try {
             ConfLoader.updateResult();
-            ActiveConfLoader.loadResult((Map<String, Object>) confs, true);
-            ConfFilter.filter((Map<String, Object>) confs);
+            ActiveConfLoader.updateResult();
+            mergeSources();
+            ConfFilter.filter(mainConfValues);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Object getConfs() {
-        return confs;
+    public static Object getMainConfValues() {
+        return mainConfValues;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void mergeSources() {
+        mainConfValues = new HashMap<>();
+        Map<String, Object> confValues = ConfLoader.getSource();
+        Map<String, Object> activeConfValues = ActiveConfLoader.getSource();
+        NodeUtils.merge(mainConfValues, (Map<String, Object>) ObjectUtils.deepCopy(confValues), true);
+        NodeUtils.merge(mainConfValues, (Map<String, Object>) ObjectUtils.deepCopy(activeConfValues), true);
     }
 
 }

@@ -13,15 +13,57 @@ import com.sunny.source.file.LoadYaml;
 import com.sunny.commom.utils.FileUtils;
 import com.sunny.commom.utils.ObjectUtils;
 
-public class ActiveConfLoader {
+public class ActiveConfLoader extends AbstractConfLoader{
 
     private static List<LoadFileName> loadFileNameList = new ArrayList<>();
-    private static Map<LoadFileName, Content> activeConfMap = new TreeMap<>();
+    private static Map<LoadFileName, Content> activeConfMap;
+    private static Map<String, Object> activeConfValues;
 
-    public static void loadResult(Map<String, Object> confMap, boolean isUpdate) throws Exception {
-        if (!isUpdate)
-            getActiveConfFiles(confMap);
-        insertCore(confMap, isUpdate);
+    public static void loadResult(Map<String, Object> confMap) throws Exception {
+        getActiveConfFiles(confMap);
+        loadSource();
+        mergeSource();
+    }
+
+    public static void updateResult() throws Exception {
+        loadSource();
+        mergeSource();
+    }
+
+    private static void loadSource() throws Exception {
+        if (Objects.isNull(activeConfMap)) {
+            activeConfMap = new TreeMap<>();
+        }
+        for (LoadFileName loadFileName : loadFileNameList) {
+            Object sourceResult;
+            // 判断文件最近一次更新时间
+            long recModifyTime = 0;
+            if (Objects.nonNull(activeConfMap.get(loadFileName))) {
+                recModifyTime = activeConfMap.get(loadFileName).getModifyTime();
+            }
+            File file = FileUtils.getFile(loadFileName.getFileName());
+            long modifyTime = file.lastModified();
+            if (modifyTime > recModifyTime) {
+                sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
+                activeConfMap.putIfAbsent(loadFileName, new Content());
+                activeConfMap.get(loadFileName).setModifyTime(modifyTime);
+                activeConfMap.get(loadFileName).setContent(sourceResult);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void mergeSource() {
+        Map<String, Object> res = new HashMap<>();
+        activeConfMap.forEach((loadFileName, content) -> {
+            Map<String, Object> soureResult = (Map<String, Object>) ObjectUtils.deepCopy(content.getContent());
+            NodeUtils.merge(res, soureResult, false);
+        });
+        activeConfValues = res;
+    }
+
+    public static Map<String, Object> getSource() {
+        return activeConfValues;
     }
 
     /**
@@ -63,43 +105,4 @@ public class ActiveConfLoader {
             ));
         }
     }
-
-    /**
-     * 将设定的active配置项插入
-     *
-     * @param map
-     */
-    @SuppressWarnings("unchecked")
-    private static void insertCore(Map<String, Object> map, boolean isUpdate) throws Exception {
-        for (LoadFileName loadFileName : loadFileNameList) {
-            Object sourceResult;
-            if (!isUpdate) {
-                sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-            } else {
-                long recModifyTime = 0;
-                if (Objects.nonNull(activeConfMap.get(loadFileName))) {
-                    recModifyTime = activeConfMap.get(loadFileName).getModifyTime();
-                }
-                File file = FileUtils.getFile(loadFileName.getFileName());
-                long modifyTime = file.lastModified();
-                if (modifyTime > recModifyTime) {
-                    sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-                    activeConfMap.get(loadFileName).setModifyTime(modifyTime);
-                    activeConfMap.get(loadFileName).setContent(sourceResult);
-                } else {
-                    if (Objects.isNull(activeConfMap.get(loadFileName)))
-                        sourceResult = null;
-                    else
-                        sourceResult = ObjectUtils.deepCopy(activeConfMap.get(loadFileName).getContent());
-                }
-            }
-            if (Objects.isNull(sourceResult)) {
-                continue;
-            }
-            if (!isUpdate)
-                activeConfMap.put(loadFileName, new Content(sourceResult));
-            NodeUtils.merge(map, (Map<String, Object>) sourceResult, true);
-        }
-    }
-
 }

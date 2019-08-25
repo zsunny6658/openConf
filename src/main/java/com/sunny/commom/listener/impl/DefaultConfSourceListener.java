@@ -14,7 +14,9 @@ import java.util.Set;
 
 public class DefaultConfSourceListener implements SourceListener{
 
-    private Logger log = LoggerFactory.getLogger(DefaultConfSourceListener.class);
+    private static final String CUSTOM_PREFIX = "classpath: ";
+
+    private static final Logger log = LoggerFactory.getLogger(DefaultConfSourceListener.class);
 
     private ClassHandler classHandler = ClassHandler.getClassHandler();
 
@@ -41,7 +43,8 @@ public class DefaultConfSourceListener implements SourceListener{
         }
         if (clazz.isAnnotationPresent(ConfSource.class)) {
             ConfSource confSource = clazz.getAnnotation(ConfSource.class);
-            String fileName = confSource.value();//配置文件名/路径
+            String filePath = confSource.value();//配置文件名/路径
+            String fileName = filePath.substring(filePath.indexOf(CUSTOM_PREFIX) + CUSTOM_PREFIX.length());
             LoadSource loadSource = getLoadSource(fileName);
             LoadFileName loadFile = new LoadFileName(fileName, loadSource);
             ConfLoader.add(loadFile);
