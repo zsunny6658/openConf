@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19177948-d17c-4149-ac33-91e83414cead" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="19177948-d17c-4149-ac33-91e83414cead" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,17 +13,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="-272">
-                <caret line="183" column="19" lean-forward="false" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
+              <first_editor relative-caret-position="-189">
+                <caret line="111" column="10" lean-forward="true" selection-start-line="111" selection-start-column="10" selection-end-line="111" selection-end-column="10" />
                 <folding>
-                  <marker date="1566705434825" expanded="true" signature="1869:1905" ph="@{...}" />
-                  <marker date="1566705434825" expanded="true" signature="2198:2381" ph="{...}" />
-                  <marker date="1566705434825" expanded="true" signature="2983:3018" ph="@{...}" />
-                  <marker date="1566705434825" expanded="true" signature="4586:4631" ph="@{...}" />
+                  <marker date="1566705582185" expanded="true" signature="1869:1905" ph="@{...}" />
+                  <marker date="1566705582185" expanded="true" signature="2197:2380" ph="{...}" />
+                  <marker date="1566705582185" expanded="true" signature="2982:3017" ph="@{...}" />
+                  <marker date="1566705582185" expanded="true" signature="4584:4629" ph="@{...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -53,7 +51,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Test.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sunny/Test.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
@@ -579,7 +577,7 @@
       <workItem from="1565405003289" duration="5189000" />
       <workItem from="1565442157639" duration="989000" />
       <workItem from="1566636000864" duration="5594000" />
-      <workItem from="1566699877736" duration="4788000" />
+      <workItem from="1566699877736" duration="4907000" />
     </task>
     <task id="LOCAL-00001" summary="1.0版本导入">
       <created>1533993029284</created>
@@ -704,7 +702,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74002000" />
+    <option name="totallyTimeSpent" value="74121000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1191,27 +1189,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-272">
-            <caret line="183" column="19" lean-forward="false" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
-            <folding>
-              <marker date="1566705434825" expanded="true" signature="1869:1905" ph="@{...}" />
-              <marker date="1566705434825" expanded="true" signature="2198:2381" ph="{...}" />
-              <marker date="1566705434825" expanded="true" signature="2983:3018" ph="@{...}" />
-              <marker date="1566705434825" expanded="true" signature="4586:4631" ph="@{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sunny/Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="14" column="35" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-189">
+            <caret line="111" column="10" lean-forward="true" selection-start-line="111" selection-start-column="10" selection-end-line="111" selection-end-column="10" />
+            <folding>
+              <marker date="1566705582185" expanded="true" signature="1869:1905" ph="@{...}" />
+              <marker date="1566705582185" expanded="true" signature="2197:2380" ph="{...}" />
+              <marker date="1566705582185" expanded="true" signature="2982:3017" ph="@{...}" />
+              <marker date="1566705582185" expanded="true" signature="4584:4629" ph="@{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
