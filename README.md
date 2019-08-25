@@ -73,7 +73,7 @@ public static String activeFile;
 ```java
 @ConfClass
 @ConfClassPrefix("test.")
-public class ExampleClass {
+public class SampleClass {
     private static String a;
     private static String b = "2";
     
@@ -111,7 +111,7 @@ public static String activeFile;
 ```java
 @ConfClass
 @ConfClassPrefix("test")
-public class ExampleClass {
+public class SampleClass {
     private static String a;
     private static String b = "2";
     @ConfClassIgnore
