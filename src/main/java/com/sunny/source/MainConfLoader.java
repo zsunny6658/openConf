@@ -15,12 +15,23 @@ import java.util.Map;
  **/
 public class MainConfLoader {
 
-    private static Map<String, Object> mainConfValues;
+    private ConfLoader confLoader;
+    private ActiveConfLoader activeConfLoader;
 
-    public static Object load() {
+    private Map<String, Object> mainConfValues;
+
+    private static class MainConfLoaderInner {
+        private static MainConfLoader mainConfLoader = new MainConfLoader();
+    }
+
+    public static MainConfLoader getLoader() {
+        return MainConfLoaderInner.mainConfLoader;
+    }
+
+    public Object load() {
         try {
-            ConfLoader.loadResult();
-            ActiveConfLoader.loadResult(ConfLoader.getSource());
+            (confLoader = ConfLoader.getLoader()).loadResult();
+            (activeConfLoader = ActiveConfLoader.getLoader()).loadResult();
             mergeSources();
             ConfFilter.filter(mainConfValues);
         } catch (Exception e) {
@@ -29,10 +40,10 @@ public class MainConfLoader {
         return mainConfValues;
     }
 
-    public static void update() {
+    public void update() {
         try {
-            ConfLoader.updateResult();
-            ActiveConfLoader.updateResult();
+            confLoader.updateResult();
+            activeConfLoader.updateResult();
             mergeSources();
             ConfFilter.filter(mainConfValues);
         } catch (Exception e) {
@@ -40,15 +51,15 @@ public class MainConfLoader {
         }
     }
 
-    public static Object getMainConfValues() {
+    public Object getMainConfValues() {
         return mainConfValues;
     }
 
     @SuppressWarnings("unchecked")
-    private static void mergeSources() {
+    private void mergeSources() {
         mainConfValues = new HashMap<>();
-        Map<String, Object> confValues = ConfLoader.getSource();
-        Map<String, Object> activeConfValues = ActiveConfLoader.getSource();
+        Map<String, Object> confValues = ConfLoader.getLoader().getSource();
+        Map<String, Object> activeConfValues = ActiveConfLoader.getLoader().getSource();
         NodeUtils.merge(mainConfValues, (Map<String, Object>) ObjectUtils.deepCopy(confValues), true);
         NodeUtils.merge(mainConfValues, (Map<String, Object>) ObjectUtils.deepCopy(activeConfValues), true);
     }

@@ -47,7 +47,7 @@ public class DefaultConfSourceListener implements SourceListener{
             String fileName = filePath.substring(filePath.indexOf(CUSTOM_PREFIX) + CUSTOM_PREFIX.length());
             LoadSource loadSource = getLoadSource(fileName);
             LoadFileName loadFile = new LoadFileName(fileName, loadSource);
-            ConfLoader.add(loadFile);
+            ConfLoader.getLoader().add(loadFile);
         }
     }
 

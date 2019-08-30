@@ -1,78 +1,54 @@
 package com.sunny.source.loader;
 
-import java.io.File;
 import java.util.*;
 
 import com.sunny.commom.constant.Constant;
-import com.sunny.commom.utils.NodeUtils;
+import com.sunny.commom.utils.CollectionUtils;
 import com.sunny.source.bean.Content;
 import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
-import com.sunny.commom.utils.FileUtils;
-import com.sunny.commom.utils.ObjectUtils;
 
 public class ActiveConfLoader extends AbstractConfLoader{
 
-    private static List<LoadFileName> loadFileNameList = new ArrayList<>();
-    private static Map<LoadFileName, Content> activeConfMap;
-    private static Map<String, Object> activeConfValues;
+    private List<LoadFileName> loadFileNameList = new ArrayList<>();
+    private Map<LoadFileName, Content> activeConfMap = new TreeMap<>();
+    private Map<String, Object> activeConfValues;
 
-    public static void loadResult(Map<String, Object> confMap) throws Exception {
-        getActiveConfFiles(confMap);
-        loadSource();
-        mergeSource();
+    private static class ActiveConfLoaderInner {
+        private static ActiveConfLoader activeConfLoader = new ActiveConfLoader();
     }
 
-    public static void updateResult() throws Exception {
-        loadSource();
-        mergeSource();
+    public static ActiveConfLoader getLoader() {
+        return ActiveConfLoaderInner.activeConfLoader;
     }
 
-    private static void loadSource() throws Exception {
-        if (Objects.isNull(activeConfMap)) {
-            activeConfMap = new TreeMap<>();
-        }
-        for (LoadFileName loadFileName : loadFileNameList) {
-            Object sourceResult;
-            // 判断文件最近一次更新时间
-            long recModifyTime = 0;
-            if (Objects.nonNull(activeConfMap.get(loadFileName))) {
-                recModifyTime = activeConfMap.get(loadFileName).getModifyTime();
-            }
-            File file = FileUtils.getFile(loadFileName.getFileName());
-            long modifyTime = file.lastModified();
-            if (modifyTime > recModifyTime) {
-                sourceResult = loadFileName.getLoadSource().loadSources(loadFileName.getFileName());
-                activeConfMap.putIfAbsent(loadFileName, new Content());
-                activeConfMap.get(loadFileName).setModifyTime(modifyTime);
-                activeConfMap.get(loadFileName).setContent(sourceResult);
-            }
-        }
+    public void loadResult() throws Exception {
+        getActiveConfFiles();
+        loadSource(activeConfMap, loadFileNameList);
+        activeConfValues = mergeSource(activeConfMap);
     }
 
-    @SuppressWarnings("unchecked")
-    private static void mergeSource() {
-        Map<String, Object> res = new HashMap<>();
-        activeConfMap.forEach((loadFileName, content) -> {
-            Map<String, Object> soureResult = (Map<String, Object>) ObjectUtils.deepCopy(content.getContent());
-            NodeUtils.merge(res, soureResult, false);
-        });
-        activeConfValues = res;
+    public void updateResult() throws Exception {
+        loadSource(activeConfMap, loadFileNameList);
+        activeConfValues = mergeSource(activeConfMap);
     }
 
-    public static Map<String, Object> getSource() {
+    public Map<String, Object> getSource() {
         return activeConfValues;
     }
 
     /**
      * 获取active配置源
      *
-     * @param map
      */
     @SuppressWarnings("unchecked")
-    private static void getActiveConfFiles(Map<String, Object> map) {
+    private void getActiveConfFiles() throws Exception {
+        Map<String, Object> map = ConfLoader.getLoader().getSource();
+        if (CollectionUtils.isEmpty(map)) {
+            throw new Exception("need to get conf source first");
+        }
         Map<String, Object> tmpMap = map;
         String[] active = Constant.CONF_ACTIVE.split("\\.");
         String confName = null;

@@ -19,7 +19,7 @@ public class MainProcessor {
     // get processors
     static {
         try {
-            MainConfLoader.load();
+            MainConfLoader.getLoader().load();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -35,13 +35,13 @@ public abstract class AbstractConfProcessor {
         classSet = classHandler.getClassSet();
         dynamicClassSet = classHandler.getDynamicClassSet();
         dynamicFieldSet = classHandler.getDynamicFieldSet();
-        oo = MainConfLoader.getMainConfValues();
+        oo = MainConfLoader.getLoader().getMainConfValues();
         getInitInterval();
     }
 
     public static void updateConfSource() {
-        MainConfLoader.update();
-        oo = MainConfLoader.getMainConfValues();
+        MainConfLoader.getLoader().update();
+        oo = MainConfLoader.getLoader().getMainConfValues();
     }
 
     // get dynamic interval
