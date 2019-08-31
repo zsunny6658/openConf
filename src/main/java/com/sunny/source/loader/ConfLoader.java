@@ -30,6 +30,9 @@ public class ConfLoader extends AbstractConfLoader {
         loadFileNameList.remove(loadFile);
     }
 
+    private ConfLoader() {
+    }
+
     private static class ConfLoaderInner {
         private static ConfLoader confLoader = new ConfLoader();
     }

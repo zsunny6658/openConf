@@ -9,7 +9,17 @@ import com.sunny.commom.annotation.*;
 
 public class ConfClassProcessor extends AbstractConfProcessor {
 
-    public static void update() {
+    private ConfClassProcessor() {}
+
+    private static class ConfClassProcessorInner {
+        private static ConfClassProcessor confClassProcessor = new ConfClassProcessor();
+    }
+
+    public static ConfClassProcessor getProcessor() {
+        return ConfClassProcessorInner.confClassProcessor;
+    }
+
+    public void update() {
         dynamicClassSet.forEach(clazz -> putInConf(oo, clazz));
     }
 
@@ -18,7 +28,7 @@ public class ConfClassProcessor extends AbstractConfProcessor {
         classSet.forEach(clazz -> putInConf(oo, clazz));
     }
 
-    public static void putInConf(Object oo, Class<?> clazz) {
+    public void putInConf(Object oo, Class<?> clazz) {
         String prefix = "";
         if (!clazz.isAnnotationPresent(ConfClass.class)) {
             return;
@@ -67,7 +77,7 @@ public class ConfClassProcessor extends AbstractConfProcessor {
         }
     }
 
-    public static void putInConfCore(Object o, String[] props, Field field, boolean isDefault) {
+    public void putInConfCore(Object o, String[] props, Field field, boolean isDefault) {
         // speed up
         if (isDefault)
             return;

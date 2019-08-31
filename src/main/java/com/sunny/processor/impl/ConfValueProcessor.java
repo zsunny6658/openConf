@@ -13,7 +13,18 @@ import com.sunny.source.filter.ConfFilter;
  **/
 public class ConfValueProcessor extends AbstractConfProcessor {
 
-    public static void update() {
+    private ConfValueProcessor() {
+    }
+
+    private static class ConfValueProcessorInner {
+        private static ConfValueProcessor confValueProcessor = new ConfValueProcessor();
+    }
+
+    public static ConfValueProcessor getProcessor() {
+        return ConfValueProcessorInner.confValueProcessor;
+    }
+
+    public void update() {
         dynamicFieldSet.forEach(filed -> putInConfCore(oo, filed, false));
     }
 
@@ -28,7 +39,7 @@ public class ConfValueProcessor extends AbstractConfProcessor {
      * @param oo
      * @param clazz
      */
-    private static void putInConf(Object oo, Class<?> clazz) {
+    private void putInConf(Object oo, Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(ConfPath.class)) {
@@ -54,7 +65,7 @@ public class ConfValueProcessor extends AbstractConfProcessor {
      * @param field Field
      * @Param system boolean
      */
-    private static void putInConfCore(Object o, Field field, boolean system) {
+    private void putInConfCore(Object o, Field field, boolean system) {
         // get props
         String[] props;
         if (system) {

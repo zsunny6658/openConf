@@ -20,6 +20,9 @@ public class MainConfLoader {
 
     private Map<String, Object> mainConfValues;
 
+    private MainConfLoader() {
+    }
+
     private static class MainConfLoaderInner {
         private static MainConfLoader mainConfLoader = new MainConfLoader();
     }

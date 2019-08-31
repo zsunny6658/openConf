@@ -2,19 +2,17 @@ package com.sunny.processor.impl;
 
 import com.sunny.commom.handler.ClassHandler;
 import com.sunny.commom.constant.Constant;
+import com.sunny.commom.handler.TpHandler;
 import com.sunny.source.MainConfLoader;
 import com.sunny.source.filter.ConfFilter;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractConfProcessor {
-
-    private static final ScheduledExecutorService tp = Executors.newScheduledThreadPool(2);
 
     private static ClassHandler classHandler;
     protected static Set<Class<?>> classSet;
@@ -26,16 +24,12 @@ public abstract class AbstractConfProcessor {
     private static int interval = 10;
     private static TimeUnit unit = TimeUnit.SECONDS;
 
-    static {
-        init();
-    }
-
-    protected static void init() {
+    public static void init() {
         classHandler = ClassHandler.getClassHandler();
         classSet = classHandler.getClassSet();
         dynamicClassSet = classHandler.getDynamicClassSet();
         dynamicFieldSet = classHandler.getDynamicFieldSet();
-        oo = MainConfLoader.getLoader().getMainConfValues();
+        oo = MainConfLoader.getLoader().load();
         getInitInterval();
     }
 
@@ -76,7 +70,7 @@ public abstract class AbstractConfProcessor {
     }
 
     public static void stopThreadPool() {
-        tp.shutdown();
+        TpHandler.getScheduledTp().shutdown();
     }
 
     public abstract void process();
@@ -85,12 +79,12 @@ public abstract class AbstractConfProcessor {
         return classHandler.getDynamicClassSet();
     }
 
-    public static Set<Field> getDynamicFieldSet() {
-        return classHandler.getDynamicFieldSet();
+    public static ScheduledExecutorService getTp() {
+        return TpHandler.getScheduledTp();
     }
 
-    public static ScheduledExecutorService getTp() {
-        return tp;
+    public static Set<Field> getDynamicFieldSet() {
+        return classHandler.getDynamicFieldSet();
     }
 
     public static int getInterval() {

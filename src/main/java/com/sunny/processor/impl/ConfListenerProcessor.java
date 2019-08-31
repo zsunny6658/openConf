@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import com.sunny.commom.constant.Constant;
 import com.sunny.commom.constant.ListenerConstant;
-import com.sunny.commom.listener.ConfProcessListner;
+import com.sunny.commom.listener.ConfProcessListener;
 import com.sunny.processor.MainProcessor;
 import com.sunny.source.filter.ConfFilter;
 import org.slf4j.Logger;
@@ -18,16 +18,26 @@ public class ConfListenerProcessor extends AbstractConfProcessor {
 
     private Logger log = LoggerFactory.getLogger(ConfClassProcessor.class);
 
+    private ConfListenerProcessor() {}
+
+    private static class ConfListenerProcessorInner {
+        private static ConfListenerProcessor confListenerProcessor = new ConfListenerProcessor();
+    }
+
+    public static ConfListenerProcessor getProcessor() {
+        return ConfListenerProcessorInner.confListenerProcessor;
+    }
+
     @Override
     public void process() {
-        ConfProcessListner confListner = null;
+        ConfProcessListener confListener = null;
         try {
-            confListner = getListener();
+            confListener = getListener();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             log.warn("error create listener: {}", e.getMessage());
         }
-        if (Objects.nonNull(confListner)) {
-            MainProcessor.addListener(confListner);
+        if (Objects.nonNull(confListener)) {
+            MainProcessor.addListener(confListener);
         } else {
             MainProcessor.addListener(ListenerConstant.DEFAULT_LISTENER);
         }
@@ -42,7 +52,7 @@ public class ConfListenerProcessor extends AbstractConfProcessor {
      * @throws InstantiationException
      */
     @SuppressWarnings("unchecked")
-    private static ConfProcessListner getListener()
+    private ConfProcessListener getListener()
             throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         String listenerClass = "";
         String[] confPath = Constant.CONF_LISTENER.split("\\.");
@@ -64,7 +74,7 @@ public class ConfListenerProcessor extends AbstractConfProcessor {
         }
         if ("".equals(listenerClass))
             return null;
-        return (ConfProcessListner) Class.forName(listenerClass).newInstance();
+        return (ConfProcessListener) Class.forName(listenerClass).newInstance();
     }
 
 }

@@ -1,12 +1,12 @@
 package com.sunny.commom.listener.impl;
 
-import com.sunny.commom.listener.ConfProcessListner;
+import com.sunny.commom.listener.ConfProcessListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DefaultConfProcessListner implements ConfProcessListner {
+public class DefaultConfProcessListener implements ConfProcessListener {
 
-    private Logger log = LoggerFactory.getLogger(DefaultConfProcessListner.class);
+    private Logger log = LoggerFactory.getLogger(DefaultConfProcessListener.class);
 
     @Override
     public void doBefore() {

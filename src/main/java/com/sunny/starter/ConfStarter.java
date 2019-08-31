@@ -1,6 +1,8 @@
 package com.sunny.starter;
 
 import com.sunny.processor.MainProcessor;
+import com.sunny.processor.impl.AbstractConfProcessor;
+import com.sunny.source.loader.AbstractConfLoader;
 
 /**
  * @Author zsunny
@@ -10,6 +12,9 @@ import com.sunny.processor.MainProcessor;
 public class ConfStarter {
 
     public static void start() {
+        // insert conf sources
+        AbstractConfProcessor.init();
+        // process conf sources
         MainProcessor.process();
     }
 

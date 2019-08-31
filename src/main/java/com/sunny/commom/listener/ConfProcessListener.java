@@ -1,6 +1,6 @@
 package com.sunny.commom.listener;
 
-public interface ConfProcessListner {
+public interface ConfProcessListener {
 
     void doBefore();
 

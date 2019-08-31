@@ -10,11 +10,14 @@ import com.sunny.source.file.LoadProperties;
 import com.sunny.source.file.LoadXml;
 import com.sunny.source.file.LoadYaml;
 
-public class ActiveConfLoader extends AbstractConfLoader{
+public class ActiveConfLoader extends AbstractConfLoader {
 
     private List<LoadFileName> loadFileNameList = new ArrayList<>();
     private Map<LoadFileName, Content> activeConfMap = new TreeMap<>();
     private Map<String, Object> activeConfValues;
+
+    private ActiveConfLoader() {
+    }
 
     private static class ActiveConfLoaderInner {
         private static ActiveConfLoader activeConfLoader = new ActiveConfLoader();
@@ -41,7 +44,6 @@ public class ActiveConfLoader extends AbstractConfLoader{
 
     /**
      * 获取active配置源
-     *
      */
     @SuppressWarnings("unchecked")
     private void getActiveConfFiles() throws Exception {
