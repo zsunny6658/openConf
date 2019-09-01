@@ -42,6 +42,10 @@ public class ActiveConfLoader extends AbstractConfLoader {
         return activeConfValues;
     }
 
+    public Map<LoadFileName, Content> getConfMap() {
+        return activeConfMap;
+    }
+
     /**
      * 获取active配置源
      */

@@ -2,7 +2,6 @@ package com.sunny.starter;
 
 import com.sunny.processor.MainProcessor;
 import com.sunny.processor.impl.AbstractConfProcessor;
-import com.sunny.source.loader.AbstractConfLoader;
 
 /**
  * @Author zsunny

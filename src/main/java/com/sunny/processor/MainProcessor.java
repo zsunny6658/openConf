@@ -17,11 +17,6 @@ public class MainProcessor {
 
     // get processors
     static {
-        try {
-            MainConfLoader.getLoader().load();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         ConfListenerProcessor.getProcessor().process();
         confProcessors.add(ConfValueProcessor.getProcessor());
         confProcessors.add(ConfClassProcessor.getProcessor());

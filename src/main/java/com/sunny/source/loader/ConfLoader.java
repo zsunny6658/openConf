@@ -85,4 +85,8 @@ public class ConfLoader extends AbstractConfLoader {
         return confValues;
     }
 
+    public Map<LoadFileName, Content> getConfMap() {
+        return confMap;
+    }
+
 }

@@ -2,6 +2,8 @@ package com.sunny.source;
 
 import com.sunny.commom.utils.NodeUtils;
 import com.sunny.commom.utils.ObjectUtils;
+import com.sunny.source.bean.Content;
+import com.sunny.source.bean.LoadFileName;
 import com.sunny.source.filter.ConfFilter;
 import com.sunny.source.loader.ActiveConfLoader;
 import com.sunny.source.loader.ConfLoader;
@@ -18,7 +20,8 @@ public class MainConfLoader {
     private ConfLoader confLoader;
     private ActiveConfLoader activeConfLoader;
 
-    private Map<String, Object> mainConfValues;
+    private Map<String, Object> mainConfValues; // confKey -> confValue
+    private Map<String, Object> mainConfMap; // fileName -> conf
 
     private MainConfLoader() {
     }
@@ -36,6 +39,7 @@ public class MainConfLoader {
             (confLoader = ConfLoader.getLoader()).loadResult();
             (activeConfLoader = ActiveConfLoader.getLoader()).loadResult();
             mergeSources();
+            mergeSourceMap();
             ConfFilter.filter(mainConfValues);
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,6 +52,7 @@ public class MainConfLoader {
             confLoader.updateResult();
             activeConfLoader.updateResult();
             mergeSources();
+            mergeSourceMap();
             ConfFilter.filter(mainConfValues);
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,6 +63,10 @@ public class MainConfLoader {
         return mainConfValues;
     }
 
+    public Map<String, Object> getMainConfMap() {
+        return mainConfMap;
+    }
+
     @SuppressWarnings("unchecked")
     private void mergeSources() {
         mainConfValues = new HashMap<>();
@@ -65,6 +74,14 @@ public class MainConfLoader {
         Map<String, Object> activeConfValues = ActiveConfLoader.getLoader().getSource();
         NodeUtils.merge(mainConfValues, (Map<String, Object>) ObjectUtils.deepCopy(confValues), true);
         NodeUtils.merge(mainConfValues, (Map<String, Object>) ObjectUtils.deepCopy(activeConfValues), true);
+    }
+
+    private void mergeSourceMap() {
+        Map<LoadFileName, Content> confMap = ConfLoader.getLoader().getConfMap();
+        Map<LoadFileName, Content> activeConfMap = ActiveConfLoader.getLoader().getConfMap();
+        mainConfMap = new HashMap<>();
+        confMap.forEach(((loadFileName, content) -> mainConfMap.putIfAbsent(loadFileName.getFileName(), content.getContent())));
+        activeConfMap.forEach(((loadFileName, content) -> mainConfMap.putIfAbsent(loadFileName.getFileName(), content.getContent())));
     }
 
 }
