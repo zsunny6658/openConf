@@ -37,14 +37,14 @@ public class Sample {
         System.out.println("prop-test:" + test);
         System.out.println("prop-active:" + active);
 
-        while (true) {
-            System.out.println("prop-json:" + json + " " + isJson);
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        while (true) {
+//            System.out.println("prop-json:" + json + " " + isJson);
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
     }
 

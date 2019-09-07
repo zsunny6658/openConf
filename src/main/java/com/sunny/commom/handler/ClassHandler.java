@@ -5,11 +5,10 @@ import com.sunny.commom.annotation.ConfClassIgnore;
 import com.sunny.commom.annotation.ConfPath;
 import com.sunny.commom.annotation.Dynamic;
 import com.sunny.commom.utils.PackageUtils;
+import com.sunny.source.bean.LoadFileName;
 
 import java.lang.reflect.Field;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * create by zsunny
@@ -21,6 +20,7 @@ public class ClassHandler {
     // dynamic update sets
     private Set<Class<?>> dynamicClassSet = new HashSet<>();
     private Set<Field> dynamicFieldSet = new HashSet<>();
+    private Map<Class<?>, LoadFileName> fixedClassMap = new HashMap<>();
 
     private static ClassHandler classHandler;
 
@@ -69,5 +69,9 @@ public class ClassHandler {
 
     public Set<Field> getDynamicFieldSet() {
         return dynamicFieldSet;
+    }
+
+    public Map<Class<?>, LoadFileName> getFixedClassMap() {
+        return fixedClassMap;
     }
 }

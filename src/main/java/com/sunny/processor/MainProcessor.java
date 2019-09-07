@@ -8,7 +8,6 @@ import com.sunny.processor.impl.AbstractConfProcessor;
 import com.sunny.processor.impl.ConfClassProcessor;
 import com.sunny.processor.impl.ConfListenerProcessor;
 import com.sunny.processor.impl.ConfValueProcessor;
-import com.sunny.source.MainConfLoader;
 
 public class MainProcessor {
 

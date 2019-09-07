@@ -5,11 +5,13 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.sunny.commom.annotation.*;
+import com.sunny.commom.handler.SourceHandler;
 
 
 public class ConfClassProcessor extends AbstractConfProcessor {
 
-    private ConfClassProcessor() {}
+    private ConfClassProcessor() {
+    }
 
     private static class ConfClassProcessorInner {
         private static ConfClassProcessor confClassProcessor = new ConfClassProcessor();
@@ -20,12 +22,12 @@ public class ConfClassProcessor extends AbstractConfProcessor {
     }
 
     public void update() {
-        dynamicClassSet.forEach(clazz -> putInConf(oo, clazz));
+        dynamicClassSet.forEach(clazz -> putInConf(SourceHandler.getSourceHandler().getSourceByClass(clazz), clazz));
     }
 
     @Override
     public void process() {
-        classSet.forEach(clazz -> putInConf(oo, clazz));
+        classSet.forEach(clazz -> putInConf(SourceHandler.getSourceHandler().getSourceByClass(clazz), clazz));
     }
 
     public void putInConf(Object oo, Class<?> clazz) {

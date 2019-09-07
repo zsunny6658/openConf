@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.sunny.commom.annotation.ConfPath;
 import com.sunny.commom.annotation.SystemConfPath;
+import com.sunny.commom.handler.SourceHandler;
 import com.sunny.source.filter.ConfFilter;
 
 /**
@@ -25,12 +26,12 @@ public class ConfValueProcessor extends AbstractConfProcessor {
     }
 
     public void update() {
-        dynamicFieldSet.forEach(filed -> putInConfCore(oo, filed, false));
+        dynamicFieldSet.forEach(filed -> putInConfCore(SourceHandler.getSourceHandler().getMainSource(), filed, false));
     }
 
     @Override
     public void process() {
-        classSet.forEach(clazz -> putInConf(oo, clazz));
+        classSet.forEach(clazz -> putInConf(SourceHandler.getSourceHandler().getMainSource(), clazz));
     }
 
     /**

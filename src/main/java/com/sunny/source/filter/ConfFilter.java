@@ -69,7 +69,7 @@ public class ConfFilter {
                     || map.get(key) instanceof Boolean)) {
                 return false;
             }
-            tmpSystemMap.put(key, map.get(key));
+            tmpSystemMap.putIfAbsent(key, map.get(key));
             map.remove(key);
             return map.size() == 0;
         } else {
@@ -80,9 +80,7 @@ public class ConfFilter {
                     || map.get(key) instanceof Boolean) {
                 return false;
             }
-            if (!tmpSystemMap.containsKey(key)) {
-                tmpSystemMap.put(key, new HashMap<String, Object>());
-            }
+            tmpSystemMap.putIfAbsent(key, new HashMap<String, Object>());
             @SuppressWarnings("unchecked")
             boolean tmpRes = judgeAndDeleteSinle((Map<String, Object>) map.get(key),
                     (Map<String, Object>) tmpSystemMap.get(key), filterConfPath, ind + 1);

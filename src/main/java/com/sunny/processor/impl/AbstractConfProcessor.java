@@ -2,6 +2,7 @@ package com.sunny.processor.impl;
 
 import com.sunny.commom.handler.ClassHandler;
 import com.sunny.commom.constant.Constant;
+import com.sunny.commom.handler.SourceHandler;
 import com.sunny.commom.handler.TpHandler;
 import com.sunny.source.MainConfLoader;
 import com.sunny.source.filter.ConfFilter;
@@ -20,7 +21,6 @@ public abstract class AbstractConfProcessor {
     protected static Set<Class<?>> dynamicClassSet = new HashSet<>();
     protected static Set<Field> dynamicFieldSet = new HashSet<>();
 
-    protected static Object oo;
     private static int interval = 10;
     private static TimeUnit unit = TimeUnit.SECONDS;
 
@@ -29,13 +29,12 @@ public abstract class AbstractConfProcessor {
         classSet = classHandler.getClassSet();
         dynamicClassSet = classHandler.getDynamicClassSet();
         dynamicFieldSet = classHandler.getDynamicFieldSet();
-        oo = MainConfLoader.getLoader().load();
+        SourceHandler.getSourceHandler().loadSource();
         getInitInterval();
     }
 
     public static void updateConfSource() {
-        MainConfLoader.getLoader().update();
-        oo = MainConfLoader.getLoader().getMainConfValues();
+        SourceHandler.getSourceHandler().updateSource();
     }
 
     // get dynamic interval

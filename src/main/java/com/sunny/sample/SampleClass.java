@@ -27,6 +27,11 @@ public class SampleClass {
             System.out.println("class-c:" + c);
             System.out.println("class-d:" + d);
             System.out.println("class-e:" + e);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 }

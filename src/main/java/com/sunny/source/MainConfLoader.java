@@ -67,6 +67,17 @@ public class MainConfLoader {
         return mainConfMap;
     }
 
+    public Object getConfByLoadFileName(LoadFileName loadFileName) {
+        return getConfByFileName(loadFileName.getFileName());
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object getConfByFileName(String filename) {
+        Object source = mainConfMap.get(filename);
+        ConfFilter.filter((Map<String, Object>) source);
+        return source;
+    }
+
     @SuppressWarnings("unchecked")
     private void mergeSources() {
         mainConfValues = new HashMap<>();
