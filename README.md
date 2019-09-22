@@ -215,6 +215,7 @@ System:
 
 ### 敬请期待
 接下来将更丰富本项目的功能，下一步将加入网络配置接口，敬请期待。
+关于filed级别的dynamic如果各位有什么想法，欢迎提issue，有时间有能力的话也可以提交pull request，让我们合作做一个完美的本地配置读取组件。
 
 ### 联系交流
 author：Sunny, junehappylove
