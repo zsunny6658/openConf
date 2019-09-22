@@ -3,6 +3,10 @@
 
 ### 说明
 
+#### version 1.3
+1. 新增对fixclass的支持，某个类可指定读取某个配置文件的配置
+2. 修复动态配置的bug，针对实际需求dynamic的类才进行dynamic（目前考虑将filed级别的dynamic功能去除，因为实际不会dynamic生效，慎用）
+
 #### version 1.2.2
 1. 新增对配置源加载listener支持
 
@@ -162,7 +166,7 @@ public class SampleSourceListener implements SourceListener{
 此处只需要实现SourceListener接口即可，无需在配置中设置任何配置。
 另外，会存在一个默认的配置源读取监听器DefaultConfSourceListner，它主要用于前置读取用户自定义配置源。
 ##### 4.自定义配置源
-项目中Example类上添加了注解@ConfSource,用于指定添加默认配置之外的配置源，注意自定义添加的配置总是优先于默认配置，其他方法参考上面介绍
+项目中Example类上添加了注解@ConfSource,用于指定添加默认配置之外的配置源，其他方法参考上面介绍
 ```java
 @ConfSource("classpath: configer.properties")
 public class Sample {
@@ -172,14 +176,22 @@ public class Sample {
 
 }
 ```
-##### 5.动态配置
-支持对静态变量和配置类使用动态配置模式，加上@Dynamic注解即可，如：
+@ConfSource可用于锁定配置，即只读取某指定的配置文件的内容，将其属性fixed设置为true即可，默认不锁定。
 ```java
-@Dynamic
-@ConfPath("dynamic.test")
-private static String t;
+@ConfClass
+@ConfSource(value = "classpath: application.properties", fixed = true)
+@ConfClassPrefix("server.")
+public class SampleFixedClass {
+
+    private static String port;
+
+    public static void print() {
+        System.out.println("fixed port: " + port);
+    }
+}
 ```
-和：
+##### 5.动态配置
+支持对配置类使用动态配置模式，加上@Dynamic注解即可，如：
 ```java
 @Dynamic
 @ConfClass
