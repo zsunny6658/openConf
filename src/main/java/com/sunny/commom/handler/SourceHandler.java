@@ -39,25 +39,43 @@ public class SourceHandler {
     }
 
     public void loadSource() {
-        Object confSource = MainConfLoader.getLoader().load();
-        fillSourceMap(confSource);
+        MainConfLoader.getLoader().load();
+        fillSourceMap();
     }
 
     public void updateSource() {
         MainConfLoader.getLoader().update();
-        Object confSource = MainConfLoader.getLoader().getMainConfValues();
-        fillSourceMap(confSource);
+        fillSourceMap();
     }
 
-    private void fillSourceMap(Object confSource) {
+    private void fillSourceMap() {
         Map<Class<?>, LoadFileName> fixedClassMap = ClassHandler.getClassHandler().getFixedClassMap();
+        Set<Class<?>> dynamicClassSet = ClassHandler.getClassHandler().getDynamicClassSet();
+
         // 首先将fixedClass和它对应的confSource都加入
         fixedClassMap.forEach((clazz, loadFileName) -> {
-            sourceMap.putIfAbsent(clazz, MainConfLoader.getLoader().getConfByLoadFileName(loadFileName));
+            Object tmpSource;
+            // 如果是动态的，使用新的读取的配置，如果非动态，则读取初始配置
+            if (dynamicClassSet.contains(clazz)) {
+                tmpSource = MainConfLoader.getLoader().getConfByLoadFileName(loadFileName);
+            } else {
+                // 如果非动态，读取初始配置版本
+                tmpSource = MainConfLoader.getLoader().getOriginConfByLoadFileName(loadFileName);
+            }
+            sourceMap.putIfAbsent(clazz, tmpSource);
         });
+
         Set<Class<?>> classSet = ClassHandler.getClassHandler().getClassSet();
+        Object confSource = MainConfLoader.getLoader().getMainConfValues(); // 动态变化后的
+        Object originConfSource = MainConfLoader.getLoader().getOriginMainConfValues(); // 初始的
         // classSet中包含fixed Class，使用putIfAbsent可以避免覆盖
-        classSet.forEach(clazz -> sourceMap.putIfAbsent(clazz, confSource));
+        classSet.forEach(clazz -> {
+            if (dynamicClassSet.contains(clazz)) {
+                sourceMap.putIfAbsent(clazz, confSource);
+            } else {
+                sourceMap.putIfAbsent(clazz, originConfSource);
+            }
+        });
     }
 
 }
